@@ -4,106 +4,143 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cybersphere — Lead Pipeline</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #0A0A0F;
-  --surface: #141420;
-  --border: #1C1C26;
-  --border-hover: #2C2C3A;
-  --text: #F1F0EE;
-  --text-secondary: #A0A0AE;
-  --text-muted: #6B6B7A;
-  --text-dim: #4B4B5A;
-  --blue: #3B82F6;
-  --purple: #8B5CF6;
-  --green: #10B981;
-  --yellow: #F59E0B;
-  --orange: #F97316;
-  --red: #EF4444;
+  --bg: #FAFAFA;
+  --white: #FFFFFF;
+  --text: #1A1A1A;
+  --text-secondary: #4A5568;
+  --text-tertiary: #8B95A5;
+  --navy: #0D2545;
+  --navy-light: #1A3A6B;
+  --navy-faint: rgba(13,37,69,0.04);
+  --border: #E5E7EB;
+  --border-light: #F0F1F3;
+  --green: #2D6A4F;
+  --green-bg: rgba(45,106,79,0.06);
+  --green-border: rgba(45,106,79,0.15);
+  --yellow: #B7791F;
+  --yellow-bg: rgba(183,121,31,0.06);
+  --yellow-border: rgba(183,121,31,0.15);
+  --red: #C0392B;
+  --red-bg: rgba(192,57,43,0.06);
+  --red-border: rgba(192,57,43,0.15);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
 }
 
+html { font-size: 15px; }
 html, body { height: 100%; }
 
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
-/* ── Top Bar ── */
-.topbar {
+/* ── Masthead ── */
+.masthead {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  padding: 16px 24px;
-  border-bottom: 1px solid var(--border);
+  padding: 28px 40px 20px;
+  border-bottom: 2px solid var(--navy);
   flex-shrink: 0;
 }
 
-.topbar-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.masthead-left { display: flex; flex-direction: column; gap: 4px; }
+
+.firm-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--navy);
 }
 
-.logo {
-  width: 28px; height: 28px; border-radius: 8px;
-  background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 700; color: white;
+.masthead-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 28px; font-weight: 700;
+  color: var(--navy); line-height: 1.15;
+  letter-spacing: -0.01em;
 }
 
-.topbar-title { font-size: 14px; font-weight: 600; }
-.topbar-crumb { font-size: 12px; color: var(--text-dim); margin-left: 4px; }
-
-.topbar-right { display: flex; gap: 8px; align-items: center; }
-
-.topbar-pill {
-  font-size: 12px; color: var(--text-muted);
-  background: var(--surface); padding: 5px 12px;
-  border-radius: 20px; border: 1px solid var(--border);
+.masthead-sub {
+  font-size: 12px; font-weight: 400;
+  color: var(--text-secondary); margin-top: 2px;
 }
 
-.topbar-live {
-  font-size: 12px; font-weight: 600;
-  background: linear-gradient(135deg, #10B981, #3B82F6);
-  padding: 5px 14px; border-radius: 20px; color: white;
+.masthead-right {
+  display: flex; align-items: center; gap: 12px;
 }
 
-/* ── Stats Row ── */
-.stats-row {
+.masthead-pill {
+  font-size: 11px; color: var(--text-tertiary);
+  background: var(--white);
+  padding: 6px 14px; border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.masthead-live {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  background: var(--green-bg);
+  color: var(--green);
+  padding: 5px 12px; border-radius: 4px;
+  border: 1px solid var(--green-border);
+  display: flex; align-items: center; gap: 5px;
+}
+
+.live-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ── KPI Strip ── */
+.kpi-strip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--border);
+  gap: 12px;
+  padding: 20px 40px;
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
 
-.stat-cell {
-  background: var(--bg);
-  padding: 16px 24px;
+.kpi-mini {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  box-shadow: var(--shadow-sm);
 }
 
-.stat-label {
-  font-size: 11px; color: var(--text-dim);
-  letter-spacing: 0.05em; text-transform: uppercase;
-  margin-bottom: 6px;
+.kpi-mini-label {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
 }
 
-.stat-value {
-  font-size: 22px; font-weight: 700; color: var(--text);
+.kpi-mini-value {
+  font-size: 24px; font-weight: 700;
+  color: var(--navy); letter-spacing: -0.02em;
   margin-bottom: 2px;
 }
 
-.stat-sub { font-size: 11px; color: var(--text-dim); }
+.kpi-mini-sub { font-size: 11px; color: var(--text-tertiary); }
 
 /* ── Main Layout ── */
 .main {
@@ -112,62 +149,62 @@ body {
   overflow: hidden;
 }
 
-/* ── Left Panel: Lead List ── */
+/* ── Left Panel ── */
 .lead-list-panel {
-  width: 320px;
+  width: 340px;
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   flex-shrink: 0;
+  background: var(--white);
 }
 
 .stage-tabs {
   display: flex;
-  padding: 12px 16px;
+  padding: 14px 20px;
   gap: 6px;
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
 
 .stage-tab {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 11px; font-weight: 500;
-  padding: 4px 10px; border-radius: 20px;
-  border: none; cursor: pointer;
-  background: transparent; color: var(--text-dim);
-  letter-spacing: 0.02em;
-  transition: background 0.15s, color 0.15s;
-}
-
-.stage-tab.active-all { background: var(--border); color: var(--text); }
-.stage-tab .count { margin-left: 4px; opacity: 0.7; }
-
-.lead-scroll {
-  overflow-y: auto;
-  flex: 1;
-}
-
-.stage-group-label {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  padding: 10px 16px 6px;
-  display: flex; align-items: center; gap: 6px;
-}
-
-.stage-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-}
-
-.lead-card {
-  padding: 12px 16px;
-  border-left: 2px solid transparent;
+  padding: 5px 14px; border-radius: 4px;
+  border: 1px solid transparent;
   cursor: pointer;
+  background: transparent;
+  color: var(--text-tertiary);
+  letter-spacing: 0.02em;
   transition: all 0.15s;
 }
 
-.lead-card:hover { background: rgba(20, 20, 32, 0.5); }
-.lead-card.selected { background: var(--surface); }
+.stage-tab:hover { background: var(--navy-faint); }
+.stage-tab.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
+.stage-tab .count { margin-left: 4px; opacity: 0.6; }
+
+.lead-scroll { overflow-y: auto; flex: 1; }
+
+.stage-group-label {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 16px 20px 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+
+.stage-dot { width: 5px; height: 5px; border-radius: 50%; }
+
+.lead-card {
+  padding: 14px 20px;
+  border-left: 2.5px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.lead-card:hover { background: var(--navy-faint); }
+.lead-card.selected { background: var(--navy-faint); border-left-color: var(--navy); }
 
 .lead-card-top {
   display: flex;
@@ -176,17 +213,17 @@ body {
   margin-bottom: 3px;
 }
 
-.lead-name { font-size: 13px; font-weight: 500; color: var(--text); }
+.lead-name { font-size: 13px; font-weight: 600; color: var(--text); }
 
 .badge-escalate {
   font-size: 9px; font-weight: 700;
-  background: rgba(239, 68, 68, 0.13);
-  color: var(--red);
-  padding: 2px 6px; border-radius: 10px;
-  letter-spacing: 0.05em;
+  background: var(--red-bg); color: var(--red);
+  padding: 2px 8px; border-radius: 4px;
+  border: 1px solid var(--red-border);
+  letter-spacing: 0.06em;
 }
 
-.lead-biz { font-size: 11px; color: var(--text-muted); margin-bottom: 6px; }
+.lead-biz { font-size: 11px; color: var(--text-tertiary); margin-bottom: 8px; }
 
 .lead-card-bottom {
   display: flex;
@@ -196,169 +233,175 @@ body {
 
 .vertical-tag {
   font-size: 10px; font-weight: 500;
-  padding: 2px 8px; border-radius: 10px;
+  padding: 2px 10px; border-radius: 4px;
+  border: 1px solid;
 }
 
-.lead-value { font-size: 11px; font-weight: 600; color: var(--green); }
+.lead-value {
+  font-size: 12px; font-weight: 700;
+  color: var(--green);
+  font-variant-numeric: tabular-nums;
+}
 
-/* ── Right Panel: Detail ── */
+/* ── Right Panel ── */
 .detail-panel {
   flex: 1;
   overflow-y: auto;
-  padding: 24px;
+  padding: 28px 36px;
+  background: var(--bg);
 }
 
 .detail-empty {
   flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-dim);
-  font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-tertiary); font-size: 14px; height: 100%;
 }
 
 .detail-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
 }
+
+.detail-header-left { display: flex; align-items: center; gap: 12px; }
 
 .detail-avatar {
-  width: 36px; height: 36px; border-radius: 10px;
-  background: linear-gradient(135deg, #1C1C26, #2C2C3A);
+  width: 44px; height: 44px; border-radius: 8px;
+  background: var(--navy);
   display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 700; color: #8B8B9A;
-  border: 1px solid #2C2C3A;
-  flex-shrink: 0;
+  font-size: 14px; font-weight: 700; color: white;
+  flex-shrink: 0; letter-spacing: 0.02em;
 }
 
-.detail-header-left {
-  display: flex; align-items: center; gap: 8px;
-}
+.detail-name-row { display: flex; align-items: center; gap: 8px; }
 
-.detail-name-row {
-  display: flex; align-items: center; gap: 6px;
+.detail-name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px; font-weight: 700;
+  color: var(--navy);
 }
-
-.detail-name { font-size: 16px; font-weight: 600; color: var(--text); }
 
 .badge-escalate-lg {
   font-size: 10px; font-weight: 700;
-  background: rgba(239, 68, 68, 0.13);
-  color: var(--red);
-  padding: 2px 8px; border-radius: 10px;
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  background: var(--red-bg); color: var(--red);
+  padding: 3px 10px; border-radius: 4px;
+  border: 1px solid var(--red-border);
+  letter-spacing: 0.06em;
 }
 
-.detail-biz { font-size: 12px; color: var(--text-muted); }
+.detail-biz { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
 
 .detail-source {
-  font-size: 11px; color: var(--text-dim);
-  background: var(--surface);
-  padding: 5px 12px; border-radius: 20px;
+  font-size: 11px; color: var(--text-tertiary);
+  background: var(--white);
+  padding: 6px 14px; border-radius: 6px;
   border: 1px solid var(--border);
-  white-space: nowrap;
+  white-space: nowrap; box-shadow: var(--shadow-sm);
 }
 
-/* Stats grid */
 .detail-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .detail-stat {
-  background: var(--surface);
+  background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 12px 14px;
+  border-radius: 8px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
 }
 
 .detail-stat-label {
-  font-size: 10px; color: var(--text-dim);
-  letter-spacing: 0.05em; text-transform: uppercase;
-  margin-bottom: 4px;
-}
-
-.detail-stat-value {
-  font-size: 13px; font-weight: 600; color: var(--text);
-}
-
-/* Notes + Timeline panels */
-.detail-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 14px 16px;
-  margin-bottom: 16px;
-}
-
-.detail-card-label {
-  font-size: 10px; color: var(--text-dim);
-  letter-spacing: 0.05em; text-transform: uppercase;
+  font-size: 10px; font-weight: 600; color: var(--text-tertiary);
+  letter-spacing: 0.08em; text-transform: uppercase;
   margin-bottom: 6px;
 }
 
+.detail-stat-value {
+  font-size: 15px; font-weight: 700; color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.detail-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.detail-card-label {
+  font-size: 10px; font-weight: 600; color: var(--text-tertiary);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
 .detail-notes {
-  font-size: 13px; color: var(--text-secondary);
-  line-height: 1.6;
+  font-size: 13px; color: var(--text-secondary); line-height: 1.7;
 }
 
 /* Timeline */
 .timeline { display: flex; flex-direction: column; }
-.timeline-label { margin-bottom: 12px; }
 
-.timeline-item {
-  display: flex; gap: 12px; position: relative;
-}
-
-.timeline-track {
-  display: flex; flex-direction: column; align-items: center;
-}
+.timeline-item { display: flex; gap: 14px; position: relative; }
+.timeline-track { display: flex; flex-direction: column; align-items: center; }
 
 .timeline-dot {
   width: 8px; height: 8px; border-radius: 50%;
-  margin-top: 3px; flex-shrink: 0; z-index: 1;
+  margin-top: 4px; flex-shrink: 0; z-index: 1;
+  border: 2px solid var(--white);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
 }
 
 .timeline-line {
   width: 1px; flex: 1;
   background: var(--border);
-  min-height: 16px;
+  min-height: 18px;
 }
 
-.timeline-content { padding-bottom: 12px; }
-.timeline-text { font-size: 12px; color: #C0C0CE; line-height: 1.4; }
-.timeline-time { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+.timeline-content { padding-bottom: 14px; }
+.timeline-text { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+.timeline-time {
+  font-size: 10px; color: var(--text-tertiary); margin-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline-escalate .timeline-text { color: var(--red); font-weight: 600; }
 
 /* Actions */
-.detail-actions {
-  display: flex; gap: 8px;
-}
+.detail-actions { display: flex; gap: 8px; margin-top: 4px; }
 
 .btn-primary {
-  flex: 1; font-family: 'DM Sans', sans-serif;
+  flex: 1; font-family: 'Inter', sans-serif;
   font-size: 12px; font-weight: 600;
-  padding: 10px 16px; border-radius: 8px;
+  padding: 11px 20px; border-radius: 6px;
   border: none; cursor: pointer; color: white;
-}
-
-.btn-primary.blue { background: linear-gradient(135deg, #3B82F6, #6366F1); }
-.btn-primary.green { background: linear-gradient(135deg, #10B981, #059669); }
-
-.btn-secondary {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px; font-weight: 500;
-  padding: 10px 16px; border-radius: 8px;
-  border: 1px solid var(--border);
-  cursor: pointer;
-  background: var(--surface); color: var(--text-secondary);
+  letter-spacing: 0.02em; transition: opacity 0.15s;
 }
 
 .btn-primary:hover { opacity: 0.9; }
-.btn-secondary:hover { border-color: var(--border-hover); }
+.btn-primary.navy { background: var(--navy); }
+.btn-primary.green-btn { background: var(--green); }
+
+.btn-secondary {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600;
+  padding: 11px 20px; border-radius: 6px;
+  border: 1px solid var(--navy);
+  cursor: pointer; background: var(--white);
+  color: var(--navy); letter-spacing: 0.02em;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-secondary:hover { background: var(--navy); color: var(--white); }
 
 /* Scrollbar */
 .lead-scroll::-webkit-scrollbar,
@@ -368,43 +411,38 @@ body {
 .lead-scroll::-webkit-scrollbar-thumb,
 .detail-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .stats-row { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 900px) {
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); padding: 16px 20px; }
+  .masthead { padding: 20px 20px 16px; }
   .main { flex-direction: column; }
   .lead-list-panel { width: 100%; max-height: 40vh; border-right: none; border-bottom: 1px solid var(--border); }
+  .detail-panel { padding: 20px; }
   .detail-stats { grid-template-columns: 1fr; }
-  .topbar-pill { display: none; }
+  .masthead-pill { display: none; }
 }
 </style>
 </head>
 <body>
 
-<!-- Top Bar -->
-<div class="topbar">
-  <div class="topbar-left">
-    <div class="logo">CS</div>
-    <span class="topbar-title">Cybersphere</span>
-    <span class="topbar-crumb">/ Lead Pipeline</span>
+<div class="masthead">
+  <div class="masthead-left">
+    <div class="firm-name">Cybersphere</div>
+    <div class="masthead-title">Lead Pipeline</div>
+    <div class="masthead-sub">Outreach, follow-up, and closing across all verticals</div>
   </div>
-  <div class="topbar-right">
-    <div class="topbar-pill">AI Receptionist: +1 (325) 240-6238</div>
-    <div class="topbar-live">Live</div>
+  <div class="masthead-right">
+    <div class="masthead-pill">AI Receptionist: +1 (325) 240-6238</div>
+    <div class="masthead-live"><div class="live-dot"></div> Live</div>
   </div>
 </div>
 
-<!-- Stats Row -->
-<div class="stats-row" id="statsRow"></div>
+<div class="kpi-strip" id="kpiStrip"></div>
 
-<!-- Main -->
 <div class="main">
-  <!-- Left: Lead List -->
   <div class="lead-list-panel">
     <div class="stage-tabs" id="stageTabs"></div>
     <div class="lead-scroll" id="leadScroll"></div>
   </div>
-
-  <!-- Right: Detail -->
   <div class="detail-panel" id="detailPanel">
     <div class="detail-empty">Select a lead to view details</div>
   </div>
@@ -412,157 +450,110 @@ body {
 
 <script>
 const leads = [
-  { id:1, name:"Dr. Michael Torres", biz:"Torres Dental Group", vertical:"dental", stage:"outreach", source:"Dental Practice Owners USA", time:"2h ago", phone:"(415) 882-9001", call_status:"Called receptionist", notes:"Asked about pricing after calling +1 (325) 240-6238. Said 'that thing is scary good'", timeline:[{color:"#3B82F6",text:"Posted to Dental Practice Owners USA",time:"9:14 AM"},{color:"#F59E0B",text:"Commented: 'what is this?'",time:"10:02 AM"},{color:"#F59E0B",text:"Called AI receptionist +1 (325) 240-6238",time:"10:15 AM"},{color:"#10B981",text:"DM sent: intro + booking link",time:"10:16 AM"}], value:"$2,400/mo" },
-  { id:2, name:"Sarah Chen", biz:"Chen & Patel Law Firm", vertical:"legal", stage:"outreach", source:"Personal Injury Industry", time:"4h ago", phone:"(212) 774-3322", call_status:"No call yet", notes:"Commented 'interested, DM me'. First response sent.", timeline:[{color:"#3B82F6",text:"Posted to Personal Injury Industry",time:"7:31 AM"},{color:"#F59E0B",text:"Commented: 'interested, DM me'",time:"9:45 AM"},{color:"#10B981",text:"First-response DM sent",time:"9:46 AM"}], value:"$3,200/mo" },
-  { id:3, name:"Marcus Williams", biz:"MW Properties LLC", vertical:"real estate", stage:"outreach", source:"Multi Family Properties For Sale", time:"5h ago", phone:"(347) 901-4455", call_status:"Called receptionist", notes:"Manages 12 units. Said he misses 40% of tenant calls after 6pm.", timeline:[{color:"#3B82F6",text:"Posted to Multi Family Properties For Sale",time:"7:08 AM"},{color:"#F59E0B",text:"Called AI receptionist",time:"8:22 AM"},{color:"#10B981",text:"Follow-up DM sent with RE angle",time:"8:36 AM"}], value:"$1,800/mo" },
-  { id:4, name:"James Okafor", biz:"Okafor HVAC Services", vertical:"hvac", stage:"outreach", source:"HVAC Business Owners", time:"6h ago", phone:"(713) 558-2910", call_status:"No call yet", notes:"Replied to post saying he loses jobs every day while on sites.", timeline:[{color:"#3B82F6",text:"Posted to HVAC Business Owners",time:"8:00 AM"},{color:"#F59E0B",text:"Replied: 'lose jobs every day on sites'",time:"11:12 AM"},{color:"#10B981",text:"First-response DM sent",time:"11:13 AM"}], value:"$1,500/mo" },
-  { id:5, name:"Lisa Park", biz:"Park Auto Group", vertical:"auto", stage:"outreach", source:"Car Dealers", time:"7h ago", phone:"(408) 992-3381", call_status:"Called receptionist", notes:"Dealership owner. Tested AI with objections about financing. Impressed.", timeline:[{color:"#3B82F6",text:"Posted to Car Dealers",time:"7:45 AM"},{color:"#F59E0B",text:"Called AI receptionist - threw objections",time:"9:01 AM"},{color:"#10B981",text:"DM: wants to know pricing",time:"9:14 AM"}], value:"$2,800/mo" },
-  { id:6, name:"Robert Kim", biz:"Kim Dental Associates", vertical:"dental", stage:"outreach", source:"Dental Office Manager Network", time:"8h ago", phone:"(650) 441-8823", call_status:"Called receptionist", notes:"Office manager. Tested AI in Spanish. Said it handled it perfectly.", timeline:[{color:"#3B82F6",text:"Posted to Dental Office Manager Network",time:"7:30 AM"},{color:"#F59E0B",text:"Called AI receptionist - tested in Spanish",time:"8:45 AM"},{color:"#10B981",text:"DM sent with dental-specific pitch",time:"8:46 AM"}], value:"$2,400/mo" },
-  { id:7, name:"Amanda Torres", biz:"Torres & Associates PI", vertical:"legal", stage:"followup", source:"Law Firm Owners and Managers", time:"Yesterday", phone:"(305) 774-9932", call_status:"Called receptionist", notes:"Asked about custom intake questions for PI cases. ESCALATE TO TEAM.", timeline:[{color:"#3B82F6",text:"Posted to Law Firm Owners",time:"Day 1 8AM"},{color:"#F59E0B",text:"Called AI receptionist",time:"Day 1 10AM"},{color:"#F59E0B",text:"Second touch sent",time:"Day 2 10AM"},{color:"#EF4444",text:"ESCALATE: asked about custom PI intake",time:"Day 2 11AM"}], value:"$4,200/mo", escalate:true },
-  { id:8, name:"David Nguyen", biz:"Nguyen Plumbing Co", vertical:"hvac", stage:"followup", source:"Professional Plumbers", time:"Yesterday", phone:"(214) 881-6612", call_status:"Called receptionist", notes:"Runs a 3-truck operation. Misses 15+ calls a day. Booked a demo call.", timeline:[{color:"#3B82F6",text:"Posted to Professional Plumbers",time:"Day 1 5PM"},{color:"#F59E0B",text:"Called AI receptionist",time:"Day 1 6PM"},{color:"#10B981",text:"Booked demo call via AI receptionist",time:"Day 1 6:05PM"}], value:"$1,800/mo" },
-  { id:9, name:"Patricia Moore", biz:"Moore Realty Group", vertical:"real estate", stage:"followup", source:"Real Estate Talks", time:"2 days ago", phone:"(917) 334-5521", call_status:"Called receptionist", notes:"Manages 30+ units across 3 properties. Asked about multi-property setup.", timeline:[{color:"#3B82F6",text:"Posted to Real Estate Talks",time:"Day 1 12PM"},{color:"#F59E0B",text:"Called AI receptionist",time:"Day 1 2PM"},{color:"#EF4444",text:"ESCALATE: multi-location inquiry",time:"Day 1 3:01PM"}], value:"$3,600/mo", escalate:true },
-  { id:10, name:"Kevin Walsh", biz:"Walsh Auto Rentals", vertical:"auto", stage:"followup", source:"PRIVATE AUTO RENTALS", time:"2 days ago", phone:"(617) 992-4431", call_status:"Called receptionist", notes:"Rental operator in Boston. Gets calls at 11pm for airport pickups. Very interested.", timeline:[{color:"#3B82F6",text:"Posted to PRIVATE AUTO RENTALS",time:"Day 1 7AM"},{color:"#F59E0B",text:"Called AI receptionist at 11PM simulation",time:"Day 1 8PM"},{color:"#10B981",text:"Second touch sent",time:"Day 2 8AM"}], value:"$2,200/mo" },
-  { id:11, name:"Jennifer Osei", biz:"Osei Dental Spa", vertical:"dental", stage:"closing", source:"Dental Practice Owners USA", time:"3 days ago", phone:"(404) 772-8843", call_status:"Demo call done", notes:"Demo call completed. Ready to sign. Waiting on contract.", timeline:[{color:"#3B82F6",text:"Original post reply",time:"Day 1"},{color:"#F59E0B",text:"Called AI receptionist",time:"Day 1"},{color:"#10B981",text:"Demo call booked via AI",time:"Day 2"},{color:"#10B981",text:"Demo call completed",time:"Day 3"},{color:"#10B981",text:"Contract sent",time:"Day 3"}], value:"$2,400/mo" },
-  { id:12, name:"Thomas Bradley", biz:"Bradley Law Group", vertical:"legal", stage:"closing", source:"National PI Lawyers Association", time:"4 days ago", phone:"(312) 884-7721", call_status:"Contract sent", notes:"PI firm in Chicago. Handles 200+ calls/month. Contract sent, reviewing.", timeline:[{color:"#3B82F6",text:"Original post reply",time:"Day 1"},{color:"#F59E0B",text:"Called AI receptionist x3",time:"Day 1"},{color:"#10B981",text:"Demo call completed",time:"Day 2"},{color:"#10B981",text:"Contract sent \u2014 $3,200/mo",time:"Day 4"}], value:"$3,200/mo" },
-  { id:13, name:"Gonzalo Reyes", biz:"Reyes HVAC & Plumbing", vertical:"hvac", stage:"closing", source:"Plumbing for Business Owners", time:"5 days ago", phone:"(786) 551-3390", call_status:"Verbal yes", notes:"Verbal agreement. $1,500/mo. Contract being drafted.", timeline:[{color:"#3B82F6",text:"Original post reply",time:"Day 1"},{color:"#F59E0B",text:"Called AI receptionist",time:"Day 1"},{color:"#10B981",text:"Demo call completed",time:"Day 3"},{color:"#10B981",text:"Verbal agreement at $1,500/mo",time:"Day 5"}], value:"$1,500/mo" },
+  { id:1, name:"Dr. Michael Torres", biz:"Torres Dental Group", vertical:"dental", stage:"outreach", source:"Dental Practice Owners USA", phone:"(415) 882-9001", call_status:"Called receptionist", notes:"Asked about pricing after calling +1 (325) 240-6238. Said \u2018that thing is scary good.\u2019", timeline:[{color:"#1A3A6B",text:"Posted to Dental Practice Owners USA",time:"9:14 AM"},{color:"#B7791F",text:"Commented: \u2018what is this?\u2019",time:"10:02 AM"},{color:"#B7791F",text:"Called AI receptionist +1 (325) 240-6238",time:"10:15 AM"},{color:"#2D6A4F",text:"DM sent: intro + booking link",time:"10:16 AM"}], value:"$2,400/mo" },
+  { id:2, name:"Sarah Chen", biz:"Chen & Patel Law Firm", vertical:"legal", stage:"outreach", source:"Personal Injury Industry", phone:"(212) 774-3322", call_status:"No call yet", notes:"Commented \u2018interested, DM me.\u2019 First response sent.", timeline:[{color:"#1A3A6B",text:"Posted to Personal Injury Industry",time:"7:31 AM"},{color:"#B7791F",text:"Commented: \u2018interested, DM me\u2019",time:"9:45 AM"},{color:"#2D6A4F",text:"First-response DM sent",time:"9:46 AM"}], value:"$3,200/mo" },
+  { id:3, name:"Marcus Williams", biz:"MW Properties LLC", vertical:"real estate", stage:"outreach", source:"Multi Family Properties For Sale", phone:"(347) 901-4455", call_status:"Called receptionist", notes:"Manages 12 units. Said he misses 40% of tenant calls after 6pm.", timeline:[{color:"#1A3A6B",text:"Posted to Multi Family Properties For Sale",time:"7:08 AM"},{color:"#B7791F",text:"Called AI receptionist",time:"8:22 AM"},{color:"#2D6A4F",text:"Follow-up DM sent with RE angle",time:"8:36 AM"}], value:"$1,800/mo" },
+  { id:4, name:"James Okafor", biz:"Okafor HVAC Services", vertical:"hvac", stage:"outreach", source:"HVAC Business Owners", phone:"(713) 558-2910", call_status:"No call yet", notes:"Replied to post saying he loses jobs every day while on sites.", timeline:[{color:"#1A3A6B",text:"Posted to HVAC Business Owners",time:"8:00 AM"},{color:"#B7791F",text:"Replied: \u2018lose jobs every day on sites\u2019",time:"11:12 AM"},{color:"#2D6A4F",text:"First-response DM sent",time:"11:13 AM"}], value:"$1,500/mo" },
+  { id:5, name:"Lisa Park", biz:"Park Auto Group", vertical:"auto", stage:"outreach", source:"Car Dealers", phone:"(408) 992-3381", call_status:"Called receptionist", notes:"Dealership owner. Tested AI with objections about financing. Impressed.", timeline:[{color:"#1A3A6B",text:"Posted to Car Dealers",time:"7:45 AM"},{color:"#B7791F",text:"Called AI receptionist \u2014 threw objections",time:"9:01 AM"},{color:"#2D6A4F",text:"DM: wants to know pricing",time:"9:14 AM"}], value:"$2,800/mo" },
+  { id:6, name:"Robert Kim", biz:"Kim Dental Associates", vertical:"dental", stage:"outreach", source:"Dental Office Manager Network", phone:"(650) 441-8823", call_status:"Called receptionist", notes:"Office manager. Tested AI in Spanish. Said it handled it perfectly.", timeline:[{color:"#1A3A6B",text:"Posted to Dental Office Manager Network",time:"7:30 AM"},{color:"#B7791F",text:"Called AI receptionist \u2014 tested in Spanish",time:"8:45 AM"},{color:"#2D6A4F",text:"DM sent with dental-specific pitch",time:"8:46 AM"}], value:"$2,400/mo" },
+  { id:7, name:"Amanda Torres", biz:"Torres & Associates PI", vertical:"legal", stage:"followup", source:"Law Firm Owners and Managers", phone:"(305) 774-9932", call_status:"Called receptionist", notes:"Asked about custom intake questions for PI cases. ESCALATE TO TEAM.", timeline:[{color:"#1A3A6B",text:"Posted to Law Firm Owners",time:"Day 1 8AM"},{color:"#B7791F",text:"Called AI receptionist",time:"Day 1 10AM"},{color:"#B7791F",text:"Second touch sent",time:"Day 2 10AM"},{color:"#C0392B",text:"ESCALATE: asked about custom PI intake",time:"Day 2 11AM",escalate:true}], value:"$4,200/mo", escalate:true },
+  { id:8, name:"David Nguyen", biz:"Nguyen Plumbing Co", vertical:"hvac", stage:"followup", source:"Professional Plumbers", phone:"(214) 881-6612", call_status:"Called receptionist", notes:"Runs a 3-truck operation. Misses 15+ calls a day. Booked a demo call.", timeline:[{color:"#1A3A6B",text:"Posted to Professional Plumbers",time:"Day 1 5PM"},{color:"#B7791F",text:"Called AI receptionist",time:"Day 1 6PM"},{color:"#2D6A4F",text:"Booked demo call via AI receptionist",time:"Day 1 6:05PM"}], value:"$1,800/mo" },
+  { id:9, name:"Patricia Moore", biz:"Moore Realty Group", vertical:"real estate", stage:"followup", source:"Real Estate Talks", phone:"(917) 334-5521", call_status:"Called receptionist", notes:"Manages 30+ units across 3 properties. Asked about multi-property setup.", timeline:[{color:"#1A3A6B",text:"Posted to Real Estate Talks",time:"Day 1 12PM"},{color:"#B7791F",text:"Called AI receptionist",time:"Day 1 2PM"},{color:"#C0392B",text:"ESCALATE: multi-location inquiry",time:"Day 1 3:01PM",escalate:true}], value:"$3,600/mo", escalate:true },
+  { id:10, name:"Kevin Walsh", biz:"Walsh Auto Rentals", vertical:"auto", stage:"followup", source:"PRIVATE AUTO RENTALS", phone:"(617) 992-4431", call_status:"Called receptionist", notes:"Rental operator in Boston. Gets calls at 11pm for airport pickups. Very interested.", timeline:[{color:"#1A3A6B",text:"Posted to PRIVATE AUTO RENTALS",time:"Day 1 7AM"},{color:"#B7791F",text:"Called AI receptionist at 11PM simulation",time:"Day 1 8PM"},{color:"#2D6A4F",text:"Second touch sent",time:"Day 2 8AM"}], value:"$2,200/mo" },
+  { id:11, name:"Jennifer Osei", biz:"Osei Dental Spa", vertical:"dental", stage:"closing", source:"Dental Practice Owners USA", phone:"(404) 772-8843", call_status:"Demo call done", notes:"Demo call completed. Ready to sign. Waiting on contract.", timeline:[{color:"#1A3A6B",text:"Original post reply",time:"Day 1"},{color:"#B7791F",text:"Called AI receptionist",time:"Day 1"},{color:"#2D6A4F",text:"Demo call booked via AI",time:"Day 2"},{color:"#2D6A4F",text:"Demo call completed",time:"Day 3"},{color:"#2D6A4F",text:"Contract sent",time:"Day 3"}], value:"$2,400/mo" },
+  { id:12, name:"Thomas Bradley", biz:"Bradley Law Group", vertical:"legal", stage:"closing", source:"National PI Lawyers Association", phone:"(312) 884-7721", call_status:"Contract sent", notes:"PI firm in Chicago. Handles 200+ calls/month. Contract sent, reviewing.", timeline:[{color:"#1A3A6B",text:"Original post reply",time:"Day 1"},{color:"#B7791F",text:"Called AI receptionist x3",time:"Day 1"},{color:"#2D6A4F",text:"Demo call completed",time:"Day 2"},{color:"#2D6A4F",text:"Contract sent \u2014 $3,200/mo",time:"Day 4"}], value:"$3,200/mo" },
+  { id:13, name:"Gonzalo Reyes", biz:"Reyes HVAC & Plumbing", vertical:"hvac", stage:"closing", source:"Plumbing for Business Owners", phone:"(786) 551-3390", call_status:"Verbal yes", notes:"Verbal agreement. $1,500/mo. Contract being drafted.", timeline:[{color:"#1A3A6B",text:"Original post reply",time:"Day 1"},{color:"#B7791F",text:"Called AI receptionist",time:"Day 1"},{color:"#2D6A4F",text:"Demo call completed",time:"Day 3"},{color:"#2D6A4F",text:"Verbal agreement at $1,500/mo",time:"Day 5"}], value:"$1,500/mo" },
 ];
 
 const verticalColors = {
-  dental:        { bg: "#3B82F6", text: "#3B82F6" },
-  legal:         { bg: "#8B5CF6", text: "#8B5CF6" },
-  "real estate": { bg: "#22C55E", text: "#22C55E" },
-  auto:          { bg: "#F59E0B", text: "#F59E0B" },
-  hvac:          { bg: "#F97316", text: "#F97316" },
+  dental:        { color: "#1A3A6B", bg: "rgba(26,58,107,0.06)", border: "rgba(26,58,107,0.15)" },
+  legal:         { color: "#6B21A8", bg: "rgba(107,33,168,0.06)", border: "rgba(107,33,168,0.15)" },
+  "real estate": { color: "#2D6A4F", bg: "rgba(45,106,79,0.06)", border: "rgba(45,106,79,0.15)" },
+  auto:          { color: "#92400E", bg: "rgba(146,64,14,0.06)", border: "rgba(146,64,14,0.15)" },
+  hvac:          { color: "#9A3412", bg: "rgba(154,52,18,0.06)", border: "rgba(154,52,18,0.15)" },
 };
 
 const stageConfig = {
-  outreach: { label: "Outreach replied", color: "#3B82F6" },
-  followup: { label: "Follow-up active", color: "#F59E0B" },
-  closing:  { label: "Closing / booked", color: "#10B981" },
+  outreach: { label: "Outreach replied", color: "#1A3A6B" },
+  followup: { label: "Follow-up active", color: "#B7791F" },
+  closing:  { label: "Closing / booked", color: "#2D6A4F" },
 };
 
 let selectedId = 1;
 let activeStage = "all";
 
-function esc(str) {
-  const d = document.createElement("div");
-  d.textContent = str;
-  return d.innerHTML;
-}
+function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function parseValue(v) { return parseInt(v.replace(/[$,\/mo]/g, ""), 10) || 0; }
 
-function parseValue(v) {
-  return parseInt(v.replace(/[$,\/mo]/g, ""), 10) || 0;
-}
-
-// ── Render Stats ──
-function renderStats() {
-  const totalPipeline = leads
+function renderKPIs() {
+  const pipeline = leads
     .filter(l => l.stage === "closing" || l.stage === "followup")
-    .reduce((sum, l) => sum + parseValue(l.value), 0);
-
+    .reduce((s, l) => s + parseValue(l.value), 0);
   const stats = [
     { label: "Posts this week", value: "47", sub: "across 12 groups" },
-    { label: "Leads in pipeline", value: String(leads.length), sub: "3 stages" },
-    { label: "Calls to AI receptionist", value: "9", sub: "this week" },
-    { label: "Pipeline value", value: "$" + totalPipeline.toLocaleString() + "/mo", sub: "active + closing" },
+    { label: "Leads in pipeline", value: String(leads.length), sub: "3 stages active" },
+    { label: "Calls to receptionist", value: "9", sub: "this week" },
+    { label: "Pipeline value", value: "$" + pipeline.toLocaleString() + "/mo", sub: "follow-up + closing" },
   ];
-
-  document.getElementById("statsRow").innerHTML = stats.map(s => `
-    <div class="stat-cell">
-      <div class="stat-label">${esc(s.label)}</div>
-      <div class="stat-value">${esc(s.value)}</div>
-      <div class="stat-sub">${esc(s.sub)}</div>
-    </div>
-  `).join("");
+  document.getElementById("kpiStrip").innerHTML = stats.map(s => `
+    <div class="kpi-mini">
+      <div class="kpi-mini-label">${esc(s.label)}</div>
+      <div class="kpi-mini-value">${esc(s.value)}</div>
+      <div class="kpi-mini-sub">${esc(s.sub)}</div>
+    </div>`).join("");
 }
 
-// ── Render Stage Tabs ──
 function renderTabs() {
   const tabs = ["all", "outreach", "followup", "closing"];
   document.getElementById("stageTabs").innerHTML = tabs.map(s => {
     const count = s === "all" ? leads.length : leads.filter(l => l.stage === s).length;
-    const label = s === "all" ? "All" : stageConfig[s].label.split(" ")[0];
-    let cls = "stage-tab";
-    if (activeStage === s) {
-      if (s === "all") cls += " active-all";
-      else cls += ""; // color set inline
-    }
-    const isActive = activeStage === s;
-    const bg = isActive ? (s === "all" ? "" : `background:${stageConfig[s].color}22;`) : "";
-    const color = isActive ? (s === "all" ? "" : `color:${stageConfig[s].color};`) : "";
-    return `<button class="${cls}" data-stage="${s}" style="${bg}${color}">${esc(label)}<span class="count">${count}</span></button>`;
+    const label = s === "all" ? "All leads" : stageConfig[s].label;
+    return `<button class="stage-tab ${activeStage === s ? "active" : ""}" data-stage="${s}">${esc(label)}<span class="count">${count}</span></button>`;
   }).join("");
-
   document.querySelectorAll(".stage-tab").forEach(btn => {
-    btn.addEventListener("click", () => {
-      activeStage = btn.dataset.stage;
-      renderTabs();
-      renderLeadList();
-    });
+    btn.addEventListener("click", () => { activeStage = btn.dataset.stage; renderTabs(); renderLeadList(); });
   });
 }
 
-// ── Render Lead List ──
 function renderLeadList() {
   const filtered = activeStage === "all" ? leads : leads.filter(l => l.stage === activeStage);
   let html = "";
-
   ["outreach", "followup", "closing"].forEach(stage => {
-    const stageLeads = filtered.filter(l => l.stage === stage);
-    if (stageLeads.length === 0) return;
+    const sl = filtered.filter(l => l.stage === stage);
+    if (!sl.length) return;
     const cfg = stageConfig[stage];
-
-    html += `<div class="stage-group-label" style="color:${cfg.color}">
-      <div class="stage-dot" style="background:${cfg.color}"></div>
-      ${esc(cfg.label)}
-    </div>`;
-
-    stageLeads.forEach(lead => {
+    html += `<div class="stage-group-label" style="color:${cfg.color}"><div class="stage-dot" style="background:${cfg.color}"></div>${esc(cfg.label)}</div>`;
+    sl.forEach(lead => {
       const vc = verticalColors[lead.vertical] || verticalColors.dental;
-      const isSel = selectedId === lead.id;
-      const borderLeft = isSel ? `border-left-color:${cfg.color}` : "";
-      html += `
-        <div class="lead-card ${isSel ? "selected" : ""}" data-id="${lead.id}" style="${borderLeft}">
-          <div class="lead-card-top">
-            <span class="lead-name">${esc(lead.name)}</span>
-            ${lead.escalate ? '<span class="badge-escalate">ESCALATE</span>' : ""}
-          </div>
-          <div class="lead-biz">${esc(lead.biz)}</div>
-          <div class="lead-card-bottom">
-            <span class="vertical-tag" style="background:${vc.bg}22;color:${vc.text}">${esc(lead.vertical)}</span>
-            <span class="lead-value">${esc(lead.value)}</span>
-          </div>
-        </div>`;
+      const sel = selectedId === lead.id;
+      html += `<div class="lead-card ${sel ? "selected" : ""}" data-id="${lead.id}">
+        <div class="lead-card-top">
+          <span class="lead-name">${esc(lead.name)}</span>
+          ${lead.escalate ? '<span class="badge-escalate">ESCALATE</span>' : ""}
+        </div>
+        <div class="lead-biz">${esc(lead.biz)}</div>
+        <div class="lead-card-bottom">
+          <span class="vertical-tag" style="background:${vc.bg};color:${vc.color};border-color:${vc.border}">${esc(lead.vertical)}</span>
+          <span class="lead-value">${esc(lead.value)}</span>
+        </div>
+      </div>`;
     });
   });
-
   document.getElementById("leadScroll").innerHTML = html;
-
-  document.querySelectorAll(".lead-card").forEach(card => {
-    card.addEventListener("click", () => {
-      selectedId = parseInt(card.dataset.id, 10);
-      renderLeadList();
-      renderDetail();
-    });
+  document.querySelectorAll(".lead-card").forEach(c => {
+    c.addEventListener("click", () => { selectedId = parseInt(c.dataset.id, 10); renderLeadList(); renderDetail(); });
   });
 }
 
-// ── Render Detail Panel ──
 function renderDetail() {
   const lead = leads.find(l => l.id === selectedId);
   const panel = document.getElementById("detailPanel");
-
-  if (!lead) {
-    panel.innerHTML = '<div class="detail-empty">Select a lead to view details</div>';
-    return;
-  }
-
+  if (!lead) { panel.innerHTML = '<div class="detail-empty">Select a lead to view details</div>'; return; }
   const initials = lead.name.split(" ").map(n => n[0]).join("").slice(0, 2);
   const btnLabel = lead.stage === "closing" ? "Mark closed won" : lead.stage === "followup" ? "Send second touch" : "Send follow-up DM";
-  const btnClass = lead.stage === "closing" ? "green" : "blue";
-
-  let timelineHtml = lead.timeline.map((t, i) => `
-    <div class="timeline-item">
+  const btnClass = lead.stage === "closing" ? "green-btn" : "navy";
+  const tl = lead.timeline.map((t, i) => `
+    <div class="timeline-item ${t.escalate ? "timeline-escalate" : ""}">
       <div class="timeline-track">
         <div class="timeline-dot" style="background:${t.color}"></div>
         ${i < lead.timeline.length - 1 ? '<div class="timeline-line"></div>' : ""}
@@ -571,11 +562,9 @@ function renderDetail() {
         <div class="timeline-text">${esc(t.text)}</div>
         <div class="timeline-time">${esc(t.time)}</div>
       </div>
-    </div>
-  `).join("");
+    </div>`).join("");
 
   panel.innerHTML = `
-    <!-- Header -->
     <div class="detail-header">
       <div class="detail-header-left">
         <div class="detail-avatar">${esc(initials)}</div>
@@ -589,46 +578,29 @@ function renderDetail() {
       </div>
       <div class="detail-source">from ${esc(lead.source)}</div>
     </div>
-
-    <!-- Stats -->
     <div class="detail-stats">
-      <div class="detail-stat">
-        <div class="detail-stat-label">Pipeline value</div>
-        <div class="detail-stat-value">${esc(lead.value)}</div>
-      </div>
-      <div class="detail-stat">
-        <div class="detail-stat-label">Phone</div>
-        <div class="detail-stat-value">${esc(lead.phone)}</div>
-      </div>
-      <div class="detail-stat">
-        <div class="detail-stat-label">Call status</div>
-        <div class="detail-stat-value">${esc(lead.call_status)}</div>
-      </div>
+      ${[{l:"Pipeline value",v:lead.value},{l:"Phone",v:lead.phone},{l:"Call status",v:lead.call_status}].map(s => `
+        <div class="detail-stat">
+          <div class="detail-stat-label">${esc(s.l)}</div>
+          <div class="detail-stat-value">${esc(s.v)}</div>
+        </div>`).join("")}
     </div>
-
-    <!-- Notes -->
     <div class="detail-card">
       <div class="detail-card-label">Agent notes</div>
       <div class="detail-notes">${esc(lead.notes)}</div>
     </div>
-
-    <!-- Timeline -->
     <div class="detail-card">
-      <div class="detail-card-label timeline-label">Activity timeline</div>
-      <div class="timeline">${timelineHtml}</div>
+      <div class="detail-card-label">Activity timeline</div>
+      <div class="timeline">${tl}</div>
     </div>
-
-    <!-- Actions -->
     <div class="detail-actions">
       <button class="btn-primary ${btnClass}">${esc(btnLabel)}</button>
       <button class="btn-secondary">Move stage</button>
       <button class="btn-secondary">Log note</button>
-    </div>
-  `;
+    </div>`;
 }
 
-// ── Init ──
-renderStats();
+renderKPIs();
 renderTabs();
 renderLeadList();
 renderDetail();
