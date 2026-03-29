@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cybersphere — Growth Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FAFAFA;
+  --white: #FFFFFF;
+  --text: #1A1A1A;
+  --text-secondary: #4A5568;
+  --text-tertiary: #8B95A5;
+  --navy: #0D2545;
+  --navy-light: #1A3A6B;
+  --navy-faint: rgba(13,37,69,0.04);
+  --navy-border: rgba(13,37,69,0.08);
+  --border: #E5E7EB;
+  --border-light: #F0F1F3;
+  --green: #2D6A4F;
+  --green-bg: rgba(45,106,79,0.06);
+  --green-border: rgba(45,106,79,0.15);
+  --yellow: #B7791F;
+  --yellow-bg: rgba(183,121,31,0.06);
+  --yellow-border: rgba(183,121,31,0.15);
+  --red: #C0392B;
+  --red-bg: rgba(192,57,43,0.06);
+  --red-border: rgba(192,57,43,0.15);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+}
+
+html { font-size: 15px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ── Page Frame ── */
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 48px 56px 80px;
+}
+
+/* ── Masthead ── */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 32px;
+  margin-bottom: 40px;
+  border-bottom: 2px solid var(--navy);
+}
+
+.masthead-left { display: flex; flex-direction: column; gap: 6px; }
+
+.firm-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.masthead-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.masthead-sub {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.masthead-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.period-toggle {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.period-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  border-right: 1px solid var(--border);
+  letter-spacing: 0.01em;
+}
+
+.period-btn:last-child { border-right: none; }
+
+.period-btn.active {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.period-btn:hover:not(.active) { background: var(--navy-faint); }
+
+.report-date {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+/* ── Section Headers ── */
+.section {
+  margin-bottom: 48px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.section-subtitle {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+/* ── KPI Cards ── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.kpi-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px 28px 22px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.kpi-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.kpi-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.kpi-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 3px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.kpi-status.green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+.kpi-status.yellow { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
+.kpi-status.red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.kpi-status.neutral { background: var(--navy-faint); color: var(--text-tertiary); border: 1px solid var(--border); }
+
+.kpi-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.kpi-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.kpi-prefix {
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--text-tertiary);
+  line-height: 1;
+}
+
+.kpi-input {
+  font-family: 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  line-height: 1;
+  padding: 0;
+  letter-spacing: -0.02em;
+}
+
+.kpi-input::placeholder { color: var(--text-tertiary); opacity: 0.4; }
+
+.kpi-input:focus {
+  border-bottom: 1.5px solid var(--navy);
+  padding-bottom: 2px;
+  margin-bottom: -3.5px;
+}
+
+.kpi-suffix {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-tertiary);
+  line-height: 1;
+}
+
+.kpi-target {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+  margin-bottom: 14px;
+}
+
+.kpi-bar {
+  height: 3px;
+  background: var(--border-light);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.kpi-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.kpi-bar-fill.green { background: var(--green); }
+.kpi-bar-fill.yellow { background: var(--yellow); }
+.kpi-bar-fill.red { background: var(--red); }
+.kpi-bar-fill.neutral { background: var(--text-tertiary); opacity: 0.3; }
+
+/* ── Roadmap + Verdict Row ── */
+.bottom-pair {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 16px;
+}
+
+.panel {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px 28px;
+  box-shadow: var(--shadow);
+}
+
+.panel-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+}
+
+.roadmap-head, .roadmap-row {
+  display: grid;
+  grid-template-columns: 1fr 72px 72px 72px;
+  gap: 0;
+  align-items: center;
+}
+
+.roadmap-head {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2px;
+}
+
+.roadmap-head span {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  text-align: right;
+}
+
+.roadmap-head span:first-child { text-align: left; }
+
+.roadmap-row {
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.roadmap-row:last-child { border-bottom: none; }
+
+.roadmap-metric {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.roadmap-val {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Verdict */
+.verdict-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.verdict-text {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.verdict-text.on-track { color: var(--green); }
+.verdict-text.at-risk { color: var(--yellow); }
+.verdict-text.behind { color: var(--red); }
+.verdict-text.no-data { color: var(--text-tertiary); }
+
+.verdict-detail {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.verdict-time {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  text-align: right;
+  margin-top: 16px;
+}
+
+/* ── SEO Health Table ── */
+.seo-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.seo-table thead th {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  text-align: left;
+  padding: 0 0 12px 0;
+  border-bottom: 1.5px solid var(--border);
+}
+
+.seo-table thead th:nth-child(2),
+.seo-table thead th:nth-child(3) { text-align: center; }
+
+.seo-table tbody td {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: middle;
+}
+
+.seo-table tbody tr:last-child td { border-bottom: none; }
+
+.client-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.client-vert {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+  margin-top: 1px;
+}
+
+.seo-score {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.seo-score.green { color: var(--green); }
+.seo-score.yellow { color: var(--yellow); }
+.seo-score.red { color: var(--red); }
+.seo-score.pending { color: var(--text-tertiary); }
+
+.seo-bar-cell { text-align: center; }
+
+.seo-bar {
+  display: inline-block;
+  width: 72px;
+  height: 4px;
+  background: var(--border-light);
+  border-radius: 2px;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.seo-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.seo-bar-fill.green { background: var(--green); }
+.seo-bar-fill.yellow { background: var(--yellow); }
+.seo-bar-fill.red { background: var(--red); }
+.seo-bar-fill.pending { background: var(--text-tertiary); opacity: 0.2; }
+
+.issue-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+
+.issue-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 4px;
+  letter-spacing: 0.01em;
+}
+
+.issue-tag.error { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.issue-tag.warn { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
+.issue-tag.pending-tag { background: var(--navy-faint); color: var(--text-tertiary); border: 1px solid var(--border); }
+
+/* ── Ad Performance ── */
+.ad-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.ad-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px 20px;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.ad-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 12px;
+}
+
+.ad-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  opacity: 0.25;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.ad-note {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  opacity: 0.6;
+}
+
+.connect-strip {
+  background: var(--white);
+  border: 1.5px dashed var(--border);
+  border-radius: 8px;
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.connect-msg {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.connect-msg strong {
+  color: var(--yellow);
+  font-weight: 600;
+}
+
+.btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 9px 22px;
+  border-radius: 6px;
+  border: 1px solid var(--navy);
+  background: var(--white);
+  color: var(--navy);
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn:hover {
+  background: var(--navy);
+  color: var(--white);
+}
+
+/* ── Weekly Summary ── */
+.weekly-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 24px 28px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  color: var(--text);
+  line-height: 1.85;
+  white-space: pre-wrap;
+  margin-bottom: 16px;
+  min-height: 140px;
+  font-variant-numeric: tabular-nums;
+}
+
+.copy-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.copy-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--navy);
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.copy-btn:hover {
+  border-color: var(--navy);
+  background: var(--navy-faint);
+}
+
+.copy-btn.copied {
+  color: var(--green);
+  border-color: var(--green-border);
+  background: var(--green-bg);
+}
+
+/* ── Footer ── */
+.footer {
+  margin-top: 56px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.footer-right {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .page { padding: 32px 28px 60px; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .ad-grid { grid-template-columns: repeat(3, 1fr); }
+  .bottom-pair { grid-template-columns: 1fr; }
+  .masthead-title { font-size: 28px; }
+}
+
+@media (max-width: 640px) {
+  .page { padding: 20px 16px 40px; }
+  .kpi-grid { grid-template-columns: 1fr; }
+  .ad-grid { grid-template-columns: repeat(2, 1fr); }
+  .masthead { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .masthead-right { align-items: flex-start; }
+  .masthead-title { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═══ MASTHEAD ═══ -->
+  <div class="masthead">
+    <div class="masthead-left">
+      <div class="firm-name">Cybersphere</div>
+      <div class="masthead-title">Growth Performance Dashboard</div>
+      <div class="masthead-sub">Phase I Go-to-Market &mdash; Key Performance Indicators</div>
+    </div>
+    <div class="masthead-right">
+      <div class="period-toggle">
+        <button class="period-btn active" data-month="3">Month 3</button>
+        <button class="period-btn" data-month="6">Month 6</button>
+        <button class="period-btn" data-month="12">Month 12</button>
+      </div>
+      <div class="report-date" id="reportDate"></div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 1: KPI CARDS ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Key Performance Indicators</div>
+      <div class="section-subtitle">Click any value to update</div>
+    </div>
+    <div class="kpi-grid" id="kpiGrid"></div>
+    <div class="bottom-pair">
+      <div class="panel">
+        <div class="panel-label">Target Roadmap</div>
+        <div class="roadmap-head">
+          <span>Metric</span><span>Mo. 3</span><span>Mo. 6</span><span>Mo. 12</span>
+        </div>
+        <div class="roadmap-row"><span class="roadmap-metric">MRR</span><span class="roadmap-val">$8K</span><span class="roadmap-val">$25K</span><span class="roadmap-val">$83K</span></div>
+        <div class="roadmap-row"><span class="roadmap-metric">Active Clients</span><span class="roadmap-val">5</span><span class="roadmap-val">15</span><span class="roadmap-val">35</span></div>
+        <div class="roadmap-row"><span class="roadmap-metric">Monthly Churn</span><span class="roadmap-val">&lt;8%</span><span class="roadmap-val">&lt;6%</span><span class="roadmap-val">&lt;5%</span></div>
+        <div class="roadmap-row"><span class="roadmap-metric">Avg Contract</span><span class="roadmap-val">$1.5K</span><span class="roadmap-val">$2K</span><span class="roadmap-val">$2.5K</span></div>
+        <div class="roadmap-row"><span class="roadmap-metric">Meetings / Week</span><span class="roadmap-val">3</span><span class="roadmap-val">6</span><span class="roadmap-val">10</span></div>
+        <div class="roadmap-row"><span class="roadmap-metric">NPS</span><span class="roadmap-val">&mdash;</span><span class="roadmap-val">&gt;50</span><span class="roadmap-val">&gt;65</span></div>
+      </div>
+      <div class="panel verdict-card">
+        <div>
+          <div class="panel-label">Overall Status</div>
+          <div class="verdict-text no-data" id="verdictText">No Data</div>
+          <div class="verdict-detail" id="verdictDetail">Enter current actuals above to generate a performance assessment.</div>
+        </div>
+        <div class="verdict-time" id="verdictTime">&mdash;</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 2: CLIENT SEO HEALTH ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Client SEO Health</div>
+      <div class="section-subtitle">Google Business Profile audit scores</div>
+    </div>
+    <div class="panel">
+      <table class="seo-table">
+        <thead>
+          <tr><th>Client</th><th>Score</th><th>Health</th><th>Issues</th></tr>
+        </thead>
+        <tbody id="seoBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 3: AD PERFORMANCE ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Ad Performance</div>
+      <div class="section-subtitle">Meta Ads &mdash; month to date</div>
+    </div>
+    <div class="ad-grid" id="adGrid"></div>
+    <div class="connect-strip">
+      <div class="connect-msg"><strong>Waiting for Meta API keys</strong> &mdash; connect your Meta Business account to populate live ad metrics.</div>
+      <button class="btn">Connect Meta API</button>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 4: WEEKLY SUMMARY ═══ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Weekly Summary</div>
+      <div class="section-subtitle">Auto-generated for leadership review</div>
+    </div>
+    <div class="panel">
+      <div class="weekly-block" id="weeklyBody">Enter KPI actuals above to generate a weekly summary report.</div>
+      <div class="copy-row">
+        <button class="copy-btn" id="copyBtn">Copy to Clipboard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <div class="footer">
+    <div class="footer-left">Cybersphere Growth Dashboard &mdash; Phase I</div>
+    <div class="footer-right">Confidential</div>
+  </div>
+
+</div>
+
+<script>
+// ── Configuration ──
+const TARGETS = {
+  3:  { mrr: 8000,  clients: 5,  churn: 8,   acv: 1500, meetings: 3,  nps: null },
+  6:  { mrr: 25000, clients: 15, churn: 6,   acv: 2000, meetings: 6,  nps: 50 },
+  12: { mrr: 83000, clients: 35, churn: 5,   acv: 2500, meetings: 10, nps: 65 },
+};
+
+const KPIs = [
+  { key: 'mrr',      label: 'MRR',                prefix: '$', suffix: '',  isChurn: false },
+  { key: 'clients',  label: 'Active Clients',     prefix: '',  suffix: '',  isChurn: false },
+  { key: 'churn',    label: 'Monthly Churn',       prefix: '',  suffix: '%', isChurn: true },
+  { key: 'acv',      label: 'Avg Contract Value', prefix: '$', suffix: '',  isChurn: false },
+  { key: 'meetings', label: 'Meetings / Week',    prefix: '',  suffix: '',  isChurn: false },
+  { key: 'nps',      label: 'NPS Score',          prefix: '',  suffix: '',  isChurn: false },
+];
+
+const CLIENTS = [
+  { name: 'Dr. Stan Palo Alto', vert: 'Dental', score: 62, issues: [
+    { text: 'Missing sameAs schema', type: 'error' },
+    { text: 'No booking potentialAction', type: 'error' },
+    { text: 'No WebSite schema block', type: 'warn' }
+  ]},
+  { name: 'Paris Law Group', vert: 'Personal Injury', score: null, issues: [{ text: 'Audit pending', type: 'pending-tag' }] },
+  { name: 'Limited Spec Automotive', vert: 'Luxury Auto', score: null, issues: [{ text: 'Audit pending', type: 'pending-tag' }] },
+  { name: 'BluStreet Exotics', vert: 'Luxury Car Rental', score: null, issues: [{ text: 'Audit pending', type: 'pending-tag' }] },
+  { name: 'Monarch Luxe', vert: 'Real Estate', score: null, issues: [{ text: 'Audit pending', type: 'pending-tag' }] },
+];
+
+const AD_CARDS = ['Spend MTD', 'Impressions', 'CTR', 'CPL', 'ROAS'];
+
+let currentMonth = 3;
+let actuals = JSON.parse(localStorage.getItem('cybersphere_kpi_v2') || 'null') ||
+  { mrr: null, clients: null, churn: null, acv: null, meetings: null, nps: null };
+
+function save() { localStorage.setItem('cybersphere_kpi_v2', JSON.stringify(actuals)); }
+
+// ── Date ──
+document.getElementById('reportDate').textContent =
+  new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+// ── Status Logic ──
+function getStatus(key, val) {
+  const t = TARGETS[currentMonth][key];
+  if (val === null || val === '' || t === null) return 'neutral';
+  const kpi = KPIs.find(k => k.key === key);
+  if (kpi.isChurn) {
+    if (val <= t * 0.8) return 'green';
+    if (val <= t) return 'yellow';
+    return 'red';
+  }
+  const r = val / t;
+  if (r >= 0.9) return 'green';
+  if (r >= 0.6) return 'yellow';
+  return 'red';
+}
+
+function statusWord(s) {
+  return { green: 'On Track', yellow: 'At Risk', red: 'Behind', neutral: 'No Data' }[s];
+}
+
+function getProgress(key, val) {
+  const t = TARGETS[currentMonth][key];
+  if (!val || !t) return 0;
+  const kpi = KPIs.find(k => k.key === key);
+  if (kpi.isChurn) return Math.min(100, (t / val) * 100);
+  return Math.min(100, (val / t) * 100);
+}
+
+function fmtTarget(key) {
+  const t = TARGETS[currentMonth][key];
+  if (t === null) return 'No target set';
+  if (key === 'mrr' || key === 'acv') return 'Target: $' + t.toLocaleString();
+  if (key === 'churn') return 'Target: <' + t + '%';
+  if (key === 'nps') return 'Target: >' + t;
+  return 'Target: ' + t;
+}
+
+function scoreColor(s) {
+  if (s === null) return 'pending';
+  if (s >= 80) return 'green';
+  if (s >= 60) return 'yellow';
+  return 'red';
+}
+
+// ── Render KPIs ──
+function renderKPIs() {
+  const grid = document.getElementById('kpiGrid');
+  grid.innerHTML = '';
+  let counts = { green: 0, yellow: 0, red: 0, filled: 0 };
+
+  KPIs.forEach(kpi => {
+    const val = actuals[kpi.key];
+    const st = getStatus(kpi.key, val);
+    const prog = getProgress(kpi.key, val);
+
+    if (val !== null && val !== '') {
+      counts.filled++;
+      counts[st === 'neutral' ? 'filled' : st]++;
+      if (st === 'neutral') counts.filled--;
+    }
+
+    const card = document.createElement('div');
+    card.className = 'kpi-card';
+    card.innerHTML = `
+      <div class="kpi-card-top">
+        <div class="kpi-label">${kpi.label}</div>
+        <div class="kpi-status ${st}"><div class="kpi-status-dot"></div>${statusWord(st)}</div>
+      </div>
+      <div class="kpi-value-row">
+        ${kpi.prefix ? '<span class="kpi-prefix">' + kpi.prefix + '</span>' : ''}
+        <input class="kpi-input" data-key="${kpi.key}" type="number" min="0" step="any"
+          value="${val !== null ? val : ''}" placeholder="&mdash;">
+        ${kpi.suffix ? '<span class="kpi-suffix">' + kpi.suffix + '</span>' : ''}
+      </div>
+      <div class="kpi-target">${fmtTarget(kpi.key)}</div>
+      <div class="kpi-bar"><div class="kpi-bar-fill ${st}" style="width:${prog}%"></div></div>
+    `;
+    grid.appendChild(card);
+  });
+
+  grid.querySelectorAll('.kpi-input').forEach(input => {
+    input.addEventListener('input', function() {
+      actuals[this.dataset.key] = this.value === '' ? null : parseFloat(this.value);
+      save();
+      renderKPIs();
+      renderWeekly();
+    });
+  });
+
+  renderVerdict(counts);
+}
+
+function renderVerdict(c) {
+  const el = document.getElementById('verdictText');
+  const detail = document.getElementById('verdictDetail');
+  const time = document.getElementById('verdictTime');
+
+  if (c.filled === 0) {
+    el.className = 'verdict-text no-data';
+    el.textContent = 'No Data';
+    detail.textContent = 'Enter current actuals above to generate a performance assessment.';
+    time.textContent = '\u2014';
+    return;
+  }
+
+  time.textContent = 'Updated ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  if (c.red === 0 && c.yellow <= 1) {
+    el.className = 'verdict-text on-track';
+    el.textContent = 'On Track';
+    detail.textContent = c.green + ' of ' + c.filled + ' metrics are meeting or exceeding target. Current trajectory supports Phase I objectives.';
+  } else if (c.red >= 2) {
+    el.className = 'verdict-text behind';
+    el.textContent = 'Behind Target';
+    detail.textContent = c.red + ' metrics are materially below target. Recommend immediate review of pipeline activity and resource allocation.';
+  } else {
+    el.className = 'verdict-text at-risk';
+    el.textContent = 'At Risk';
+    detail.textContent = (c.yellow + c.red) + ' metrics require attention. Recommend focused intervention on underperforming indicators this week.';
+  }
+}
+
+// ── Render SEO ──
+function renderSEO() {
+  const body = document.getElementById('seoBody');
+  body.innerHTML = '';
+  CLIENTS.forEach(c => {
+    const color = scoreColor(c.score);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><div class="client-name">${c.name}</div><div class="client-vert">${c.vert}</div></td>
+      <td class="seo-score ${color}">${c.score !== null ? c.score + '/100' : 'TBD'}</td>
+      <td class="seo-bar-cell"><div class="seo-bar"><div class="seo-bar-fill ${color}" style="width:${c.score || 0}%"></div></div></td>
+      <td><div class="issue-tags">${c.issues.map(i => '<span class="issue-tag ' + i.type + '">' + i.text + '</span>').join('')}</div></td>
+    `;
+    body.appendChild(tr);
+  });
+}
+
+// ── Render Ads ──
+function renderAds() {
+  const grid = document.getElementById('adGrid');
+  grid.innerHTML = '';
+  AD_CARDS.forEach(label => {
+    const card = document.createElement('div');
+    card.className = 'ad-card';
+    card.innerHTML = `<div class="ad-label">${label}</div><div class="ad-value">&mdash;</div><div class="ad-note">No data</div>`;
+    grid.appendChild(card);
+  });
+}
+
+// ── Render Weekly Summary ──
+function renderWeekly() {
+  const el = document.getElementById('weeklyBody');
+  const filled = Object.entries(actuals).filter(([, v]) => v !== null && v !== '');
+
+  if (filled.length === 0) {
+    el.textContent = 'Enter KPI actuals above to generate a weekly summary report.';
+    return;
+  }
+
+  const date = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  const lines = [];
+
+  lines.push('CYBERSPHERE \u2014 WEEKLY PERFORMANCE SUMMARY');
+  lines.push('Report Date: ' + date);
+  lines.push('Target Period: Month ' + currentMonth);
+  lines.push('\u2500'.repeat(52));
+  lines.push('');
+  lines.push('KEY PERFORMANCE INDICATORS');
+  lines.push('');
+
+  KPIs.forEach(kpi => {
+    const val = actuals[kpi.key];
+    const t = TARGETS[currentMonth][kpi.key];
+    const st = getStatus(kpi.key, val);
+
+    let valStr = '\u2014';
+    if (val !== null) {
+      if (kpi.key === 'mrr' || kpi.key === 'acv') valStr = '$' + Number(val).toLocaleString();
+      else if (kpi.key === 'churn') valStr = val + '%';
+      else valStr = String(val);
+    }
+
+    let tStr = '\u2014';
+    if (t !== null) {
+      if (kpi.key === 'mrr' || kpi.key === 'acv') tStr = '$' + t.toLocaleString();
+      else if (kpi.key === 'churn') tStr = '<' + t + '%';
+      else if (kpi.key === 'nps') tStr = '>' + t;
+      else tStr = String(t);
+    }
+
+    const icon = { green: '\u2713', yellow: '\u25B3', red: '\u2717', neutral: '\u2014' }[st];
+    const pad = (kpi.label + ':').padEnd(22);
+    lines.push('  ' + icon + '  ' + pad + valStr.padStart(10) + '    target: ' + tStr);
+  });
+
+  lines.push('');
+  lines.push('\u2500'.repeat(52));
+  lines.push('');
+
+  const reds = KPIs.filter(k => getStatus(k.key, actuals[k.key]) === 'red');
+  const yellows = KPIs.filter(k => getStatus(k.key, actuals[k.key]) === 'yellow');
+  const greens = KPIs.filter(k => getStatus(k.key, actuals[k.key]) === 'green');
+
+  if (reds.length === 0 && yellows.length <= 1) {
+    lines.push('ASSESSMENT: ON TRACK');
+    lines.push(greens.length + ' metrics meeting or exceeding target.');
+    lines.push('Current trajectory supports Phase I objectives.');
+  } else if (reds.length >= 2) {
+    lines.push('ASSESSMENT: BEHIND TARGET');
+    lines.push(reds.length + ' metrics materially below target.');
+    lines.push('Recommend immediate review: ' + reds.map(k => k.label).join(', ') + '.');
+  } else {
+    lines.push('ASSESSMENT: AT RISK');
+    lines.push((yellows.length + reds.length) + ' metrics require attention.');
+    const attn = [...reds, ...yellows];
+    lines.push('Focus areas: ' + attn.map(k => k.label).join(', ') + '.');
+  }
+
+  lines.push('');
+  lines.push('CLIENT SEO HEALTH');
+  CLIENTS.forEach(c => {
+    const sc = c.score !== null ? c.score + '/100' : 'Pending';
+    lines.push('  ' + c.name.padEnd(28) + sc.padStart(10) + '    ' + c.vert);
+  });
+
+  lines.push('');
+  lines.push('AD PERFORMANCE: Awaiting Meta API integration.');
+  lines.push('');
+  lines.push('\u2500'.repeat(52));
+  lines.push('Generated: ' + new Date().toLocaleString());
+  lines.push('Classification: Confidential');
+
+  el.textContent = lines.join('\n');
+}
+
+// ── Period Toggle ──
+document.querySelectorAll('.period-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    currentMonth = parseInt(this.dataset.month);
+    document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    renderKPIs();
+    renderWeekly();
+  });
+});
+
+// ── Copy ──
+document.getElementById('copyBtn').addEventListener('click', function() {
+  const text = document.getElementById('weeklyBody').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    this.textContent = 'Copied';
+    this.classList.add('copied');
+    setTimeout(() => { this.textContent = 'Copy to Clipboard'; this.classList.remove('copied'); }, 2000);
+  });
+});
+
+// ── Init ──
+renderKPIs();
+renderSEO();
+renderAds();
+renderWeekly();
+</script>
+</body>
+</html>
