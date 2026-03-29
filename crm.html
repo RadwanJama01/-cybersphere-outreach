@@ -76,23 +76,19 @@ body {
   color: var(--text-secondary); margin-top: 2px;
 }
 
-.masthead-right {
-  display: flex; align-items: center; gap: 12px;
-}
+.masthead-right { display: flex; align-items: center; gap: 12px; }
 
 .masthead-pill {
   font-size: 11px; color: var(--text-tertiary);
   background: var(--white);
   padding: 6px 14px; border-radius: 6px;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border); box-shadow: var(--shadow-sm);
 }
 
 .masthead-live {
   font-size: 10px; font-weight: 600;
   letter-spacing: 0.08em; text-transform: uppercase;
-  background: var(--green-bg);
-  color: var(--green);
+  background: var(--green-bg); color: var(--green);
   padding: 5px 12px; border-radius: 4px;
   border: 1px solid var(--green-border);
   display: flex; align-items: center; gap: 5px;
@@ -104,15 +100,22 @@ body {
   animation: pulse 2s infinite;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+.refresh-badge {
+  font-size: 10px; color: var(--text-tertiary);
+  display: flex; align-items: center; gap: 4px;
+}
+
+.refresh-dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--green);
 }
 
 /* ── KPI Strip ── */
 .kpi-strip {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 12px;
   padding: 20px 40px;
   border-bottom: 1px solid var(--border);
@@ -130,8 +133,7 @@ body {
 .kpi-mini-label {
   font-size: 10px; font-weight: 600;
   letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--text-tertiary);
-  margin-bottom: 8px;
+  color: var(--text-tertiary); margin-bottom: 8px;
 }
 
 .kpi-mini-value {
@@ -142,30 +144,47 @@ body {
 
 .kpi-mini-sub { font-size: 11px; color: var(--text-tertiary); }
 
-/* ── Main Layout ── */
-.main {
+/* ── View Tabs ── */
+.view-tabs {
   display: flex;
-  flex: 1;
-  overflow: hidden;
+  padding: 0 40px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
 }
 
-/* ── Left Panel ── */
+.view-tab {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600;
+  padding: 12px 20px;
+  border: none; cursor: pointer;
+  background: transparent;
+  color: var(--text-tertiary);
+  letter-spacing: 0.02em;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+}
+
+.view-tab:hover { color: var(--text-secondary); }
+.view-tab.active { color: var(--navy); border-bottom-color: var(--navy); }
+
+/* ── Main Layout ── */
+.main { display: flex; flex: 1; overflow: hidden; }
+
+.view-panel { display: none; flex: 1; overflow: hidden; }
+.view-panel.active { display: flex; }
+
+/* ── Lead List Panel ── */
 .lead-list-panel {
   width: 340px;
   border-right: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  flex-shrink: 0;
+  display: flex; flex-direction: column;
+  overflow: hidden; flex-shrink: 0;
   background: var(--white);
 }
 
 .stage-tabs {
-  display: flex;
-  padding: 14px 20px;
-  gap: 6px;
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
+  display: flex; padding: 14px 20px; gap: 6px;
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
 }
 
 .stage-tab {
@@ -173,11 +192,9 @@ body {
   font-size: 11px; font-weight: 500;
   padding: 5px 14px; border-radius: 4px;
   border: 1px solid transparent;
-  cursor: pointer;
-  background: transparent;
+  cursor: pointer; background: transparent;
   color: var(--text-tertiary);
-  letter-spacing: 0.02em;
-  transition: all 0.15s;
+  letter-spacing: 0.02em; transition: all 0.15s;
 }
 
 .stage-tab:hover { background: var(--navy-faint); }
@@ -198,21 +215,14 @@ body {
 .lead-card {
   padding: 14px 20px;
   border-left: 2.5px solid transparent;
-  cursor: pointer;
-  transition: all 0.15s;
+  cursor: pointer; transition: all 0.15s;
   border-bottom: 1px solid var(--border-light);
 }
 
 .lead-card:hover { background: var(--navy-faint); }
 .lead-card.selected { background: var(--navy-faint); border-left-color: var(--navy); }
 
-.lead-card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 3px;
-}
-
+.lead-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 3px; }
 .lead-name { font-size: 13px; font-weight: 600; color: var(--text); }
 
 .badge-escalate {
@@ -224,45 +234,29 @@ body {
 }
 
 .lead-biz { font-size: 11px; color: var(--text-tertiary); margin-bottom: 8px; }
-
-.lead-card-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+.lead-card-bottom { display: flex; justify-content: space-between; align-items: center; }
 
 .vertical-tag {
   font-size: 10px; font-weight: 500;
-  padding: 2px 10px; border-radius: 4px;
-  border: 1px solid;
+  padding: 2px 10px; border-radius: 4px; border: 1px solid;
 }
 
-.lead-value {
-  font-size: 12px; font-weight: 700;
-  color: var(--green);
-  font-variant-numeric: tabular-nums;
-}
+.lead-value { font-size: 12px; font-weight: 700; color: var(--green); font-variant-numeric: tabular-nums; }
 
-/* ── Right Panel ── */
+/* ── Detail Panel ── */
 .detail-panel {
-  flex: 1;
-  overflow-y: auto;
-  padding: 28px 36px;
-  background: var(--bg);
+  flex: 1; overflow-y: auto;
+  padding: 28px 36px; background: var(--bg);
 }
 
 .detail-empty {
-  flex: 1;
   display: flex; align-items: center; justify-content: center;
   color: var(--text-tertiary); font-size: 14px; height: 100%;
 }
 
 .detail-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 24px;
-  padding-bottom: 20px;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 24px; padding-bottom: 20px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -280,8 +274,7 @@ body {
 
 .detail-name {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 20px; font-weight: 700;
-  color: var(--navy);
+  font-size: 20px; font-weight: 700; color: var(--navy);
 }
 
 .badge-escalate-lg {
@@ -296,60 +289,42 @@ body {
 
 .detail-source {
   font-size: 11px; color: var(--text-tertiary);
-  background: var(--white);
-  padding: 6px 14px; border-radius: 6px;
-  border: 1px solid var(--border);
+  background: var(--white); padding: 6px 14px;
+  border-radius: 6px; border: 1px solid var(--border);
   white-space: nowrap; box-shadow: var(--shadow-sm);
 }
 
 .detail-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 20px;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; margin-bottom: 20px;
 }
 
 .detail-stat {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 16px 18px;
-  box-shadow: var(--shadow-sm);
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px 18px; box-shadow: var(--shadow-sm);
 }
 
 .detail-stat-label {
   font-size: 10px; font-weight: 600; color: var(--text-tertiary);
-  letter-spacing: 0.08em; text-transform: uppercase;
-  margin-bottom: 6px;
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px;
 }
 
-.detail-stat-value {
-  font-size: 15px; font-weight: 700; color: var(--text);
-  font-variant-numeric: tabular-nums;
-}
+.detail-stat-value { font-size: 15px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
 
 .detail-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 18px 22px;
-  margin-bottom: 16px;
-  box-shadow: var(--shadow-sm);
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 8px; padding: 18px 22px;
+  margin-bottom: 16px; box-shadow: var(--shadow-sm);
 }
 
 .detail-card-label {
   font-size: 10px; font-weight: 600; color: var(--text-tertiary);
-  letter-spacing: 0.1em; text-transform: uppercase;
-  margin-bottom: 10px;
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px;
 }
 
-.detail-notes {
-  font-size: 13px; color: var(--text-secondary); line-height: 1.7;
-}
+.detail-notes { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
 
-/* Timeline */
 .timeline { display: flex; flex-direction: column; }
-
 .timeline-item { display: flex; gap: 14px; position: relative; }
 .timeline-track { display: flex; flex-direction: column; align-items: center; }
 
@@ -360,23 +335,12 @@ body {
   box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
 }
 
-.timeline-line {
-  width: 1px; flex: 1;
-  background: var(--border);
-  min-height: 18px;
-}
-
+.timeline-line { width: 1px; flex: 1; background: var(--border); min-height: 18px; }
 .timeline-content { padding-bottom: 14px; }
 .timeline-text { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
-
-.timeline-time {
-  font-size: 10px; color: var(--text-tertiary); margin-top: 2px;
-  font-variant-numeric: tabular-nums;
-}
-
+.timeline-time { font-size: 10px; color: var(--text-tertiary); margin-top: 2px; font-variant-numeric: tabular-nums; }
 .timeline-escalate .timeline-text { color: var(--red); font-weight: 600; }
 
-/* Actions */
 .detail-actions { display: flex; gap: 8px; margin-top: 4px; }
 
 .btn-primary {
@@ -386,7 +350,6 @@ body {
   border: none; cursor: pointer; color: white;
   letter-spacing: 0.02em; transition: opacity 0.15s;
 }
-
 .btn-primary:hover { opacity: 0.9; }
 .btn-primary.navy { background: var(--navy); }
 .btn-primary.green-btn { background: var(--green); }
@@ -395,30 +358,95 @@ body {
   font-family: 'Inter', sans-serif;
   font-size: 12px; font-weight: 600;
   padding: 11px 20px; border-radius: 6px;
-  border: 1px solid var(--navy);
-  cursor: pointer; background: var(--white);
-  color: var(--navy); letter-spacing: 0.02em;
-  transition: background 0.15s, color 0.15s;
+  border: 1px solid var(--navy); cursor: pointer;
+  background: var(--white); color: var(--navy);
+  letter-spacing: 0.02em; transition: background 0.15s, color 0.15s;
+}
+.btn-secondary:hover { background: var(--navy); color: var(--white); }
+
+/* ── Post Log View ── */
+.post-log-panel {
+  flex: 1; overflow-y: auto;
+  padding: 28px 40px; background: var(--bg);
 }
 
-.btn-secondary:hover { background: var(--navy); color: var(--white); }
+.post-log-table {
+  width: 100%; border-collapse: collapse;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.post-log-table thead th {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-tertiary);
+  text-align: left;
+  padding: 14px 18px;
+  border-bottom: 1.5px solid var(--border);
+  background: var(--bg);
+}
+
+.post-log-table tbody td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+  font-size: 13px; color: var(--text);
+}
+
+.post-log-table tbody tr:last-child td { border-bottom: none; }
+.post-log-table tbody tr:hover { background: var(--navy-faint); }
+
+.post-text-cell {
+  max-width: 400px;
+  font-size: 12px; color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.guardrail-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+
+.guardrail-tag {
+  font-size: 9px; font-weight: 600;
+  padding: 2px 8px; border-radius: 4px;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  background: var(--green-bg); color: var(--green);
+  border: 1px solid var(--green-border);
+}
+
+.status-posted {
+  font-size: 10px; font-weight: 600;
+  color: var(--green); text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.status-dryrun {
+  font-size: 10px; font-weight: 600;
+  color: var(--yellow); text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
 
 /* Scrollbar */
 .lead-scroll::-webkit-scrollbar,
-.detail-panel::-webkit-scrollbar { width: 4px; }
+.detail-panel::-webkit-scrollbar,
+.post-log-panel::-webkit-scrollbar { width: 4px; }
 .lead-scroll::-webkit-scrollbar-track,
-.detail-panel::-webkit-scrollbar-track { background: transparent; }
+.detail-panel::-webkit-scrollbar-track,
+.post-log-panel::-webkit-scrollbar-track { background: transparent; }
 .lead-scroll::-webkit-scrollbar-thumb,
-.detail-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.detail-panel::-webkit-scrollbar-thumb,
+.post-log-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
 @media (max-width: 900px) {
   .kpi-strip { grid-template-columns: repeat(2, 1fr); padding: 16px 20px; }
   .masthead { padding: 20px 20px 16px; }
-  .main { flex-direction: column; }
+  .view-panel.active { flex-direction: column; }
   .lead-list-panel { width: 100%; max-height: 40vh; border-right: none; border-bottom: 1px solid var(--border); }
   .detail-panel { padding: 20px; }
   .detail-stats { grid-template-columns: 1fr; }
   .masthead-pill { display: none; }
+  .post-log-panel { padding: 16px 20px; }
 }
 </style>
 </head>
@@ -428,9 +456,10 @@ body {
   <div class="masthead-left">
     <div class="firm-name">Cybersphere</div>
     <div class="masthead-title">Lead Pipeline</div>
-    <div class="masthead-sub">Outreach, follow-up, and closing across all verticals</div>
+    <div class="masthead-sub">Live CRM — auto-refreshes every 30 seconds from data.json</div>
   </div>
   <div class="masthead-right">
+    <div class="refresh-badge" id="refreshBadge"><div class="refresh-dot"></div> Synced just now</div>
     <div class="masthead-pill">AI Receptionist: +1 (325) 240-6238</div>
     <div class="masthead-live"><div class="live-dot"></div> Live</div>
   </div>
@@ -438,32 +467,49 @@ body {
 
 <div class="kpi-strip" id="kpiStrip"></div>
 
+<div class="view-tabs">
+  <button class="view-tab active" data-view="leads">Leads</button>
+  <button class="view-tab" data-view="postlog">Post Log</button>
+</div>
+
 <div class="main">
-  <div class="lead-list-panel">
-    <div class="stage-tabs" id="stageTabs"></div>
-    <div class="lead-scroll" id="leadScroll"></div>
+  <!-- Leads View -->
+  <div class="view-panel active" id="leadsView">
+    <div class="lead-list-panel">
+      <div class="stage-tabs" id="stageTabs"></div>
+      <div class="lead-scroll" id="leadScroll"></div>
+    </div>
+    <div class="detail-panel" id="detailPanel">
+      <div class="detail-empty">Select a lead to view details</div>
+    </div>
   </div>
-  <div class="detail-panel" id="detailPanel">
-    <div class="detail-empty">Select a lead to view details</div>
+
+  <!-- Post Log View -->
+  <div class="view-panel" id="postlogView">
+    <div class="post-log-panel" id="postLogPanel"></div>
   </div>
 </div>
 
 <script>
-const leads = [
-  { id:1, name:"Dr. Michael Torres", biz:"Torres Dental Group", vertical:"dental", stage:"outreach", source:"Dental Practice Owners USA", phone:"(415) 882-9001", call_status:"Called receptionist", notes:"Asked about pricing after calling +1 (325) 240-6238. Said \u2018that thing is scary good.\u2019", timeline:[{color:"#1A3A6B",text:"Posted to Dental Practice Owners USA",time:"9:14 AM"},{color:"#B7791F",text:"Commented: \u2018what is this?\u2019",time:"10:02 AM"},{color:"#B7791F",text:"Called AI receptionist +1 (325) 240-6238",time:"10:15 AM"},{color:"#2D6A4F",text:"DM sent: intro + booking link",time:"10:16 AM"}], value:"$2,400/mo" },
-  { id:2, name:"Sarah Chen", biz:"Chen & Patel Law Firm", vertical:"legal", stage:"outreach", source:"Personal Injury Industry", phone:"(212) 774-3322", call_status:"No call yet", notes:"Commented \u2018interested, DM me.\u2019 First response sent.", timeline:[{color:"#1A3A6B",text:"Posted to Personal Injury Industry",time:"7:31 AM"},{color:"#B7791F",text:"Commented: \u2018interested, DM me\u2019",time:"9:45 AM"},{color:"#2D6A4F",text:"First-response DM sent",time:"9:46 AM"}], value:"$3,200/mo" },
-  { id:3, name:"Marcus Williams", biz:"MW Properties LLC", vertical:"real estate", stage:"outreach", source:"Multi Family Properties For Sale", phone:"(347) 901-4455", call_status:"Called receptionist", notes:"Manages 12 units. Said he misses 40% of tenant calls after 6pm.", timeline:[{color:"#1A3A6B",text:"Posted to Multi Family Properties For Sale",time:"7:08 AM"},{color:"#B7791F",text:"Called AI receptionist",time:"8:22 AM"},{color:"#2D6A4F",text:"Follow-up DM sent with RE angle",time:"8:36 AM"}], value:"$1,800/mo" },
-  { id:4, name:"James Okafor", biz:"Okafor HVAC Services", vertical:"hvac", stage:"outreach", source:"HVAC Business Owners", phone:"(713) 558-2910", call_status:"No call yet", notes:"Replied to post saying he loses jobs every day while on sites.", timeline:[{color:"#1A3A6B",text:"Posted to HVAC Business Owners",time:"8:00 AM"},{color:"#B7791F",text:"Replied: \u2018lose jobs every day on sites\u2019",time:"11:12 AM"},{color:"#2D6A4F",text:"First-response DM sent",time:"11:13 AM"}], value:"$1,500/mo" },
-  { id:5, name:"Lisa Park", biz:"Park Auto Group", vertical:"auto", stage:"outreach", source:"Car Dealers", phone:"(408) 992-3381", call_status:"Called receptionist", notes:"Dealership owner. Tested AI with objections about financing. Impressed.", timeline:[{color:"#1A3A6B",text:"Posted to Car Dealers",time:"7:45 AM"},{color:"#B7791F",text:"Called AI receptionist \u2014 threw objections",time:"9:01 AM"},{color:"#2D6A4F",text:"DM: wants to know pricing",time:"9:14 AM"}], value:"$2,800/mo" },
-  { id:6, name:"Robert Kim", biz:"Kim Dental Associates", vertical:"dental", stage:"outreach", source:"Dental Office Manager Network", phone:"(650) 441-8823", call_status:"Called receptionist", notes:"Office manager. Tested AI in Spanish. Said it handled it perfectly.", timeline:[{color:"#1A3A6B",text:"Posted to Dental Office Manager Network",time:"7:30 AM"},{color:"#B7791F",text:"Called AI receptionist \u2014 tested in Spanish",time:"8:45 AM"},{color:"#2D6A4F",text:"DM sent with dental-specific pitch",time:"8:46 AM"}], value:"$2,400/mo" },
-  { id:7, name:"Amanda Torres", biz:"Torres & Associates PI", vertical:"legal", stage:"followup", source:"Law Firm Owners and Managers", phone:"(305) 774-9932", call_status:"Called receptionist", notes:"Asked about custom intake questions for PI cases. ESCALATE TO TEAM.", timeline:[{color:"#1A3A6B",text:"Posted to Law Firm Owners",time:"Day 1 8AM"},{color:"#B7791F",text:"Called AI receptionist",time:"Day 1 10AM"},{color:"#B7791F",text:"Second touch sent",time:"Day 2 10AM"},{color:"#C0392B",text:"ESCALATE: asked about custom PI intake",time:"Day 2 11AM",escalate:true}], value:"$4,200/mo", escalate:true },
-  { id:8, name:"David Nguyen", biz:"Nguyen Plumbing Co", vertical:"hvac", stage:"followup", source:"Professional Plumbers", phone:"(214) 881-6612", call_status:"Called receptionist", notes:"Runs a 3-truck operation. Misses 15+ calls a day. Booked a demo call.", timeline:[{color:"#1A3A6B",text:"Posted to Professional Plumbers",time:"Day 1 5PM"},{color:"#B7791F",text:"Called AI receptionist",time:"Day 1 6PM"},{color:"#2D6A4F",text:"Booked demo call via AI receptionist",time:"Day 1 6:05PM"}], value:"$1,800/mo" },
-  { id:9, name:"Patricia Moore", biz:"Moore Realty Group", vertical:"real estate", stage:"followup", source:"Real Estate Talks", phone:"(917) 334-5521", call_status:"Called receptionist", notes:"Manages 30+ units across 3 properties. Asked about multi-property setup.", timeline:[{color:"#1A3A6B",text:"Posted to Real Estate Talks",time:"Day 1 12PM"},{color:"#B7791F",text:"Called AI receptionist",time:"Day 1 2PM"},{color:"#C0392B",text:"ESCALATE: multi-location inquiry",time:"Day 1 3:01PM",escalate:true}], value:"$3,600/mo", escalate:true },
-  { id:10, name:"Kevin Walsh", biz:"Walsh Auto Rentals", vertical:"auto", stage:"followup", source:"PRIVATE AUTO RENTALS", phone:"(617) 992-4431", call_status:"Called receptionist", notes:"Rental operator in Boston. Gets calls at 11pm for airport pickups. Very interested.", timeline:[{color:"#1A3A6B",text:"Posted to PRIVATE AUTO RENTALS",time:"Day 1 7AM"},{color:"#B7791F",text:"Called AI receptionist at 11PM simulation",time:"Day 1 8PM"},{color:"#2D6A4F",text:"Second touch sent",time:"Day 2 8AM"}], value:"$2,200/mo" },
-  { id:11, name:"Jennifer Osei", biz:"Osei Dental Spa", vertical:"dental", stage:"closing", source:"Dental Practice Owners USA", phone:"(404) 772-8843", call_status:"Demo call done", notes:"Demo call completed. Ready to sign. Waiting on contract.", timeline:[{color:"#1A3A6B",text:"Original post reply",time:"Day 1"},{color:"#B7791F",text:"Called AI receptionist",time:"Day 1"},{color:"#2D6A4F",text:"Demo call booked via AI",time:"Day 2"},{color:"#2D6A4F",text:"Demo call completed",time:"Day 3"},{color:"#2D6A4F",text:"Contract sent",time:"Day 3"}], value:"$2,400/mo" },
-  { id:12, name:"Thomas Bradley", biz:"Bradley Law Group", vertical:"legal", stage:"closing", source:"National PI Lawyers Association", phone:"(312) 884-7721", call_status:"Contract sent", notes:"PI firm in Chicago. Handles 200+ calls/month. Contract sent, reviewing.", timeline:[{color:"#1A3A6B",text:"Original post reply",time:"Day 1"},{color:"#B7791F",text:"Called AI receptionist x3",time:"Day 1"},{color:"#2D6A4F",text:"Demo call completed",time:"Day 2"},{color:"#2D6A4F",text:"Contract sent \u2014 $3,200/mo",time:"Day 4"}], value:"$3,200/mo" },
-  { id:13, name:"Gonzalo Reyes", biz:"Reyes HVAC & Plumbing", vertical:"hvac", stage:"closing", source:"Plumbing for Business Owners", phone:"(786) 551-3390", call_status:"Verbal yes", notes:"Verbal agreement. $1,500/mo. Contract being drafted.", timeline:[{color:"#1A3A6B",text:"Original post reply",time:"Day 1"},{color:"#B7791F",text:"Called AI receptionist",time:"Day 1"},{color:"#2D6A4F",text:"Demo call completed",time:"Day 3"},{color:"#2D6A4F",text:"Verbal agreement at $1,500/mo",time:"Day 5"}], value:"$1,500/mo" },
+// ── Demo fallback data ──
+const DEMO_LEADS = [
+  { id:"demo_1", name:"Dr. Michael Torres", biz:"Torres Dental Group", vertical:"dental", stage:"outreach", source:"Dental Practice Owners USA", phone:"(415) 882-9001", callStatus:"Called receptionist", notes:"Asked about pricing after calling +1 (325) 240-6238. Said \u2018that thing is scary good.\u2019", timeline:[{color:"#1A3A6B",text:"Posted to Dental Practice Owners USA",time:"9:14 AM"},{color:"#B7791F",text:"Commented: \u2018what is this?\u2019",time:"10:02 AM"},{color:"#B7791F",text:"Called AI receptionist",time:"10:15 AM"},{color:"#2D6A4F",text:"DM sent: intro + booking link",time:"10:16 AM"}], value:"$2,400/mo" },
+  { id:"demo_2", name:"Sarah Chen", biz:"Chen & Patel Law Firm", vertical:"legal", stage:"outreach", source:"Personal Injury Industry", phone:"(212) 774-3322", callStatus:"No call yet", notes:"Commented \u2018interested, DM me.\u2019 First response sent.", timeline:[{color:"#1A3A6B",text:"Posted to Personal Injury Industry",time:"7:31 AM"},{color:"#B7791F",text:"Commented: \u2018interested, DM me\u2019",time:"9:45 AM"},{color:"#2D6A4F",text:"First-response DM sent",time:"9:46 AM"}], value:"$3,200/mo" },
+  { id:"demo_3", name:"Marcus Williams", biz:"MW Properties LLC", vertical:"real estate", stage:"outreach", source:"Multi Family Properties For Sale", phone:"(347) 901-4455", callStatus:"Called receptionist", notes:"Manages 12 units. Said he misses 40% of tenant calls after 6pm.", timeline:[{color:"#1A3A6B",text:"Posted to Multi Family Properties For Sale",time:"7:08 AM"},{color:"#B7791F",text:"Called AI receptionist",time:"8:22 AM"},{color:"#2D6A4F",text:"Follow-up DM sent with RE angle",time:"8:36 AM"}], value:"$1,800/mo" },
+  { id:"demo_4", name:"Amanda Torres", biz:"Torres & Associates PI", vertical:"legal", stage:"followup", source:"Law Firm Owners and Managers", phone:"(305) 774-9932", callStatus:"Called receptionist", notes:"Asked about custom intake questions for PI cases. ESCALATE TO TEAM.", timeline:[{color:"#1A3A6B",text:"Posted to Law Firm Owners",time:"Day 1 8AM"},{color:"#B7791F",text:"Called AI receptionist",time:"Day 1 10AM"},{color:"#C0392B",text:"ESCALATE: custom PI intake",time:"Day 2 11AM",escalate:true}], value:"$4,200/mo", escalate:true },
+  { id:"demo_5", name:"David Nguyen", biz:"Nguyen Plumbing Co", vertical:"hvac", stage:"followup", source:"Professional Plumbers", phone:"(214) 881-6612", callStatus:"Called receptionist", notes:"Runs a 3-truck operation. Misses 15+ calls a day. Booked a demo call.", timeline:[{color:"#1A3A6B",text:"Posted to Professional Plumbers",time:"Day 1 5PM"},{color:"#B7791F",text:"Called AI receptionist",time:"Day 1 6PM"},{color:"#2D6A4F",text:"Booked demo call via AI",time:"Day 1 6:05PM"}], value:"$1,800/mo" },
+  { id:"demo_6", name:"Jennifer Osei", biz:"Osei Dental Spa", vertical:"dental", stage:"closing", source:"Dental Practice Owners USA", phone:"(404) 772-8843", callStatus:"Demo call done", notes:"Demo call completed. Ready to sign. Waiting on contract.", timeline:[{color:"#1A3A6B",text:"Original post reply",time:"Day 1"},{color:"#B7791F",text:"Called AI receptionist",time:"Day 1"},{color:"#2D6A4F",text:"Demo call completed",time:"Day 3"},{color:"#2D6A4F",text:"Contract sent",time:"Day 3"}], value:"$2,400/mo" },
+  { id:"demo_7", name:"Thomas Bradley", biz:"Bradley Law Group", vertical:"legal", stage:"closing", source:"National PI Lawyers Association", phone:"(312) 884-7721", callStatus:"Contract sent", notes:"PI firm in Chicago. Handles 200+ calls/month. Contract sent, reviewing.", timeline:[{color:"#1A3A6B",text:"Original post reply",time:"Day 1"},{color:"#B7791F",text:"Called AI receptionist x3",time:"Day 1"},{color:"#2D6A4F",text:"Demo call completed",time:"Day 2"},{color:"#2D6A4F",text:"Contract sent \u2014 $3,200/mo",time:"Day 4"}], value:"$3,200/mo" },
 ];
+
+const DEMO_META = { weeklyPosts: 3, totalLeads: 7, callsToReceptionist: 5, pipelineValue: 11600 };
+
+// ── State ──
+let crmData = { meta: DEMO_META, leads: DEMO_LEADS, postLog: [] };
+let selectedId = null;
+let activeStage = "all";
+let activeView = "leads";
+let lastFetchTime = null;
 
 const verticalColors = {
   dental:        { color: "#1A3A6B", bg: "rgba(26,58,107,0.06)", border: "rgba(26,58,107,0.15)" },
@@ -471,6 +517,7 @@ const verticalColors = {
   "real estate": { color: "#2D6A4F", bg: "rgba(45,106,79,0.06)", border: "rgba(45,106,79,0.15)" },
   auto:          { color: "#92400E", bg: "rgba(146,64,14,0.06)", border: "rgba(146,64,14,0.15)" },
   hvac:          { color: "#9A3412", bg: "rgba(154,52,18,0.06)", border: "rgba(154,52,18,0.15)" },
+  general:       { color: "#4A5568", bg: "rgba(74,85,104,0.06)", border: "rgba(74,85,104,0.15)" },
 };
 
 const stageConfig = {
@@ -479,21 +526,78 @@ const stageConfig = {
   closing:  { label: "Closing / booked", color: "#2D6A4F" },
 };
 
-let selectedId = 1;
-let activeStage = "all";
-
 function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
-function parseValue(v) { return parseInt(v.replace(/[$,\/mo]/g, ""), 10) || 0; }
+function parseValue(v) { return parseInt((v||"0").replace(/[$,\/mo\s]/g, ""), 10) || 0; }
 
+function timeAgo(iso) {
+  const diff = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return mins + "m ago";
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return hrs + "h ago";
+  const days = Math.floor(hrs / 24);
+  return days + "d ago";
+}
+
+// ── Fetch data.json ──
+async function fetchData() {
+  try {
+    const res = await fetch("data.json?_=" + Date.now());
+    if (!res.ok) throw new Error("No data.json");
+    const data = await res.json();
+    // Merge: use live data if it has leads, else keep demo
+    if (data.leads && data.leads.length > 0) {
+      crmData.leads = data.leads;
+    } else {
+      crmData.leads = DEMO_LEADS;
+    }
+    crmData.postLog = data.postLog || [];
+    crmData.meta = data.meta || DEMO_META;
+    // Recalculate if meta doesn't have totalLeads
+    if (!crmData.meta.totalLeads) crmData.meta.totalLeads = crmData.leads.length;
+    lastFetchTime = new Date();
+    document.getElementById("refreshBadge").innerHTML =
+      '<div class="refresh-dot"></div> Synced ' + timeAgo(lastFetchTime.toISOString());
+  } catch (e) {
+    // Use demo data — no data.json yet
+    lastFetchTime = new Date();
+  }
+  renderAll();
+}
+
+function renderAll() {
+  renderKPIs();
+  renderTabs();
+  renderLeadList();
+  renderDetail();
+  renderPostLog();
+}
+
+// ── View Tabs ──
+document.querySelectorAll(".view-tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".view-tab").forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    activeView = tab.dataset.view;
+    document.querySelectorAll(".view-panel").forEach(p => p.classList.remove("active"));
+    document.getElementById(activeView + "View").classList.add("active");
+  });
+});
+
+// ── KPIs ──
 function renderKPIs() {
+  const m = crmData.meta;
+  const leads = crmData.leads;
   const pipeline = leads
     .filter(l => l.stage === "closing" || l.stage === "followup")
     .reduce((s, l) => s + parseValue(l.value), 0);
   const stats = [
-    { label: "Posts this week", value: "47", sub: "across 12 groups" },
-    { label: "Leads in pipeline", value: String(leads.length), sub: "3 stages active" },
-    { label: "Calls to receptionist", value: "9", sub: "this week" },
-    { label: "Pipeline value", value: "$" + pipeline.toLocaleString() + "/mo", sub: "follow-up + closing" },
+    { label: "Posts this week", value: String(m.weeklyPosts || 0), sub: "from post log" },
+    { label: "Leads in pipeline", value: String(leads.length), sub: "all stages" },
+    { label: "Calls to receptionist", value: String(m.callsToReceptionist || leads.filter(l => l.callStatus !== "No call yet").length), sub: "this week" },
+    { label: "Pipeline value", value: "$" + (pipeline || m.pipelineValue || 0).toLocaleString() + "/mo", sub: "follow-up + closing" },
+    { label: "Post log entries", value: String((crmData.postLog || []).length), sub: "all time" },
   ];
   document.getElementById("kpiStrip").innerHTML = stats.map(s => `
     <div class="kpi-mini">
@@ -503,7 +607,9 @@ function renderKPIs() {
     </div>`).join("");
 }
 
+// ── Stage Tabs ──
 function renderTabs() {
+  const leads = crmData.leads;
   const tabs = ["all", "outreach", "followup", "closing"];
   document.getElementById("stageTabs").innerHTML = tabs.map(s => {
     const count = s === "all" ? leads.length : leads.filter(l => l.stage === s).length;
@@ -515,44 +621,53 @@ function renderTabs() {
   });
 }
 
+// ── Lead List ──
 function renderLeadList() {
+  const leads = crmData.leads;
   const filtered = activeStage === "all" ? leads : leads.filter(l => l.stage === activeStage);
   let html = "";
-  ["outreach", "followup", "closing"].forEach(stage => {
-    const sl = filtered.filter(l => l.stage === stage);
-    if (!sl.length) return;
-    const cfg = stageConfig[stage];
-    html += `<div class="stage-group-label" style="color:${cfg.color}"><div class="stage-dot" style="background:${cfg.color}"></div>${esc(cfg.label)}</div>`;
-    sl.forEach(lead => {
-      const vc = verticalColors[lead.vertical] || verticalColors.dental;
-      const sel = selectedId === lead.id;
-      html += `<div class="lead-card ${sel ? "selected" : ""}" data-id="${lead.id}">
-        <div class="lead-card-top">
-          <span class="lead-name">${esc(lead.name)}</span>
-          ${lead.escalate ? '<span class="badge-escalate">ESCALATE</span>' : ""}
-        </div>
-        <div class="lead-biz">${esc(lead.biz)}</div>
-        <div class="lead-card-bottom">
-          <span class="vertical-tag" style="background:${vc.bg};color:${vc.color};border-color:${vc.border}">${esc(lead.vertical)}</span>
-          <span class="lead-value">${esc(lead.value)}</span>
-        </div>
-      </div>`;
+  if (filtered.length === 0) {
+    html = '<div style="padding:40px 20px;text-align:center;color:var(--text-tertiary);font-size:13px">No leads yet. Cowork will populate this when leads come in.</div>';
+  } else {
+    ["outreach", "followup", "closing"].forEach(stage => {
+      const sl = filtered.filter(l => l.stage === stage);
+      if (!sl.length) return;
+      const cfg = stageConfig[stage];
+      html += `<div class="stage-group-label" style="color:${cfg.color}"><div class="stage-dot" style="background:${cfg.color}"></div>${esc(cfg.label)}</div>`;
+      sl.forEach(lead => {
+        const vc = verticalColors[lead.vertical] || verticalColors.general;
+        const sel = selectedId === lead.id;
+        html += `<div class="lead-card ${sel ? "selected" : ""}" data-id="${esc(lead.id)}">
+          <div class="lead-card-top">
+            <span class="lead-name">${esc(lead.name)}</span>
+            ${lead.escalate ? '<span class="badge-escalate">ESCALATE</span>' : ""}
+          </div>
+          <div class="lead-biz">${esc(lead.biz)}</div>
+          <div class="lead-card-bottom">
+            <span class="vertical-tag" style="background:${vc.bg};color:${vc.color};border-color:${vc.border}">${esc(lead.vertical)}</span>
+            <span class="lead-value">${esc(lead.value)}</span>
+          </div>
+        </div>`;
+      });
     });
-  });
+  }
   document.getElementById("leadScroll").innerHTML = html;
   document.querySelectorAll(".lead-card").forEach(c => {
-    c.addEventListener("click", () => { selectedId = parseInt(c.dataset.id, 10); renderLeadList(); renderDetail(); });
+    c.addEventListener("click", () => { selectedId = c.dataset.id; renderLeadList(); renderDetail(); });
   });
 }
 
+// ── Detail Panel ──
 function renderDetail() {
-  const lead = leads.find(l => l.id === selectedId);
+  const lead = crmData.leads.find(l => l.id === selectedId);
   const panel = document.getElementById("detailPanel");
   if (!lead) { panel.innerHTML = '<div class="detail-empty">Select a lead to view details</div>'; return; }
   const initials = lead.name.split(" ").map(n => n[0]).join("").slice(0, 2);
   const btnLabel = lead.stage === "closing" ? "Mark closed won" : lead.stage === "followup" ? "Send second touch" : "Send follow-up DM";
   const btnClass = lead.stage === "closing" ? "green-btn" : "navy";
-  const tl = lead.timeline.map((t, i) => `
+  const callStatus = lead.callStatus || lead.call_status || "Unknown";
+
+  const tl = (lead.timeline || []).map((t, i) => `
     <div class="timeline-item ${t.escalate ? "timeline-escalate" : ""}">
       <div class="timeline-track">
         <div class="timeline-dot" style="background:${t.color}"></div>
@@ -579,7 +694,7 @@ function renderDetail() {
       <div class="detail-source">from ${esc(lead.source)}</div>
     </div>
     <div class="detail-stats">
-      ${[{l:"Pipeline value",v:lead.value},{l:"Phone",v:lead.phone},{l:"Call status",v:lead.call_status}].map(s => `
+      ${[{l:"Pipeline value",v:lead.value},{l:"Phone",v:lead.phone||"\u2014"},{l:"Call status",v:callStatus}].map(s => `
         <div class="detail-stat">
           <div class="detail-stat-label">${esc(s.l)}</div>
           <div class="detail-stat-value">${esc(s.v)}</div>
@@ -591,7 +706,7 @@ function renderDetail() {
     </div>
     <div class="detail-card">
       <div class="detail-card-label">Activity timeline</div>
-      <div class="timeline">${tl}</div>
+      <div class="timeline">${tl || '<div style="font-size:12px;color:var(--text-tertiary)">No activity yet</div>'}</div>
     </div>
     <div class="detail-actions">
       <button class="btn-primary ${btnClass}">${esc(btnLabel)}</button>
@@ -600,10 +715,56 @@ function renderDetail() {
     </div>`;
 }
 
-renderKPIs();
-renderTabs();
-renderLeadList();
-renderDetail();
+// ── Post Log ──
+function renderPostLog() {
+  const posts = crmData.postLog || [];
+  if (posts.length === 0) {
+    document.getElementById("postLogPanel").innerHTML = `
+      <div style="text-align:center;padding:60px 20px;color:var(--text-tertiary)">
+        <div style="font-size:14px;font-weight:600;margin-bottom:8px">No posts logged yet</div>
+        <div style="font-size:12px">When Cowork posts to Facebook groups, each post will appear here with full guardrail audit.</div>
+      </div>`;
+    return;
+  }
+
+  let rows = posts.map(p => {
+    const status = p.status === "posted"
+      ? '<span class="status-posted">Posted</span>'
+      : '<span class="status-dryrun">Dry Run</span>';
+    const guardrails = (p.guardrailsPassed || []).map(g =>
+      `<span class="guardrail-tag">${esc(g)}</span>`
+    ).join("");
+    const ts = p.timestamp ? new Date(p.timestamp).toLocaleString() : "\u2014";
+    const vc = verticalColors[p.vertical] || verticalColors.general;
+
+    return `<tr>
+      <td style="white-space:nowrap;font-size:12px;color:var(--text-tertiary)">${esc(ts)}</td>
+      <td>
+        <div style="font-size:13px;font-weight:600">${esc(p.group)}</div>
+        <span class="vertical-tag" style="background:${vc.bg};color:${vc.color};border-color:${vc.border};font-size:9px;margin-top:4px;display:inline-block">${esc(p.vertical)}</span>
+      </td>
+      <td class="post-text-cell">${esc((p.postText || "").substring(0, 150))}${(p.postText||"").length > 150 ? "..." : ""}</td>
+      <td>${status}</td>
+      <td><div class="guardrail-tags">${guardrails}</div></td>
+    </tr>`;
+  }).join("");
+
+  document.getElementById("postLogPanel").innerHTML = `
+    <table class="post-log-table">
+      <thead><tr>
+        <th>Time</th>
+        <th>Group</th>
+        <th>Post text</th>
+        <th>Status</th>
+        <th>Guardrails</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+// ── Init + auto-refresh ──
+fetchData();
+setInterval(fetchData, 30000);
 </script>
 </body>
 </html>
