@@ -1,8 +1,8 @@
 {
   "meta": {
-    "lastUpdated": "2026-03-29T00:00:00Z",
+    "lastUpdated": "2026-03-29T16:00:00Z",
     "weeklyPosts": 3,
-    "totalLeads": 0,
+    "totalLeads": 1,
     "callsToReceptionist": 0,
     "pipelineValue": 0
   },
@@ -15,7 +15,12 @@
       "postText": "Quick question for dental practice owners \u2014 how many new patient calls are you missing after 5pm and on weekends? Most practices lose 30-40% of inbound calls to voicemail. We built an AI receptionist that answers every call 24/7, sounds completely human, and books patients directly on your calendar. Call it right now: +1 (325) 240-6238",
       "status": "posted",
       "similarityScore": 0,
-      "guardrailsPassed": ["dry_run", "similarity", "rate_limit", "compliance"]
+      "guardrailsPassed": [
+        "dry_run",
+        "similarity",
+        "rate_limit",
+        "compliance"
+      ]
     },
     {
       "id": "post_002",
@@ -25,7 +30,12 @@
       "postText": "PI attorneys \u2014 what happens when someone gets in an accident at 9pm on a Friday and calls your firm? If they hit voicemail, they call the next firm on Google. We built an AI receptionist that picks up every call 24/7, qualifies the lead, and books a consult. Call it: +1 (325) 240-6238",
       "status": "posted",
       "similarityScore": 0,
-      "guardrailsPassed": ["dry_run", "similarity", "rate_limit", "compliance"]
+      "guardrailsPassed": [
+        "dry_run",
+        "similarity",
+        "rate_limit",
+        "compliance"
+      ]
     },
     {
       "id": "post_003",
@@ -35,8 +45,35 @@
       "postText": "Property managers and multifamily investors \u2014 how many leasing inquiries are you missing after hours? Every missed call is a vacancy that stays empty longer. We set up an AI receptionist that answers 24/7, schedules showings, and logs maintenance requests. Test it: +1 (325) 240-6238",
       "status": "posted",
       "similarityScore": 0,
-      "guardrailsPassed": ["dry_run", "similarity", "rate_limit", "compliance"]
+      "guardrailsPassed": [
+        "dry_run",
+        "similarity",
+        "rate_limit",
+        "compliance"
+      ]
     }
   ],
-  "leads": []
+  "leads": [
+    {
+      "id": "lead_test_001",
+      "createdAt": "2026-03-29T16:00:00Z",
+      "name": "Dr. Test Lead",
+      "biz": "Test Dental Group",
+      "vertical": "dental",
+      "stage": "outreach",
+      "source": "Dental Practice Owners USA",
+      "phone": "(555) 000-0000",
+      "value": "$2,400/mo",
+      "callStatus": "No call yet",
+      "escalate": false,
+      "notes": "TEST LEAD - pushed via GitHub API to prove Cowork integration works end-to-end.",
+      "timeline": [
+        {
+          "color": "#1A3A6B",
+          "text": "Lead created via GitHub API (integration test)",
+          "time": "2026-03-29 4:00 PM"
+        }
+      ]
+    }
+  ]
 }
