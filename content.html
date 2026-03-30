@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cybersphere — Content Flywheel Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FAFAFA;
+  --white: #FFFFFF;
+  --text: #1A1A1A;
+  --text-secondary: #4A5568;
+  --text-tertiary: #8B95A5;
+  --navy: #0D2545;
+  --navy-light: #1A3A6B;
+  --navy-faint: rgba(13,37,69,0.04);
+  --navy-border: rgba(13,37,69,0.08);
+  --border: #E5E7EB;
+  --border-light: #F0F1F3;
+  --green: #2D6A4F;
+  --green-bg: rgba(45,106,79,0.06);
+  --green-border: rgba(45,106,79,0.15);
+  --yellow: #B7791F;
+  --yellow-bg: rgba(183,121,31,0.06);
+  --yellow-border: rgba(183,121,31,0.15);
+  --red: #C0392B;
+  --red-bg: rgba(192,57,43,0.06);
+  --red-border: rgba(192,57,43,0.15);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+}
+
+html { font-size: 15px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* -- Page Frame -- */
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 48px 56px 80px;
+}
+
+/* -- Masthead -- */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 32px;
+  margin-bottom: 40px;
+  border-bottom: 2px solid var(--navy);
+}
+
+.masthead-left { display: flex; flex-direction: column; gap: 6px; }
+
+.firm-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.masthead-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.masthead-sub {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.masthead-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.report-date {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+/* -- Tabs -- */
+.tab-bar {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.tab-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  border-right: 1px solid var(--border);
+  letter-spacing: 0.01em;
+}
+
+.tab-btn:last-child { border-right: none; }
+
+.tab-btn.active {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.tab-btn:hover:not(.active) { background: var(--navy-faint); }
+
+/* -- Section Headers -- */
+.section {
+  margin-bottom: 48px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.section-subtitle {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+/* -- KPI Cards -- */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.kpi-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px 28px 22px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.kpi-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.kpi-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.kpi-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 3px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.kpi-status.green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+.kpi-status.yellow { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
+.kpi-status.red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+.kpi-status.neutral { background: var(--navy-faint); color: var(--text-tertiary); border: 1px solid var(--border); }
+
+.kpi-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.kpi-value {
+  font-family: 'Inter', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.kpi-detail {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+/* -- Panel -- */
+.panel {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px 28px;
+  box-shadow: var(--shadow);
+}
+
+.panel-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+}
+
+/* -- Tables -- */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table thead th {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  text-align: left;
+  padding: 0 8px 12px;
+  border-bottom: 1.5px solid var(--border);
+}
+
+.data-table tbody td {
+  padding: 14px 8px;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: middle;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+.data-table tbody tr:last-child td { border-bottom: none; }
+
+.data-table thead th:first-child { padding-left: 0; }
+.data-table tbody td:first-child { padding-left: 0; }
+
+.asset-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 3px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.status-badge.green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+.status-badge.yellow { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
+.status-badge.neutral { background: var(--navy-faint); color: var(--text-tertiary); border: 1px solid var(--border); }
+
+/* -- Multiplication Visual -- */
+.multiplication-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 32px 0;
+  margin-bottom: 24px;
+}
+
+.flow-box {
+  background: var(--navy-faint);
+  border: 1px solid var(--navy-border);
+  border-radius: 8px;
+  padding: 20px 28px;
+  text-align: center;
+}
+
+.flow-box-number {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.flow-box-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+.flow-arrow {
+  font-size: 24px;
+  color: var(--text-tertiary);
+  font-weight: 300;
+}
+
+.flow-operator {
+  font-size: 20px;
+  color: var(--text-tertiary);
+  font-weight: 700;
+}
+
+.flow-result {
+  background: var(--green-bg);
+  border: 1px solid var(--green-border);
+}
+
+.flow-result .flow-box-number { color: var(--green); }
+
+/* Multiplication grid */
+.mult-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mult-table thead th {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  text-align: center;
+  padding: 0 6px 10px;
+  border-bottom: 1.5px solid var(--border);
+}
+
+.mult-table thead th:first-child { text-align: left; padding-left: 0; }
+
+.mult-table tbody td {
+  padding: 10px 6px;
+  border-bottom: 1px solid var(--border-light);
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.mult-table tbody td:first-child {
+  text-align: left;
+  padding-left: 0;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 12.5px;
+}
+
+.mult-table tbody td:last-child {
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.mult-table tfoot td {
+  padding: 12px 6px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--navy);
+  border-top: 2px solid var(--navy);
+}
+
+.mult-table tfoot td:first-child {
+  text-align: left;
+  padding-left: 0;
+}
+
+/* -- Platform Cards -- */
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.platform-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.platform-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.platform-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.platform-cadence {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: 4px;
+}
+
+.platform-posted {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* -- Meme Cards -- */
+.meme-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.meme-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.meme-format {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+
+.meme-concept {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.55;
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+
+.meme-vs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.meme-vs-item {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+.meme-vs-item.reject {
+  background: var(--red-bg);
+  border: 1px solid var(--red-border);
+}
+
+.meme-vs-item.accept {
+  background: var(--green-bg);
+  border: 1px solid var(--green-border);
+}
+
+.meme-vs-item.neutral-meme {
+  background: var(--navy-faint);
+  border: 1px solid var(--navy-border);
+}
+
+.meme-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.meme-reach {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+/* -- Flywheel Visual -- */
+.flywheel-loop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 28px 0;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.flywheel-step {
+  background: var(--navy);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 10px 20px;
+  border-radius: 6px;
+}
+
+.flywheel-arrow {
+  font-size: 18px;
+  color: var(--text-tertiary);
+}
+
+.flywheel-step.highlight {
+  background: var(--green);
+}
+
+.mirror-event {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 18px 24px;
+  margin-bottom: 12px;
+}
+
+.mirror-event:last-child { margin-bottom: 0; }
+
+.mirror-trigger {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.mirror-output {
+  font-size: 12px;
+  color: var(--green);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.mirror-arrow {
+  color: var(--text-tertiary);
+  margin: 0 4px;
+}
+
+/* -- Cachet Table -- */
+.cachet-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cachet-table thead th {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  text-align: left;
+  padding: 0 8px 12px;
+  border-bottom: 1.5px solid var(--border);
+}
+
+.cachet-table tbody td {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: middle;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+.cachet-table tbody td:first-child {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.cachet-table thead th:first-child { padding-left: 0; }
+.cachet-table tbody td:first-child { padding-left: 0; }
+.cachet-table tbody tr:last-child td { border-bottom: none; }
+
+.cachet-type {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 4px;
+  letter-spacing: 0.01em;
+  background: var(--navy-faint);
+  color: var(--text-tertiary);
+  border: 1px solid var(--border);
+}
+
+.cachet-count {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--navy);
+}
+
+/* -- Tab content -- */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* -- Footer -- */
+.footer {
+  margin-top: 56px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.footer-right {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+}
+
+/* -- Responsive -- */
+@media (max-width: 960px) {
+  .page { padding: 32px 28px 60px; }
+  .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+  .platform-grid { grid-template-columns: repeat(2, 1fr); }
+  .meme-grid { grid-template-columns: repeat(2, 1fr); }
+  .masthead-title { font-size: 28px; }
+}
+
+@media (max-width: 640px) {
+  .page { padding: 20px 16px 40px; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .platform-grid { grid-template-columns: 1fr; }
+  .meme-grid { grid-template-columns: 1fr; }
+  .masthead { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .masthead-right { align-items: flex-start; }
+  .masthead-title { font-size: 24px; }
+  .tab-bar { flex-wrap: wrap; }
+  .multiplication-flow { flex-wrap: wrap; gap: 12px; }
+  .mult-table { font-size: 11px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-left">
+      <div class="firm-name">Cybersphere</div>
+      <div class="masthead-title">Content Flywheel</div>
+      <div class="masthead-sub">Organic content engine &mdash; aura farming across 9 platforms</div>
+    </div>
+    <div class="masthead-right">
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="queue">Content Queue</button>
+        <button class="tab-btn" data-tab="casestudies">Case Studies</button>
+        <button class="tab-btn" data-tab="performance">Performance</button>
+        <button class="tab-btn" data-tab="memeengine">Meme Engine</button>
+      </div>
+      <div class="report-date" id="reportDate"></div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: KPI STRIP -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Content Engine &mdash; Key Metrics</div>
+      <div class="section-subtitle">Rolling 7-day snapshot</div>
+    </div>
+    <div class="kpi-grid">
+
+      <div class="kpi-card">
+        <div class="kpi-card-top">
+          <div class="kpi-label">Total Assets in Queue</div>
+          <div class="kpi-status green"><div class="kpi-status-dot"></div>Healthy</div>
+        </div>
+        <div class="kpi-value">147</div>
+        <div class="kpi-detail">Across all formats and platforms</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-card-top">
+          <div class="kpi-label">Posts This Week</div>
+          <div class="kpi-status green"><div class="kpi-status-dot"></div>On Track</div>
+        </div>
+        <div class="kpi-value">23</div>
+        <div class="kpi-detail">Across 6 platforms</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-card-top">
+          <div class="kpi-label">Winners (Top 10%)</div>
+          <div class="kpi-status green"><div class="kpi-status-dot"></div>Strong</div>
+        </div>
+        <div class="kpi-value">4</div>
+        <div class="kpi-detail">Posts exceeding 2x avg engagement</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-card-top">
+          <div class="kpi-label">Pending Neetish Review</div>
+          <div class="kpi-status yellow"><div class="kpi-status-dot"></div>Needs Review</div>
+        </div>
+        <div class="kpi-value">8</div>
+        <div class="kpi-detail">Awaiting founder approval</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-card-top">
+          <div class="kpi-label">Content Velocity</div>
+          <div class="kpi-status green"><div class="kpi-status-dot"></div>On Pace</div>
+        </div>
+        <div class="kpi-value">3.2</div>
+        <div class="kpi-detail">Posts per day (7-day avg)</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAB: CONTENT QUEUE (default active) -->
+  <div class="tab-content active" id="tab-queue">
+
+    <!-- SECTION 2: CONTENT QUEUE TABLE -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Content Queue</div>
+        <div class="section-subtitle">10 upcoming assets across formats and platforms</div>
+      </div>
+      <div class="panel">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Asset Title</th>
+              <th>Angle</th>
+              <th>Format</th>
+              <th>Platform</th>
+              <th>Cachet Used</th>
+              <th>Status</th>
+              <th>Scheduled</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="asset-title">How we built Paris Law's AI intake agent</span></td>
+              <td>Process</td>
+              <td>LinkedIn post</td>
+              <td>LinkedIn</td>
+              <td>Paris Law Group</td>
+              <td><span class="status-badge green"><span class="kpi-status-dot"></span>Approved</span></td>
+              <td>Mon 9am</td>
+            </tr>
+            <tr>
+              <td><span class="asset-title">The one call that saved the Paris Law build</span></td>
+              <td>Decision</td>
+              <td>Medium article</td>
+              <td>Medium</td>
+              <td>Paris Law + Stanford</td>
+              <td><span class="status-badge neutral"><span class="kpi-status-dot"></span>Draft</span></td>
+              <td>Tue 10am</td>
+            </tr>
+            <tr>
+              <td><span class="asset-title">Why PI law is the perfect niche for AI right now</span></td>
+              <td>Industry</td>
+              <td>Threads thread</td>
+              <td>Threads</td>
+              <td>Stanford CS</td>
+              <td><span class="status-badge green"><span class="kpi-status-dot"></span>Approved</span></td>
+              <td>Mon 2pm</td>
+            </tr>
+            <tr>
+              <td><span class="asset-title">We almost lost the BluStreet project &mdash; here's what saved us</span></td>
+              <td>Mistake</td>
+              <td>LinkedIn post</td>
+              <td>LinkedIn</td>
+              <td>BluStreet Exotics</td>
+              <td><span class="status-badge yellow"><span class="kpi-status-dot"></span>Pending Review</span></td>
+              <td>Wed 9am</td>
+            </tr>
+            <tr>
+              <td><span class="asset-title">3 things I'd do differently on the dental voice agent</span></td>
+              <td>Lesson</td>
+              <td>Substack essay</td>
+              <td>Substack</td>
+              <td>Dr. Stan + Databricks</td>
+              <td><span class="status-badge neutral"><span class="kpi-status-dot"></span>Draft</span></td>
+              <td>Thu 8am</td>
+            </tr>
+            <tr>
+              <td><span class="asset-title">What Databricks taught me about scaling AI for SMBs</span></td>
+              <td>Credential</td>
+              <td>YouTube script</td>
+              <td>YouTube</td>
+              <td>Databricks</td>
+              <td><span class="status-badge green"><span class="kpi-status-dot"></span>Approved</span></td>
+              <td>Fri 12pm</td>
+            </tr>
+            <tr>
+              <td><span class="asset-title">From Stanford CS labs to building AI for small businesses</span></td>
+              <td>Founder Journey</td>
+              <td>Instagram carousel</td>
+              <td>Instagram</td>
+              <td>Stanford + MIT</td>
+              <td><span class="status-badge green"><span class="kpi-status-dot"></span>Approved</span></td>
+              <td>Mon 6pm</td>
+            </tr>
+            <tr>
+              <td><span class="asset-title">Everyone said use GPT &mdash; we did the opposite</span></td>
+              <td>Contrarian</td>
+              <td>Threads thread</td>
+              <td>Threads</td>
+              <td>Cybersphere</td>
+              <td><span class="status-badge yellow"><span class="kpi-status-dot"></span>Pending Review</span></td>
+              <td>Tue 4pm</td>
+            </tr>
+            <tr>
+              <td><span class="asset-title">Hiring a receptionist vs. our AI: the real numbers</span></td>
+              <td>Outcome</td>
+              <td>Instagram reel script</td>
+              <td>Instagram</td>
+              <td>AI Receptionist</td>
+              <td><span class="status-badge green"><span class="kpi-status-dot"></span>Approved</span></td>
+              <td>Wed 2pm</td>
+            </tr>
+            <tr>
+              <td><span class="asset-title">Client called at 2am. The AI answered.</span></td>
+              <td>Behind-the-Scenes</td>
+              <td>Twitter/X thread</td>
+              <td>Twitter/X</td>
+              <td>Limited Spec</td>
+              <td><span class="status-badge neutral"><span class="kpi-status-dot"></span>Draft</span></td>
+              <td>Thu 6pm</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECTION 6: CACHET ASSETS TRACKER -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Cachet Assets Tracker</div>
+        <div class="section-subtitle">Credential and social proof inventory</div>
+      </div>
+      <div class="panel">
+        <table class="cachet-table">
+          <thead>
+            <tr>
+              <th>Asset</th>
+              <th>Type</th>
+              <th>Times Used</th>
+              <th>Last Used</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Stanford University</td>
+              <td><span class="cachet-type">Institution</span></td>
+              <td class="cachet-count">12</td>
+              <td>2 days ago</td>
+            </tr>
+            <tr>
+              <td>MIT</td>
+              <td><span class="cachet-type">Institution</span></td>
+              <td class="cachet-count">8</td>
+              <td>3 days ago</td>
+            </tr>
+            <tr>
+              <td>Databricks</td>
+              <td><span class="cachet-type">Company</span></td>
+              <td class="cachet-count">6</td>
+              <td>1 week ago</td>
+            </tr>
+            <tr>
+              <td>Daimler</td>
+              <td><span class="cachet-type">Company</span></td>
+              <td class="cachet-count">3</td>
+              <td>2 weeks ago</td>
+            </tr>
+            <tr>
+              <td>Paris Law Group</td>
+              <td><span class="cachet-type">Client</span></td>
+              <td class="cachet-count">15</td>
+              <td>Today</td>
+            </tr>
+            <tr>
+              <td>BluStreet Exotics</td>
+              <td><span class="cachet-type">Client</span></td>
+              <td class="cachet-count">9</td>
+              <td>3 days ago</td>
+            </tr>
+            <tr>
+              <td>Limited Spec</td>
+              <td><span class="cachet-type">Client</span></td>
+              <td class="cachet-count">7</td>
+              <td>5 days ago</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /tab-queue -->
+
+  <!-- TAB: CASE STUDIES -->
+  <div class="tab-content" id="tab-casestudies">
+
+    <!-- SECTION 3: CASE STUDY MULTIPLICATION -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Case Study Multiplication</div>
+        <div class="section-subtitle">1 input &rarr; 60 assets via angle-format matrix</div>
+      </div>
+      <div class="panel">
+        <div class="panel-label">Paris Law Group &mdash; Case Study Multiplication</div>
+
+        <!-- Multiplication flow visual -->
+        <div class="multiplication-flow">
+          <div class="flow-box">
+            <div class="flow-box-number">1</div>
+            <div class="flow-box-label">Case Study</div>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-box">
+            <div class="flow-box-number">10</div>
+            <div class="flow-box-label">Angles</div>
+          </div>
+          <div class="flow-operator">&times;</div>
+          <div class="flow-box">
+            <div class="flow-box-number">6</div>
+            <div class="flow-box-label">Formats</div>
+          </div>
+          <div class="flow-arrow">=</div>
+          <div class="flow-box flow-result">
+            <div class="flow-box-number">60</div>
+            <div class="flow-box-label">Assets</div>
+          </div>
+        </div>
+
+        <!-- Multiplication matrix -->
+        <table class="mult-table">
+          <thead>
+            <tr>
+              <th>Angle</th>
+              <th>LinkedIn</th>
+              <th>Medium</th>
+              <th>Video Script</th>
+              <th>Carousel</th>
+              <th>Threads</th>
+              <th>Meme</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Process</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>6</td></tr>
+            <tr><td>Outcome</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>6</td></tr>
+            <tr><td>Decision</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>6</td></tr>
+            <tr><td>Mistake</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>6</td></tr>
+            <tr><td>Lesson</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>6</td></tr>
+            <tr><td>Credential</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>6</td></tr>
+            <tr><td>Contrarian</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>6</td></tr>
+            <tr><td>Behind-the-Scenes</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>6</td></tr>
+            <tr><td>Industry</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>6</td></tr>
+            <tr><td>Founder Journey</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>6</td></tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>Total</td>
+              <td>10</td>
+              <td>10</td>
+              <td>10</td>
+              <td>10</td>
+              <td>10</td>
+              <td>10</td>
+              <td>60</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /tab-casestudies -->
+
+  <!-- TAB: PERFORMANCE -->
+  <div class="tab-content" id="tab-performance">
+
+    <!-- SECTION 4: PLATFORM DISTRIBUTION -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Platform Distribution</div>
+        <div class="section-subtitle">9 channels &mdash; cadence and weekly output</div>
+      </div>
+      <div class="platform-grid">
+
+        <div class="platform-card">
+          <div class="platform-card-header">
+            <div class="platform-name">LinkedIn</div>
+            <div class="status-badge green"><span class="kpi-status-dot"></span>Active</div>
+          </div>
+          <div class="platform-cadence">Cadence: 1x daily</div>
+          <div class="platform-posted">5 posted this week</div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-card-header">
+            <div class="platform-name">Medium</div>
+            <div class="status-badge green"><span class="kpi-status-dot"></span>Active</div>
+          </div>
+          <div class="platform-cadence">Cadence: 3x/week</div>
+          <div class="platform-posted">2 posted this week</div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-card-header">
+            <div class="platform-name">Substack</div>
+            <div class="status-badge green"><span class="kpi-status-dot"></span>Active</div>
+          </div>
+          <div class="platform-cadence">Cadence: 2x/week</div>
+          <div class="platform-posted">1 posted this week</div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-card-header">
+            <div class="platform-name">Instagram</div>
+            <div class="status-badge green"><span class="kpi-status-dot"></span>Active</div>
+          </div>
+          <div class="platform-cadence">Cadence: 2x daily</div>
+          <div class="platform-posted">8 posted this week</div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-card-header">
+            <div class="platform-name">Threads</div>
+            <div class="status-badge green"><span class="kpi-status-dot"></span>Active</div>
+          </div>
+          <div class="platform-cadence">Cadence: 2-3x daily</div>
+          <div class="platform-posted">4 posted this week</div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-card-header">
+            <div class="platform-name">YouTube</div>
+            <div class="status-badge yellow"><span class="kpi-status-dot"></span>Scripted</div>
+          </div>
+          <div class="platform-cadence">Cadence: 1x/week</div>
+          <div class="platform-posted">0 posted this week</div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-card-header">
+            <div class="platform-name">Reddit</div>
+            <div class="status-badge green"><span class="kpi-status-dot"></span>Active</div>
+          </div>
+          <div class="platform-cadence">Cadence: 3x/week</div>
+          <div class="platform-posted">2 posted this week</div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-card-header">
+            <div class="platform-name">Quora</div>
+            <div class="status-badge green"><span class="kpi-status-dot"></span>Active</div>
+          </div>
+          <div class="platform-cadence">Cadence: 2x/week</div>
+          <div class="platform-posted">1 posted this week</div>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-card-header">
+            <div class="platform-name">Pinterest</div>
+            <div class="status-badge neutral"><span class="kpi-status-dot"></span>Setup</div>
+          </div>
+          <div class="platform-cadence">Cadence: Per client</div>
+          <div class="platform-posted">0 posted this week</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECTION 7: THEORY OF REFLECTING MIRRORS -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Theory of Reflecting Mirrors</div>
+        <div class="section-subtitle">Flywheel loop &mdash; every result becomes new content</div>
+      </div>
+      <div class="panel">
+        <div class="flywheel-loop">
+          <div class="flywheel-step">Post</div>
+          <div class="flywheel-arrow">&rarr;</div>
+          <div class="flywheel-step">Result</div>
+          <div class="flywheel-arrow">&rarr;</div>
+          <div class="flywheel-step highlight">Reflect</div>
+          <div class="flywheel-arrow">&rarr;</div>
+          <div class="flywheel-step">New Post</div>
+          <div class="flywheel-arrow">&rarr;</div>
+          <div class="flywheel-step">Result</div>
+          <div class="flywheel-arrow">&rarr;</div>
+          <div class="flywheel-step highlight">Reflect</div>
+          <div class="flywheel-arrow">&#x21BB;</div>
+        </div>
+
+        <div class="panel-label">Recent Mirror Events</div>
+
+        <div class="mirror-event">
+          <div class="mirror-trigger">Paris Law LinkedIn post hit 847 impressions + 34 saves</div>
+          <div class="mirror-output"><span class="mirror-arrow">&rarr;</span> Auto-generated meta-post: "Why this AI case study resonated with 800+ people"</div>
+        </div>
+
+        <div class="mirror-event">
+          <div class="mirror-trigger">Dental meme got 2.3K views</div>
+          <div class="mirror-output"><span class="mirror-arrow">&rarr;</span> Auto-generated follow-up: "The real story behind the viral dental AI meme"</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /tab-performance -->
+
+  <!-- TAB: MEME ENGINE -->
+  <div class="tab-content" id="tab-memeengine">
+
+    <!-- SECTION 5: MEME ENGINE -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Meme Engine</div>
+        <div class="section-subtitle">Recent meme concepts &mdash; format-driven virality</div>
+      </div>
+      <div class="meme-grid">
+
+        <!-- Meme 1: Drake Pointing -->
+        <div class="meme-card">
+          <div class="meme-format">Drake Pointing</div>
+          <div class="meme-vs">
+            <div class="meme-vs-item reject">Hiring a VA for $20/appointment</div>
+            <div class="meme-vs-item accept">AI receptionist that works 24/7 for free</div>
+          </div>
+          <div class="meme-meta">
+            <span class="status-badge green"><span class="kpi-status-dot"></span>Posted</span>
+            <span class="meme-reach">2.3K reach</span>
+          </div>
+        </div>
+
+        <!-- Meme 2: This Is Fine -->
+        <div class="meme-card">
+          <div class="meme-format">This Is Fine</div>
+          <div class="meme-concept">"Dental office at 5:01pm with 4 voicemails"</div>
+          <div class="meme-meta">
+            <span class="status-badge green"><span class="kpi-status-dot"></span>Approved</span>
+            <span class="meme-reach">&mdash;</span>
+          </div>
+        </div>
+
+        <!-- Meme 3: Expanding Brain -->
+        <div class="meme-card">
+          <div class="meme-format">Expanding Brain</div>
+          <div class="meme-vs">
+            <div class="meme-vs-item neutral-meme">Answering your own phone</div>
+            <div class="meme-vs-item neutral-meme">Hiring a receptionist</div>
+            <div class="meme-vs-item neutral-meme">Voicemail</div>
+            <div class="meme-vs-item accept">AI that never sleeps</div>
+          </div>
+          <div class="meme-meta">
+            <span class="status-badge neutral"><span class="kpi-status-dot"></span>Draft</span>
+            <span class="meme-reach">&mdash;</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /tab-memeengine -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">Cybersphere Content Flywheel &mdash; Section 4: Aura Farming Engine</div>
+    <div class="footer-right">Confidential</div>
+  </div>
+
+</div>
+
+<script>
+// -- Date --
+document.getElementById('reportDate').textContent =
+  new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+// -- Tab Navigation --
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    // Update active button
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+
+    // Show/hide tab content
+    const tabId = 'tab-' + this.dataset.tab;
+    document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
