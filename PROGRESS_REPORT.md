@@ -66,7 +66,7 @@ Week 1 delivered: 4 deployed dashboards, a fully operational Facebook outreach a
 
 ## Section 4 — Organic Content Flywheel (P0) — IN PROGRESS
 
-**Status: Infrastructure built. Waiting on Neetish brain dump for real data.**
+**Status: Infrastructure built. Tally form published. Notion DB created and connected to Tally. Waiting on Neetish to fill out the brain dump form.**
 
 ### Code deliverables
 | Deliverable | File | Status |
@@ -79,10 +79,10 @@ Week 1 delivered: 4 deployed dashboards, a fully operational Facebook outreach a
 ### Non-code deliverables
 | Deliverable | Tool | Status |
 |------------|------|--------|
-| Brain dump intake form (5 pages) | Tally | DONE |
-| Tally → Notion automation | Make.com | NOT BUILT (spec written in setup guide) |
-| Notion source-of-truth DB (7 tables) | Notion | NOT BUILT (schemas documented in setup guide) |
-| Auto-angle generation scenario | Make.com + Claude API | NOT BUILT (spec written) |
+| Brain dump intake form (5 pages) | Tally | DONE — published + shareable link live |
+| Notion "Founder Brain Dump" database | Notion | DONE — fields mapped 1:1 to Tally form |
+| Tally → Notion integration | Tally native integration | DONE — connected, auto-populates on submission |
+| Auto-angle generation scenario | Make.com + Claude API | NOT BUILT (spec written in setup guide) |
 | Content asset generation scenario | Make.com + Claude API | NOT BUILT (spec written) |
 | Weekly feed form | Tally | NOT BUILT (spec written) |
 | Trending AI news agent (daily) | Make.com + Perplexity API | NOT BUILT (spec written) |
@@ -97,16 +97,36 @@ Week 1 delivered: 4 deployed dashboards, a fully operational Facebook outreach a
 | Interview outreach messages sent | Manual | NOT DONE |
 | Interview processing pipeline | Make.com + Whisper API | NOT BUILT (spec written) |
 
+### Notion DB Schema (live, mapped to Tally)
+The "Founder Brain Dump" Notion database has these exact fields, matching the Tally form 1:1:
+- Name (Title), Who is filling this out?, Institution/Company Name, Role/Title, Duration
+- 3-5 specific things you worked on built or learned, Quantifiable outcomes, Most interesting/surprising thing
+- Notable professors mentors or advisors, Client Projects
+- Why were YOU able to do this?, List 1-3 decisions you made that actually mattered
+- How long until they saw the first meaningful result?, What is the strongest claim you can make
+- If you 3x'd your price what would you justify it with?, What do you see other AI agencies doing wrong
+- What repeats across all clients?, What did the client THINK they needed vs what they actually needed
+
 ### Blockers
 | Blocker | Who unblocks it | Impact |
 |---------|----------------|--------|
-| Neetish brain dump not completed | Neetish fills out the Tally form | Blocks: Notion DB population, real content generation, everything downstream |
+| **Neetish brain dump not filled out** | **Neetish fills out the Tally form** | **Blocks: real content generation, everything downstream** |
 | Slack workspace access | Neetish | Blocks: daily digest bot, notifications |
 | Buffer account connected to socials | Radwan + Neetish | Blocks: automated posting |
 
+### What happens when Neetish submits the form
+1. Tally submission auto-creates a row in the Notion "Founder Brain Dump" database
+2. Radwan runs the content generation engine (Claude) against the data
+3. 10 angles per case study × 6 formats = 60 assets per entry
+4. Assets populate the Content Queue
+5. System is live
+
 ### Spec checkbox status — Week 1
 - [x] Brain dump template built
-- [ ] Neetish has completed it fully *(Tally form sent — waiting)*
+- [x] Brain dump Tally form published and shareable
+- [x] Notion database created with 1:1 field mapping to Tally
+- [x] Tally → Notion integration connected and working
+- [ ] **Neetish has filled out the form** *(link sent — WAITING)*
 - [ ] Source-of-truth Notion database populated from brain dump
 - [x] 10 case study angles auto-generated per project (proven with Paris Law POC)
 - [ ] Trending news agent running daily
@@ -282,10 +302,10 @@ Week 1 delivered: 4 deployed dashboards, a fully operational Facebook outreach a
 
 | Deliverable | Tool | Status |
 |------------|------|--------|
-| Brain dump intake form | Tally | DONE |
+| Brain dump intake form | Tally | DONE — published, shareable link live |
+| Notion "Founder Brain Dump" database | Notion | DONE — 1:1 field mapping to Tally |
+| Tally → Notion integration | Tally native | DONE — auto-populates on submission |
 | Weekly update form | Tally | NOT BUILT |
-| Notion source-of-truth (7 tables) | Notion | NOT BUILT |
-| Tally → Notion automation | Make.com | NOT BUILT |
 | Auto-angle generation | Make.com | NOT BUILT |
 | Content generation pipeline | Make.com + Claude API | NOT BUILT |
 | Trending news agent | Make.com + Perplexity API | NOT BUILT |
@@ -308,9 +328,9 @@ Week 1 delivered: 4 deployed dashboards, a fully operational Facebook outreach a
 - [ ] Complete 2-week outreach test and report results
 
 ### Priority 2: Section 4 (biggest remaining workload)
-- [ ] Get Neetish to fill out the Tally brain dump form
-- [ ] Build all 7 Notion tables (follow `CONTENT_FLYWHEEL_SETUP_GUIDE.md` Steps 1.1-1.8)
-- [ ] Connect Tally → Notion via Make.com (Step 3)
+- [x] ~~Get Neetish to fill out the Tally brain dump form~~ → form published, link sent, WAITING
+- [x] ~~Build Notion "Founder Brain Dump" database~~ → DONE, fields mapped 1:1 to Tally
+- [x] ~~Connect Tally → Notion~~ → DONE, auto-populates on submission
 - [ ] Set up trending news agent (Step 5)
 - [ ] Set up meme engine (Step 6)
 - [ ] Connect Buffer to social platforms (Step 7)
