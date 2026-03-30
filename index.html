@@ -399,18 +399,26 @@ body {
   text-transform: uppercase;
   color: var(--text-tertiary);
   text-align: left;
-  padding: 0 0 12px 0;
+  padding: 0 8px 12px;
   border-bottom: 1.5px solid var(--border);
 }
 
-.seo-table thead th:nth-child(2),
-.seo-table thead th:nth-child(3) { text-align: center; }
+.seo-table thead th:not(:first-child) { text-align: center; }
 
 .seo-table tbody td {
-  padding: 16px 0;
+  padding: 14px 8px;
   border-bottom: 1px solid var(--border-light);
   vertical-align: middle;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-secondary);
 }
+
+.seo-table tbody td:first-child { text-align: left; padding-left: 0; }
+.seo-table tbody td:last-child { padding-right: 0; }
+
+.seo-table thead th:first-child { padding-left: 0; }
+.seo-table thead th:last-child { padding-right: 0; }
 
 .seo-table tbody tr:last-child td { border-bottom: none; }
 
@@ -475,6 +483,30 @@ body {
 .issue-tag.error { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
 .issue-tag.warn { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
 .issue-tag.pending-tag { background: var(--navy-faint); color: var(--text-tertiary); border: 1px solid var(--border); }
+
+.schema-note {
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.schema-note.critical { color: var(--red); }
+.schema-note.warning { color: var(--yellow); }
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 3px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  background: var(--green-bg);
+  color: var(--green);
+  border: 1px solid var(--green-border);
+}
 
 /* ── Ad Performance ── */
 .ad-grid {
@@ -704,7 +736,7 @@ body {
     <div class="panel">
       <table class="seo-table">
         <thead>
-          <tr><th>Client</th><th>Score</th><th>Health</th><th>Issues</th></tr>
+          <tr><th>Client</th><th>SEO Score</th><th>Schema</th><th>Content Gaps</th><th>Keywords</th><th>GBP Posts</th><th>Status</th></tr>
         </thead>
         <tbody id="seoBody"></tbody>
       </table>
@@ -764,15 +796,10 @@ const KPIs = [
 ];
 
 const CLIENTS = [
-  { name: 'Dr. Stan Palo Alto', vert: 'Dental', score: 62, issues: [
-    { text: 'Missing sameAs schema', type: 'error' },
-    { text: 'No booking potentialAction', type: 'error' },
-    { text: 'No WebSite schema block', type: 'warn' }
-  ]},
-  { name: 'Paris Law Group', vert: 'Personal Injury', score: null, issues: [{ text: 'Audit pending', type: 'pending-tag' }] },
-  { name: 'Limited Spec Automotive', vert: 'Luxury Auto', score: null, issues: [{ text: 'Audit pending', type: 'pending-tag' }] },
-  { name: 'BluStreet Exotics', vert: 'Luxury Car Rental', score: null, issues: [{ text: 'Audit pending', type: 'pending-tag' }] },
-  { name: 'Monarch Luxe', vert: 'Real Estate', score: null, issues: [{ text: 'Audit pending', type: 'pending-tag' }] },
+  { name: 'Paris Law Group', vert: 'Personal Injury', score: 48, schema: 'Critical \u2014 telePhone typo', schemaLevel: 'critical', gaps: '5 identified', keywords: '20 mapped', gbpPosts: '10 ready' },
+  { name: 'Dr. Stan Palo Alto', vert: 'Dental', score: 62, schema: 'Missing items', schemaLevel: 'warning', gaps: '5 identified', keywords: '20 mapped', gbpPosts: '10 ready' },
+  { name: 'Plantabis', vert: 'Dispensary', score: 35, schema: 'ZERO schema found', schemaLevel: 'critical', gaps: '5 identified', keywords: '20 mapped', gbpPosts: '10 ready' },
+  { name: 'BluStreet Exotics', vert: 'Luxury Car Rental', score: 71, schema: 'Wrong @type + gaps', schemaLevel: 'warning', gaps: '5 identified', keywords: '20 mapped', gbpPosts: '10 ready' },
 ];
 
 const AD_CARDS = ['Spend MTD', 'Impressions', 'CTR', 'CPL', 'ROAS'];
@@ -826,8 +853,8 @@ function fmtTarget(key) {
 
 function scoreColor(s) {
   if (s === null) return 'pending';
-  if (s >= 80) return 'green';
-  if (s >= 60) return 'yellow';
+  if (s >= 70) return 'green';
+  if (s >= 50) return 'yellow';
   return 'red';
 }
 
@@ -919,8 +946,11 @@ function renderSEO() {
     tr.innerHTML = `
       <td><div class="client-name">${c.name}</div><div class="client-vert">${c.vert}</div></td>
       <td class="seo-score ${color}">${c.score !== null ? c.score + '/100' : 'TBD'}</td>
-      <td class="seo-bar-cell"><div class="seo-bar"><div class="seo-bar-fill ${color}" style="width:${c.score || 0}%"></div></div></td>
-      <td><div class="issue-tags">${c.issues.map(i => '<span class="issue-tag ' + i.type + '">' + i.text + '</span>').join('')}</div></td>
+      <td><span class="schema-note ${c.schemaLevel}">${c.schema}</span></td>
+      <td>${c.gaps}</td>
+      <td>${c.keywords}</td>
+      <td>${c.gbpPosts}</td>
+      <td><span class="status-badge"><span class="kpi-status-dot"></span>Complete</span></td>
     `;
     body.appendChild(tr);
   });
@@ -1011,7 +1041,8 @@ function renderWeekly() {
   lines.push('CLIENT SEO HEALTH');
   CLIENTS.forEach(c => {
     const sc = c.score !== null ? c.score + '/100' : 'Pending';
-    lines.push('  ' + c.name.padEnd(28) + sc.padStart(10) + '    ' + c.vert);
+    const status = c.score !== null ? 'Audit complete' : 'Pending';
+    lines.push('  ' + c.name.padEnd(28) + sc.padStart(10) + '    ' + c.vert + '    ' + status);
   });
 
   lines.push('');
