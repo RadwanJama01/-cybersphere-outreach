@@ -1,231 +1,356 @@
-# Cybersphere AI Intern -- Progress Report
+# Cybersphere AI Intern — Progress Report
 
 **Author:** Radwan Jama
-**Date:** March 29, 2026
+**Date:** March 30, 2026
 **Reporting Period:** Week 1
-**Status:** Sections 2, 3 substantially complete. Sections 1, 4 in progress. Section 5 not started.
+**Priority Order:** 3 → 4 → 2 → 5 → 1
 
 ---
 
 ## Executive Summary
 
-In the first week, the Cybersphere AI Intern project delivered four production-grade dashboards (Growth, CRM, Meta Ads, Content Flywheel) deployed on GitHub Pages at zero cost, a fully operational Facebook outreach agent (Cowork/OpenClaw) with guardrails-first design and live GitHub API integration tested end-to-end, complete Google Business Profile audits for all four clients with a reusable audit template, 20 static ad prompt variations across five verticals, a 60-asset content multiplication proof-of-concept from a single case study, and a Remotion video generation environment with 38 skill rule files. All systems are reproducible, documented, and demo-ready. The CRM is live and accepting data from the outreach agent via the GitHub REST API, with changes reflected in the dashboard within 30 seconds.
+Week 1 delivered: 4 deployed dashboards, a fully operational Facebook outreach agent with 6 guardrails and live CRM integration, GBP audits for all 4 clients, 20 static ad prompts, a 60-asset content multiplication proof-of-concept, Remotion video environment, a 2,600-line browser-agent-executable Content Flywheel setup guide, and a Tally brain dump form. Sections 2 and 3 are substantially complete and demoed. Section 4 infrastructure is built (dashboard, setup guide, brain dump form, 60-asset POC) — waiting on Neetish's brain dump to populate the Notion DB. Sections 1 and 5 are in progress.
 
 ---
 
 ## Deployed Systems (Live URLs)
 
-| System | URL | Status |
-|--------|-----|--------|
-| Growth Dashboard | [index.html](https://radwanjama01.github.io/-cybersphere-outreach/) | LIVE |
-| CRM Lead Pipeline | [crm.html](https://radwanjama01.github.io/-cybersphere-outreach/crm.html) | LIVE |
-| Meta Ads Performance | [ads.html](https://radwanjama01.github.io/-cybersphere-outreach/ads.html) | LIVE |
-| Content Flywheel | [content.html](https://radwanjama01.github.io/-cybersphere-outreach/content.html) | LIVE |
-| GitHub Repo | [RadwanJama01/-cybersphere-outreach](https://github.com/RadwanJama01/-cybersphere-outreach) | PUBLIC |
+| System | URL |
+|--------|-----|
+| Growth Dashboard | https://radwanjama01.github.io/-cybersphere-outreach/ |
+| CRM Lead Pipeline | https://radwanjama01.github.io/-cybersphere-outreach/crm.html |
+| Meta Ads Dashboard | https://radwanjama01.github.io/-cybersphere-outreach/ads.html |
+| Content Flywheel Dashboard | https://radwanjama01.github.io/-cybersphere-outreach/content.html |
+| GitHub Repo | https://github.com/RadwanJama01/-cybersphere-outreach |
 
 ---
 
-## Section-by-Section Progress
+## Section 3 — Outreach Agent + CRM (P0) — COMPLETE
 
-### Section 1 -- Automated AI Ads System
+**Status: DONE — demoed to Neetish**
 
-#### 1A -- Full Meta Ads Pipeline
+### Code deliverables
+| Deliverable | File | Status |
+|------------|------|--------|
+| CRM front-end (leads + post log + auto-refresh) | `crm.html` | DONE + deployed |
+| Live data layer | `data.json` | DONE — Cowork writes via GitHub API |
+| GitHub API integration skill | `github-crm.js` | DONE — tested end-to-end |
+| Cowork system prompt (388 lines) | `cowork-system-prompt.md` | DONE |
+| Agent Ops execution plan | `OUTREACH_PLAN.md` | DONE |
 
-- **Status:** NOT STARTED
-- **Blocker:** Requires Meta Marketing API access and Dropbox integration
-- **Estimated effort:** 2-3 weeks
+### Non-code deliverables
+| Deliverable | Status |
+|------------|--------|
+| 30 Facebook groups joined with rules/risk notes per group | DONE |
+| 7 vertical-specific post templates (dental, legal, RE, auto, rental, HVAC, general) | DONE |
+| DM follow-up scripts (first response, second touch, cold cutoff) | DONE |
+| Escalation rules + format | DONE |
+| 6 guardrails (dry run, similarity, rate limit, compliance, anti-duplication, audit log) | DONE |
+| Failure runbook (post removed, warned, banned, shadowban, receptionist down) | DONE |
+| Posting schedule + cadence (10/day, 4 time windows, 72-hour gap rule) | DONE |
+| GitHub token set up + tested | DONE — expires April 28 |
+| 3 manual FB posts completed (Dental, PI, RE groups) | DONE |
+| Cowork project created with system prompt loaded | DONE |
+| AI receptionist tested at +1 (325) 240-6238 | DONE |
+| Demo recorded | DONE |
 
-#### 1C -- Static Ad Generation
-
-- **Status:** COMPLETE
-- **What was built:** Nano Banana Pro skill and AI Image Prompts skill installed in Claude Code. 20 static ad prompt variations generated across 5 verticals (dental, legal, real estate, auto, HVAC), 4 per vertical. Each prompt includes headline, body copy, CTA with +1 (325) 240-6238, detailed image generation prompt, and recommended model.
-- **Files:** `ad-prompts-batch.md`, `.claude/skills/ai-image-prompts-skill/`, `.claude/skills/nano-banana-pro-prompts/`
-- **Reproducible:** Yes -- any team member can run the skill in Claude Code and generate new batches
-
-#### 1D -- Video Ad Generation
-
-- **Status:** IN PROGRESS (70%)
-- **What was built:** Remotion project initialized (`~/cybersphere-videos`), Remotion Dev skill installed (38 rule files covering animations, audio, captions, 3D, transitions, TailwindCSS, ElevenLabs TTS), dev server running at localhost:3000
-- **Remaining:** Create 5 test video ads using the Remotion skill
-- **Files:** `~/cybersphere-videos/`
-- **Reproducible:** Yes -- `npx create-video@latest`, then Claude Code with Remotion skill generates videos programmatically
-
-#### 1E -- Automated AI Ads Dashboard
-
-- **Status:** COMPLETE + DEPLOYED
-- **What was built:** Full Meta Ads performance dashboard with 7 sections: Spend & Delivery (5 KPIs), Engagement & Click Quality (5 KPIs), Lead & Funnel Performance (4 metrics with progress bars), Sales & Revenue Outcomes (ROAS, LTV:CAC, payback period), Creative Diagnostics table (6 creatives with winner/fatigued status), Diagnostic Flags (4 actionable alerts with color coding), Spend Projections ($10K to $20,400 MRR math). Interactive period toggles (This Week / MTD / All Time).
-- **URL:** https://radwanjama01.github.io/-cybersphere-outreach/ads.html
-- **Reproducible:** Yes -- single HTML file, zero dependencies
-
-#### 1F -- AI/Human Creative Toggle
-
-- **Status:** NOT STARTED
-- **Estimated effort:** 1 day after 1C + 1D complete
-
----
-
-### Section 2 -- Dashboard & Tracking Metrics
-
-#### 2A -- GBP Audits
-
-- **Status:** COMPLETE
-- **What was built:** Full Google Business Profile audits for all 4 clients:
-  - **Paris Law Group (PI)** -- SEO Score 48/100, critical schema bug found (`telePhone` typo), 20 keywords, 10 GBP posts
-  - **Dr. Stan Palo Alto (Dental)** -- SEO Score 62/100, missing schema items, 20 keywords, 10 GBP posts
-  - **Plantabis (Dispensary)** -- SEO Score 35/100, ZERO structured data on entire site, 20 keywords, 10 GBP posts
-  - **BluStreet Exotics (Luxury Car Rental)** -- SEO Score 71/100, wrong @type + gaps, 20 keywords, 10 GBP posts
-- Each audit includes: 3-competitor X-ray, 5 content gaps, full schema audit with fix instructions, 20 high-intent keywords, 10 copy-paste-ready GBP posts
-- Reusable audit template built (`gbp-audit-template.md`) -- 25-item deliverables checklist, 6-part structure, 100-point scoring methodology with rubric
-- Client SEO Health section added to Growth Dashboard with color-coded scores
-- **Files:** `Paris_Law_GBP_Audit_v2.docx`, `DrStan_GBP_Audit_v2.docx`, `Plantabis_GBP_Audit_v2.docx`, `BluStreet_GBP_Audit_v2.docx`, `gbp-audit-template.md`
-- **Reproducible:** Yes -- any team member follows `gbp-audit-template.md` for new clients
-
-#### 2B -- Core Dashboard
-
-- **Status:** COMPLETE + DEPLOYED
-- **What was built:** McKinsey-style Growth Dashboard tracking Phase I KPIs. Includes: editable KPI cards with progress bars and green/yellow/red status indicators, roadmap table (actual vs. target), verdict panel, Client SEO Health table with 4 clients, weekly summary generator. Playfair Display + Inter typography, navy color scheme.
-- **URL:** https://radwanjama01.github.io/-cybersphere-outreach/
-- **Reproducible:** Yes -- single HTML file, zero dependencies
+### Spec checkbox status
+- [x] Watch the full reel and document the system end-to-end
+- [x] Call +1 (325) 240-6238 — test with different scenarios
+- [x] Draft 3-5 variations of the FB group post per vertical
+- [x] Create Agent Ops doc (30 groups, schedule, templates, DM scripts, escalation, runbook)
+- [x] Build a tracking sheet
+- [ ] Test the system for 2 weeks and report results *(in progress — Week 1 of 2)*
 
 ---
 
-### Section 3 -- OpenClaw / Cowork Outreach Agent
+## Section 4 — Organic Content Flywheel (P0) — IN PROGRESS
 
-- **Status:** COMPLETE + DEPLOYED
-- **What was built:**
+**Status: Infrastructure built. Waiting on Neetish brain dump for real data.**
 
-1. **CRM Front-End** (`crm.html`) -- Live lead pipeline with 3 stages (Outreach, Follow-up, Closing), stage filter tabs, lead detail panel with avatar/stats/notes/activity timeline, Post Log tab showing every post with guardrail audit tags. Auto-refreshes from `data.json` every 30 seconds.
+### Code deliverables
+| Deliverable | File | Status |
+|------------|------|--------|
+| Content Flywheel Dashboard (4 tabs) | `content.html` | DONE + deployed |
+| Paris Law 60-asset multiplication (1,688 lines) | `paris-law-60-assets.md` | DONE |
+| Browser-agent-executable setup guide (2,601 lines) | `CONTENT_FLYWHEEL_SETUP_GUIDE.md` | DONE |
+| Brain dump template (fillable) | `brain-dump-template.md` | DONE |
 
-2. **Live Data Layer** (`data.json`) -- JSON database on GitHub. Schema: `meta` (KPIs), `postLog` (every post with timestamp/group/text/guardrails), `leads` (full pipeline with timeline). Currently has 3 posts + 1 test lead.
+### Non-code deliverables
+| Deliverable | Tool | Status |
+|------------|------|--------|
+| Brain dump intake form (5 pages) | Tally | DONE |
+| Tally → Notion automation | Make.com | NOT BUILT (spec written in setup guide) |
+| Notion source-of-truth DB (7 tables) | Notion | NOT BUILT (schemas documented in setup guide) |
+| Auto-angle generation scenario | Make.com + Claude API | NOT BUILT (spec written) |
+| Content asset generation scenario | Make.com + Claude API | NOT BUILT (spec written) |
+| Weekly feed form | Tally | NOT BUILT (spec written) |
+| Trending AI news agent (daily) | Make.com + Perplexity API | NOT BUILT (spec written) |
+| Meme engine (3x/week) | Make.com + imgflip API | NOT BUILT (spec written) |
+| Posting agent | Buffer + Make.com | NOT BUILT (spec written) |
+| Performance tracker | Make.com + platform APIs | NOT BUILT (spec written) |
+| Winner detection + auto-remix | Make.com + Claude API | NOT BUILT (spec written) |
+| Daily digest Slack bot | Make.com + Slack | NOT BUILT (spec written) |
+| LinkedIn profile optimization | Manual | NOT DONE |
+| Instagram profile optimization | Manual | NOT DONE |
+| 3 Instagram Story Highlights | Manual | NOT DONE |
+| Interview outreach messages sent | Manual | NOT DONE |
+| Interview processing pipeline | Make.com + Whisper API | NOT BUILT (spec written) |
 
-3. **GitHub API Integration** (`github-crm.js`) -- Node.js skill for Cowork/OpenClaw. Functions: `logPost()`, `createLead()`, `updateLead()`, `flagEscalation()`, `moveStage()`, `logDM()`, `logCall()`, `getWeeklyStats()`. Reads/writes `data.json` via GitHub REST API.
+### Blockers
+| Blocker | Who unblocks it | Impact |
+|---------|----------------|--------|
+| Neetish brain dump not completed | Neetish fills out the Tally form | Blocks: Notion DB population, real content generation, everything downstream |
+| Slack workspace access | Neetish | Blocks: daily digest bot, notifications |
+| Buffer account connected to socials | Radwan + Neetish | Blocks: automated posting |
 
-4. **GitHub API Connection Tested** -- Token authenticated, test lead pushed via API and verified in CRM. Full end-to-end pipeline proven: Cowork action -> GitHub API -> `data.json` update -> CRM reflects change within 30 seconds.
+### Spec checkbox status — Week 1
+- [x] Brain dump template built
+- [ ] Neetish has completed it fully *(Tally form sent — waiting)*
+- [ ] Source-of-truth Notion database populated from brain dump
+- [x] 10 case study angles auto-generated per project (proven with Paris Law POC)
+- [ ] Trending news agent running daily
+- [ ] Content generator producing structured assets (50+ in queue)
+- [ ] Meme engine producing 3 concepts per week
+- [ ] Posting agent in dry-run mode with Slack approval flow
+- [ ] LinkedIn + Instagram profiles optimized
+- [ ] Pinned story highlights built for 3 existing clients
 
-5. **Cowork System Prompt** (`cowork-system-prompt.md`) -- 388-line complete agent operating system. Includes: all 30 Facebook groups with risk levels and template assignments, 7 post templates (vertical-specific), 6 guardrails (dry run, similarity check, rate limit, compliance, anti-duplication, audit log), DM follow-up scripts, escalation rules, failure runbook, posting schedule, weekly targets, 5 command shortcuts (Generate today's batch, APPROVE, Check replies, Show audit log, Escalate).
-
-6. **Agent Ops Doc** (`OUTREACH_PLAN.md` + `cybersphere_outreach_plan.docx`) -- Full execution plan with 2-week timeline, 30 groups with rules, posting cadence, templates, DM scripts, escalation format, tracking metrics, go/no-go criteria.
-
-7. **3 Manual Posts Completed** -- Posted to Dental Practice Owners USA, Personal Injury Industry, Multi Family Properties For Sale. Logged in `data.json` with guardrail tags.
-
-- **URLs:**
-  - CRM: https://radwanjama01.github.io/-cybersphere-outreach/crm.html
-  - Repo: https://github.com/RadwanJama01/-cybersphere-outreach
-- **Reproducible:** Yes -- clone repo, set `GITHUB_TOKEN`, paste system prompt into Cowork, type "Generate today's batch"
-
----
-
-### Section 4 -- Organic Content Flywheel
-
-- **Status:** IN PROGRESS (Dashboard + POC complete, automation not built)
-- **What was built:**
-
-1. **Content Flywheel Dashboard** (`content.html`) -- 4-tab dashboard: Content Queue (10 assets in pipeline), Case Studies (multiplication matrix showing 1 to 60), Performance (9 platform cards + Theory of Reflecting Mirrors visualization), Meme Engine (3 concepts). Includes cachet assets tracker (Stanford, MIT, Databricks, Daimler, Paris Law, BluStreet, Limited Spec).
-
-2. **Paris Law 60-Asset Multiplication** (`paris-law-60-assets.md`) -- Complete proof-of-concept: 1 case study -> 10 angles x 6 formats = 60 content assets. Includes 10 full LinkedIn posts (500-800 words each), 10 Medium article outlines, 10 video scripts, 10 carousel outlines (7 slides each), 10 Threads threads (8-12 tweets each), 10 meme concepts. Plus 10-week publishing cadence. 1,688 lines.
-
-- **URL:** https://radwanjama01.github.io/-cybersphere-outreach/content.html
-
-- **Remaining (blocked on Neetish brain dump):**
-  - Notion source-of-truth database (5 tables)
-  - Brain dump intake form (Tally -> Zapier -> Notion)
-  - Trending AI news agent (Perplexity API)
-  - Posting agent (Buffer / Late.com integration)
-  - Performance tracker (platform API pulls)
-  - Winner detection + auto-remix
-  - Daily digest bot (Slack)
-  - Interview engine
-  - Profile optimization spec (LinkedIn + Instagram)
-
-- **Reproducible:** Yes for content generation -- feed any case study through the 10-angle x 6-format prompt structure and get 60 assets
-
----
-
-### Section 5 -- AI Sales Coach
-
-- **Status:** NOT STARTED
-- **Estimated effort:** 1-2 weeks
-- **Requires:** GMeet/Zoom recording API, Whisper transcription, Claude Opus feedback prompt
-
----
-
-## Technical Architecture
-
-### Repo Structure
-
-```
-/-cybersphere-outreach/
-├── index.html              <- Growth Dashboard (deployed)
-├── crm.html                <- CRM Lead Pipeline (deployed, fetches data.json)
-├── ads.html                <- Meta Ads Dashboard (deployed)
-├── content.html            <- Content Flywheel Dashboard (deployed)
-├── data.json               <- Live CRM database (Cowork writes via GitHub API)
-├── github-crm.js           <- Cowork -> GitHub API skill
-├── cowork-system-prompt.md <- Complete Cowork agent operating system
-├── gbp-audit-template.md   <- Reusable GBP audit checklist (25 items)
-├── ad-prompts-batch.md     <- 20 static ad prompts across 5 verticals
-├── paris-law-60-assets.md  <- 60 content assets from 1 case study
-├── OUTREACH_PLAN.md        <- FB group outreach execution plan
-├── README.md               <- Project overview
-└── .claude/skills/         <- Installed Claude Code skills
-    ├── ai-image-prompts-skill/  <- 10K+ image gen prompts
-    ├── nano-banana-pro-prompts/ <- Nano Banana Pro specific
-    └── remotion-dev/            <- Video generation (38 rule files)
-```
-
-### Integration Points
-
-- **GitHub Pages** serves all dashboards (zero-cost hosting)
-- **GitHub REST API** is the database layer (Cowork writes `data.json`)
-- **CRM auto-refreshes** every 30 seconds from `data.json`
-- **GitHub token** authenticated and tested (expires April 28, 2026)
-- **Cowork system prompt** includes full GitHub API instructions
-
-### Key Design Decisions
-
-1. **Single HTML files with zero dependencies** -- every dashboard is self-contained, loads from CDN fonts only. No build step, no framework, no npm. Deployable anywhere.
-2. **GitHub as database** -- `data.json` in the repo, updated via API. Free, versioned, auditable (every change is a git commit).
-3. **McKinsey-style design system** -- Playfair Display + Inter, navy #0D2545, light backgrounds, green/yellow/red status indicators. Consistent across all 4 dashboards.
-4. **Guardrails-first agent design** -- 6 non-negotiable checks before every post. Dry-run by default. Human approval required. Full audit log.
+### Spec checkbox status — Week 2
+- [ ] Posting agent live across LinkedIn, Instagram, Threads, Medium, Substack
+- [ ] Performance tracker pulling data into Notion daily
+- [ ] Winner detection rules active
+- [ ] Theory of Reflecting Mirrors loop live
+- [ ] Daily digest bot live in Slack
+- [ ] Interview outreach sent to all current clients
+- [ ] First YouTube case study script written
 
 ---
 
-## Reproducibility Checklist
+## Section 2 — Dashboard & Tracking Metrics (P1) — COMPLETE
 
-Every system built can be reproduced by another team member:
+**Status: DONE — demoed to Neetish**
 
-| System | How to Reproduce |
-|--------|-----------------|
-| Growth Dashboard | Clone repo, open `index.html` |
-| CRM | Clone repo, open `crm.html`. Set `GITHUB_TOKEN` to write data |
-| Ads Dashboard | Clone repo, open `ads.html` |
-| Content Dashboard | Clone repo, open `content.html` |
-| GBP Audit (new client) | Follow `gbp-audit-template.md` step by step |
-| Static Ad Generation | Open Claude Code in repo dir, use ai-image-prompts skill |
-| Video Ad Generation | `cd ~/cybersphere-videos && npm run dev`, use Remotion skill |
-| Cowork Outreach Agent | Paste `cowork-system-prompt.md` into Cowork, upload `outreach_plan.docx`, type "Generate today's batch" |
-| Case Study Multiplication | Feed any case study through the 10-angle x 6-format prompt structure in `paris-law-60-assets.md` |
-| GitHub API Integration | Set `GITHUB_TOKEN` env var, use curl or `github-crm.js` functions |
+### 2A — GBP Audits
+| Deliverable | Status |
+|------------|--------|
+| Paris Law Group audit (SEO 48/100, critical schema bug) | DONE — `Paris_Law_GBP_Audit_v2.docx` |
+| Dr. Stan Palo Alto audit (SEO 62/100) | DONE — `DrStan_GBP_Audit_v2.docx` |
+| Plantabis audit (SEO 35/100, ZERO schema) | DONE — `Plantabis_GBP_Audit_v2.docx` |
+| BluStreet Exotics audit (SEO 71/100) | DONE — `BluStreet_GBP_Audit_v2.docx` |
+| Reusable audit template (25-item checklist) | DONE — `gbp-audit-template.md` |
+| Client SEO Health section on dashboard | DONE — in `index.html` |
+
+**Note:** Spec lists Stieglitz & Welch PLLC as a client for GBP audit — this was NOT done. Only the 4 above were audited.
+
+### 2A spec checkbox status
+- [x] Run a full GBP audit on each active client
+- [x] Generate GBP optimization report (keyword gaps, schema issues, 10 GBP posts) per client
+- [x] Build a repeatable audit template/checklist
+- [x] Feed results into dashboard as "Client SEO Health" section
+
+### 2B — Core Dashboard
+| Deliverable | Status |
+|------------|--------|
+| Growth Dashboard with Phase I KPIs (MRR, clients, churn, ACV, meetings, NPS) | DONE + deployed |
+| Green/yellow/red visual indicators | DONE |
+| Client SEO Health panel | DONE |
+| Editable KPI cards | DONE |
+| Roadmap table (actual vs target) | DONE |
+| Verdict panel | DONE |
+| Weekly summary view | DONE |
+
+### 2B spec checkbox status
+- [x] Build a live dashboard that tracks all 6 KPIs with actuals vs targets
+- [x] Include green/yellow/red indicators
+- [x] Add secondary panels for ad performance, pipeline value, client SEO health
+- [x] Use a tool stack the team can access (GitHub Pages — zero cost, zero login)
+- [ ] Set up automated data pulls (currently manual/demo data)
+- [x] Include a weekly summary view
+- [x] Dashboard answers "Are we on track to hit $8K MRR by Month 3?"
 
 ---
 
-## What's Blocked
+## Section 5 — AI Sales Coach (P2) — NOT STARTED
 
-| Blocker | Sections Affected | Who Unblocks It |
-|---------|-------------------|----------------|
-| Neetish brain dump | Section 4 (Notion DB, content generation with real data) | Neetish |
-| Meta Marketing API access | Section 1A (full ads pipeline) | Neetish / team |
-| Slack workspace access | Section 4 (daily digest bot) | Neetish |
-| Client contact list | Section 4 (interview engine) | Neetish |
-| GMeet/Zoom recording API | Section 5 (sales coach) | Team |
+**Status: NOT STARTED**
+
+### Spec checkbox status
+- [ ] Research call recording APIs for GMeet and Zoom
+- [ ] Check if Granola has an API or webhook
+- [ ] Build a transcription pipeline (Whisper, Deepgram)
+- [ ] Design the Claude Opus prompt for sales feedback
+- [ ] Set up post-call automation (transcript → Claude → feedback delivery)
+- [ ] Test on 5 real sales calls
+- [ ] Document setup process
+- [ ] Create feedback report template
+
+### Estimated effort: 1-2 weeks
+### Requires: GMeet/Zoom recording API access, Whisper/Deepgram API key, Slack for delivery
 
 ---
 
-## Next Steps (Priority Order)
+## Section 1 — Automated AI Ads System (P2) — PARTIAL
 
-1. Record Cowork demo (generate batch + guardrails + approve + CRM updates)
-2. Create 5 test video ads in Remotion (completes 1D)
-3. Send brain dump template to Neetish (unblocks Section 4)
-4. Build Notion source-of-truth database once brain dump received
-5. Research Meta Marketing API for Section 1A
-6. Begin Section 5 (AI Sales Coach) -- call recording API research
+### 1A — Full Meta Ads Pipeline
+**Status: NOT STARTED**
+- [ ] Watch reel and document architecture as flowchart
+- [ ] Research tools: Dropbox API, Meta Marketing API, Telegram Bot API, Fathom
+- [ ] Build POC pipeline (raw images → creatives → staging area)
+- [ ] Set up daily reporting bot (Telegram or Slack)
+- [ ] Design feedback loop (Fathom transcripts → objections → creative generation)
+
+**Estimated effort:** 2-3 weeks
+**Requires:** Meta Marketing API access, Dropbox API, Fathom integration
+
+### 1C — Static Ad Generation
+**Status: COMPLETE**
+- [x] Find the two GitHub repos (Nano Banana skill + pro prompts)
+- [x] Install skill into Claude Code
+- [x] Generate 20+ static ad variations across verticals
+- [x] Document the process (`ad-prompts-batch.md`)
+- [x] Create prompt library tailored to Cybersphere verticals
+
+**Skills installed:** `ai-image-prompts-skill`, `nano-banana-pro-prompts` (in `.claude/skills/`)
+
+### 1D — Video Ad Generation
+**Status: IN PROGRESS (70%)**
+- [x] Find the Remotion Dev Claude skill GitHub repo
+- [x] Install and configure Remotion Dev
+- [ ] Create 5 test video ads for Cybersphere
+- [ ] Build a repeatable template system
+- [ ] Document the workflow and limitations
+
+**Environment:** `~/cybersphere-videos/` — Remotion project initialized, dev server runs at localhost:3000, skill installed (38 rule files)
+
+### 1E — Automated AI Ads Dashboard
+**Status: COMPLETE + DEPLOYED**
+- [x] Define source of truth for each metric
+- [x] Build V1 dashboard with 5 sections + red/yellow/green indicators
+- [x] Add "Spend Progress" panels (spend → leads → calls → customers → revenue)
+- [x] Implement weekly and MTD rollups + period toggles
+- [ ] Add breakdowns by campaign, ad set, creative, placement, audience
+- [ ] Create automated daily report message (Slack/Telegram)
+- [x] Document setup steps
+
+### 1F — AI/Human Creative Toggle
+**Status: NOT STARTED**
+- [ ] Design pipeline to accept both AI and human assets
+- [ ] Add toggle/config flag
+- [ ] Test both modes
+
+**Estimated effort:** 1 day after 1C + 1D complete
+
+---
+
+## Complete File Inventory
+
+### In the GitHub repo (`RadwanJama01/-cybersphere-outreach`)
+
+| File | What | Lines |
+|------|------|-------|
+| `index.html` | Growth Dashboard | ~600 |
+| `crm.html` | CRM Lead Pipeline (fetches data.json) | ~550 |
+| `ads.html` | Meta Ads Dashboard | ~700 |
+| `content.html` | Content Flywheel Dashboard | ~600 |
+| `data.json` | Live CRM database | ~80 |
+| `github-crm.js` | Cowork → GitHub API skill | ~150 |
+| `cowork-system-prompt.md` | Complete Cowork agent system prompt | 388 |
+| `OUTREACH_PLAN.md` | FB group outreach execution plan | 303 |
+| `gbp-audit-template.md` | Reusable GBP audit checklist | ~200 |
+| `ad-prompts-batch.md` | 20 static ad prompts across 5 verticals | ~300 |
+| `paris-law-60-assets.md` | 60 content assets from 1 case study | 1,688 |
+| `brain-dump-template.md` | Fillable brain dump for Neetish | 271 |
+| `CONTENT_FLYWHEEL_SETUP_GUIDE.md` | Browser-agent-executable setup guide | 2,601 |
+| `PROGRESS_REPORT.md` | This document | ~350 |
+| `README.md` | Project overview | 127 |
+
+### On local machine (not in repo)
+
+| File/Location | What |
+|--------------|------|
+| `~/Downloads/Paris_Law_GBP_Audit_v2.docx` | Paris Law GBP audit |
+| `~/Downloads/DrStan_GBP_Audit_v2.docx` | Dr. Stan GBP audit |
+| `~/Downloads/Plantabis_GBP_Audit_v2.docx` | Plantabis GBP audit |
+| `~/Downloads/BluStreet_GBP_Audit_v2.docx` | BluStreet GBP audit |
+| `~/cybersphere-videos/` | Remotion video project |
+| `~/.claude/skills/ai-image-prompts-skill/` | Nano Banana image prompts skill |
+| `~/.claude/skills/nano-banana-pro-prompts/` | Nano Banana Pro specific skill |
+| `~/.claude/skills/remotion-dev/` | Remotion video generation skill |
+
+### External (non-code)
+
+| Deliverable | Tool | Status |
+|------------|------|--------|
+| Brain dump intake form | Tally | DONE |
+| Weekly update form | Tally | NOT BUILT |
+| Notion source-of-truth (7 tables) | Notion | NOT BUILT |
+| Tally → Notion automation | Make.com | NOT BUILT |
+| Auto-angle generation | Make.com | NOT BUILT |
+| Content generation pipeline | Make.com + Claude API | NOT BUILT |
+| Trending news agent | Make.com + Perplexity API | NOT BUILT |
+| Meme engine | Make.com + imgflip API | NOT BUILT |
+| Posting agent | Buffer + Make.com | NOT BUILT |
+| Performance tracker | Make.com + platform APIs | NOT BUILT |
+| Winner detection + remix | Make.com + Claude API | NOT BUILT |
+| Daily digest bot | Make.com + Slack | NOT BUILT |
+| LinkedIn profile optimization | LinkedIn | NOT DONE |
+| Instagram profile optimization | Instagram | NOT DONE |
+| Story Highlights (3 clients) | Instagram | NOT DONE |
+
+---
+
+## What's Remaining — Priority Order
+
+### Priority 1: Section 3 (remaining)
+- [ ] Continue posting to FB groups (3 more today — target 6 total)
+- [ ] Check replies on yesterday's 3 posts
+- [ ] Complete 2-week outreach test and report results
+
+### Priority 2: Section 4 (biggest remaining workload)
+- [ ] Get Neetish to fill out the Tally brain dump form
+- [ ] Build all 7 Notion tables (follow `CONTENT_FLYWHEEL_SETUP_GUIDE.md` Steps 1.1-1.8)
+- [ ] Connect Tally → Notion via Make.com (Step 3)
+- [ ] Set up trending news agent (Step 5)
+- [ ] Set up meme engine (Step 6)
+- [ ] Connect Buffer to social platforms (Step 7)
+- [ ] Set up performance tracking (Step 8)
+- [ ] Set up winner detection + remix (Step 9)
+- [ ] Set up daily digest bot (Step 10)
+- [ ] Optimize LinkedIn profile (Step 11.1)
+- [ ] Optimize Instagram profile (Step 11.2)
+- [ ] Build 3 Instagram Story Highlights (Step 11.2)
+- [ ] Send interview outreach to all clients (Step 12)
+
+### Priority 3: Section 2 (minor remaining)
+- [ ] Add Stieglitz & Welch GBP audit (listed in spec, not completed)
+- [ ] Set up automated data pulls for dashboard (currently demo data)
+
+### Priority 4: Section 5 (not started)
+- [ ] Research GMeet/Zoom recording APIs
+- [ ] Check Granola API
+- [ ] Build transcription pipeline
+- [ ] Design Claude Opus sales feedback prompt
+- [ ] Set up post-call automation
+- [ ] Test on 5 calls
+- [ ] Document + create report template
+
+### Priority 5: Section 1 (remaining)
+- [ ] Create 5 test video ads in Remotion (completes 1D)
+- [ ] Document video workflow (1D)
+- [ ] Add campaign/creative breakdowns to ads dashboard (1E)
+- [ ] Set up daily report bot for ads (1E)
+- [ ] Build full Meta Ads pipeline POC (1A) — needs Meta API access
+- [ ] AI/human creative toggle (1F)
+
+---
+
+## Estimated Remaining Effort
+
+| Section | Remaining work | Estimated time | Blocked on |
+|---------|---------------|----------------|------------|
+| 3 | Continue 2-week test, report results | Ongoing (daily 30 min) | Nothing |
+| 4 | Notion DB, Make automations, Buffer, profile optimization | 3-4 days | Neetish brain dump |
+| 2 | Stieglitz audit, automated data pulls | 1 day | Nothing |
+| 5 | Full build from scratch | 1-2 weeks | API access |
+| 1 | Video ads, ads pipeline, reporting bot | 2-3 weeks | Meta API access |
