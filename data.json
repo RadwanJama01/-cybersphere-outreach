@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastUpdated": "2026-03-29T16:00:00Z",
-    "weeklyPosts": 3,
+    "lastUpdated": "2026-03-31T01:48:42.863Z",
+    "weeklyPosts": 4,
     "totalLeads": 1,
     "callsToReceptionist": 0,
     "pipelineValue": 0
@@ -12,7 +12,7 @@
       "timestamp": "2026-03-29T12:00:00Z",
       "group": "Dental Practice Owners USA",
       "vertical": "dental",
-      "postText": "Quick question for dental practice owners \u2014 how many new patient calls are you missing after 5pm and on weekends? Most practices lose 30-40% of inbound calls to voicemail. We built an AI receptionist that answers every call 24/7, sounds completely human, and books patients directly on your calendar. Call it right now: +1 (325) 240-6238",
+      "postText": "Quick question for dental practice owners — how many new patient calls are you missing after 5pm and on weekends? Most practices lose 30-40% of inbound calls to voicemail. We built an AI receptionist that answers every call 24/7, sounds completely human, and books patients directly on your calendar. Call it right now: +1 (325) 240-6238",
       "status": "posted",
       "similarityScore": 0,
       "guardrailsPassed": [
@@ -27,7 +27,7 @@
       "timestamp": "2026-03-29T12:05:00Z",
       "group": "Personal Injury Industry",
       "vertical": "legal",
-      "postText": "PI attorneys \u2014 what happens when someone gets in an accident at 9pm on a Friday and calls your firm? If they hit voicemail, they call the next firm on Google. We built an AI receptionist that picks up every call 24/7, qualifies the lead, and books a consult. Call it: +1 (325) 240-6238",
+      "postText": "PI attorneys — what happens when someone gets in an accident at 9pm on a Friday and calls your firm? If they hit voicemail, they call the next firm on Google. We built an AI receptionist that picks up every call 24/7, qualifies the lead, and books a consult. Call it: +1 (325) 240-6238",
       "status": "posted",
       "similarityScore": 0,
       "guardrailsPassed": [
@@ -42,7 +42,7 @@
       "timestamp": "2026-03-29T12:10:00Z",
       "group": "Multi Family Properties For Sale",
       "vertical": "real estate",
-      "postText": "Property managers and multifamily investors \u2014 how many leasing inquiries are you missing after hours? Every missed call is a vacancy that stays empty longer. We set up an AI receptionist that answers 24/7, schedules showings, and logs maintenance requests. Test it: +1 (325) 240-6238",
+      "postText": "Property managers and multifamily investors — how many leasing inquiries are you missing after hours? Every missed call is a vacancy that stays empty longer. We set up an AI receptionist that answers 24/7, schedules showings, and logs maintenance requests. Test it: +1 (325) 240-6238",
       "status": "posted",
       "similarityScore": 0,
       "guardrailsPassed": [
@@ -50,6 +50,22 @@
         "similarity",
         "rate_limit",
         "compliance"
+      ]
+    },
+    {
+      "id": "post_1774921722863",
+      "timestamp": "2026-03-31T01:48:42.863Z",
+      "group": "Dental Office Manager Leadership Network",
+      "vertical": "dental",
+      "postText": "Office managers — quick question. When your front desk is slammed between 8 and 10am and the phone won't stop ringing, what happens to the calls that don't get answered?\n\nMost practices I've talked to are losing new patient calls during their busiest hours — not after hours. The front desk is checking patients in, verifying insurance, handling the waiting room. The phone rings. Nobody gets to it.\n\nWe've been setting up an AI receptionist that handles overflow calls during peak hours and picks up everything after close. Sounds completely human, books patients on the calendar, handles new patient FAQs.\n\nCall it like you're a new patient calling during a busy Tuesday morning: +1 (325) 240-6238\n\nCurious how other office managers are handling call volume right now — what's your system?",
+      "status": "posted",
+      "similarityScore": 0,
+      "guardrailsPassed": [
+        "dry_run",
+        "similarity",
+        "rate_limit",
+        "compliance",
+        "anti_duplication"
       ]
     }
   ],
