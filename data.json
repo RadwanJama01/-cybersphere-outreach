@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastUpdated": "2026-03-31T01:54:50.097Z",
-    "weeklyPosts": 5,
+    "lastUpdated": "2026-03-31T01:58:17.623Z",
+    "weeklyPosts": 6,
     "totalLeads": 1,
     "callsToReceptionist": 0,
     "pipelineValue": 0
@@ -12,7 +12,7 @@
       "timestamp": "2026-03-29T12:00:00Z",
       "group": "Dental Practice Owners USA",
       "vertical": "dental",
-      "postText": "Quick question for dental practice owners â how many new patient calls are you missing after 5pm and on weekends? Most practices lose 30-40% of inbound calls to voicemail. We built an AI receptionist that answers every call 24/7, sounds completely human, and books patients directly on your calendar. Call it right now: +1 (325) 240-6238",
+      "postText": "Quick question for dental practice owners Ã¢ÂÂ how many new patient calls are you missing after 5pm and on weekends? Most practices lose 30-40% of inbound calls to voicemail. We built an AI receptionist that answers every call 24/7, sounds completely human, and books patients directly on your calendar. Call it right now: +1 (325) 240-6238",
       "status": "posted",
       "similarityScore": 0,
       "guardrailsPassed": [
@@ -27,7 +27,7 @@
       "timestamp": "2026-03-29T12:05:00Z",
       "group": "Personal Injury Industry",
       "vertical": "legal",
-      "postText": "PI attorneys â what happens when someone gets in an accident at 9pm on a Friday and calls your firm? If they hit voicemail, they call the next firm on Google. We built an AI receptionist that picks up every call 24/7, qualifies the lead, and books a consult. Call it: +1 (325) 240-6238",
+      "postText": "PI attorneys Ã¢ÂÂ what happens when someone gets in an accident at 9pm on a Friday and calls your firm? If they hit voicemail, they call the next firm on Google. We built an AI receptionist that picks up every call 24/7, qualifies the lead, and books a consult. Call it: +1 (325) 240-6238",
       "status": "posted",
       "similarityScore": 0,
       "guardrailsPassed": [
@@ -42,7 +42,7 @@
       "timestamp": "2026-03-29T12:10:00Z",
       "group": "Multi Family Properties For Sale",
       "vertical": "real estate",
-      "postText": "Property managers and multifamily investors â how many leasing inquiries are you missing after hours? Every missed call is a vacancy that stays empty longer. We set up an AI receptionist that answers 24/7, schedules showings, and logs maintenance requests. Test it: +1 (325) 240-6238",
+      "postText": "Property managers and multifamily investors Ã¢ÂÂ how many leasing inquiries are you missing after hours? Every missed call is a vacancy that stays empty longer. We set up an AI receptionist that answers 24/7, schedules showings, and logs maintenance requests. Test it: +1 (325) 240-6238",
       "status": "posted",
       "similarityScore": 0,
       "guardrailsPassed": [
@@ -57,7 +57,7 @@
       "timestamp": "2026-03-31T01:48:42.863Z",
       "group": "Dental Office Manager Leadership Network",
       "vertical": "dental",
-      "postText": "Office managers â quick question. When your front desk is slammed between 8 and 10am and the phone won't stop ringing, what happens to the calls that don't get answered?\n\nMost practices I've talked to are losing new patient calls during their busiest hours â not after hours. The front desk is checking patients in, verifying insurance, handling the waiting room. The phone rings. Nobody gets to it.\n\nWe've been setting up an AI receptionist that handles overflow calls during peak hours and picks up everything after close. Sounds completely human, books patients on the calendar, handles new patient FAQs.\n\nCall it like you're a new patient calling during a busy Tuesday morning: +1 (325) 240-6238\n\nCurious how other office managers are handling call volume right now â what's your system?",
+      "postText": "Office managers Ã¢ÂÂ quick question. When your front desk is slammed between 8 and 10am and the phone won't stop ringing, what happens to the calls that don't get answered?\n\nMost practices I've talked to are losing new patient calls during their busiest hours Ã¢ÂÂ not after hours. The front desk is checking patients in, verifying insurance, handling the waiting room. The phone rings. Nobody gets to it.\n\nWe've been setting up an AI receptionist that handles overflow calls during peak hours and picks up everything after close. Sounds completely human, books patients on the calendar, handles new patient FAQs.\n\nCall it like you're a new patient calling during a busy Tuesday morning: +1 (325) 240-6238\n\nCurious how other office managers are handling call volume right now Ã¢ÂÂ what's your system?",
       "status": "posted",
       "similarityScore": 0,
       "guardrailsPassed": [
@@ -73,7 +73,23 @@
       "timestamp": "2026-03-31T01:54:50.097Z",
       "group": "National Personal Injury Lawyers Association",
       "vertical": "legal",
-      "postText": "PI attorneys — genuine question. What's your after-hours intake process right now?\n\nI've been talking to a lot of firms and the answers range from \"answering service that costs $800/month and misses half the nuance\" to \"honestly, voicemail and we call back in the morning.\" Neither is great when your client called right after an accident and needs to feel taken care of.\n\nWe've built an AI receptionist that does 24/7 intake — gathers the basics, qualifies the lead, books the consult, and makes the caller feel heard. Zero overseas call centers. Sounds like your own intake specialist.\n\nWant to hear it? Call and pitch it a case: +1 (325) 240-6238\n\nWhat are people here actually using for after-hours? I'm genuinely curious what the standard is.",
+      "postText": "PI attorneys â genuine question. What's your after-hours intake process right now?\n\nI've been talking to a lot of firms and the answers range from \"answering service that costs $800/month and misses half the nuance\" to \"honestly, voicemail and we call back in the morning.\" Neither is great when your client called right after an accident and needs to feel taken care of.\n\nWe've built an AI receptionist that does 24/7 intake â gathers the basics, qualifies the lead, books the consult, and makes the caller feel heard. Zero overseas call centers. Sounds like your own intake specialist.\n\nWant to hear it? Call and pitch it a case: +1 (325) 240-6238\n\nWhat are people here actually using for after-hours? I'm genuinely curious what the standard is.",
+      "status": "posted",
+      "similarityScore": 0,
+      "guardrailsPassed": [
+        "similarity",
+        "rate_limit",
+        "compliance",
+        "anti_duplication",
+        "audit_log"
+      ]
+    },
+    {
+      "id": "post_20260330_003",
+      "timestamp": "2026-03-31T01:58:17.623Z",
+      "group": "PRIVATE AUTO RENTALS",
+      "vertical": "auto",
+      "postText": "Rental operators — quick question. When someone calls at 11pm trying to book a car for tomorrow morning, what happens on your end?\n\nMost private rental operators I talk to say the same thing: the call goes to voicemail, and by the time they call back in the morning the customer already found someone else or booked on Turo.\n\nWe've been setting up an AI receptionist for private rental operators that picks up every call instantly — sounds exactly like your own staff, checks availability, locks in the reservation, and handles the whole conversation start to finish. No call centers. No overseas answering service.\n\nCall it like you're trying to book a car last minute: +1 (325) 240-6238\n\nCurious how other operators here are handling late-night and weekend inquiries — is it mostly voicemail or do you have something else set up?",
       "status": "posted",
       "similarityScore": 0,
       "guardrailsPassed": [
