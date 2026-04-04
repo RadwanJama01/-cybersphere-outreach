@@ -1,127 +1,161 @@
-# Cybersphere Lead Pipeline CRM
+# Cybersphere Outreach & Growth Platform
 
-Internal CRM for tracking leads generated through Cybersphere's Facebook group outreach campaign. The system drives small business owners to call an AI receptionist at **+1 (325) 240-6238**, then moves them through a three-stage pipeline to close.
+> **Plug in your API keys. The system runs itself.**
 
-**Live:** https://radwanjama01.github.io/-cybersphere-outreach/crm.html
-
----
-
-## What it does
-
-The CRM replaces a human VA's entire lead management workflow across three stages:
-
-**Stage 1 — Outreach.** An AI agent posts 10 unique messages/day across 30 Facebook groups targeting dental practices, law firms, real estate investors, car dealerships, car rental operators, and HVAC/plumbing businesses. When someone comments, DMs, or calls the AI receptionist, a lead record is created and the first-response DM fires within the hour.
-
-**Stage 2 — Follow-up.** The agent monitors conversations, sends templated follow-ups, handles basic objections, and drives leads toward booking a demo call. Pricing questions, custom integration requests, and multi-location inquiries are flagged as escalations and routed to the team immediately.
-
-**Stage 3 — Closing.** Leads who book a demo call through the AI receptionist land here. The sales team takes over with full conversation history attached — every post, DM, and call is logged.
+An agentic outreach, CRM, content, and ads platform built entirely in zero-dependency HTML. No frameworks, no build step, no server. Clone it, open `config.html`, drop in your keys, and every dashboard lights up with live data.
 
 ---
 
-## Pipeline overview
+## What This Is
 
-| Stage | Leads | Description |
-|-------|-------|-------------|
-| Outreach replied | 6 | Commented, DM'd, or called the AI receptionist |
-| Follow-up active | 4 | In conversation, second touch or escalation pending |
-| Closing / booked | 3 | Demo completed or contract sent |
-
-**Current pipeline value:** $20,700/mo (follow-up + closing stages)
-
----
-
-## Verticals covered
-
-| Vertical | Color | Example leads |
-|----------|-------|---------------|
-| Dental | Navy | Dr. Michael Torres, Robert Kim, Jennifer Osei |
-| Legal / PI | Purple | Sarah Chen, Amanda Torres, Thomas Bradley |
-| Real Estate | Green | Marcus Williams, Patricia Moore |
-| Automotive | Amber | Lisa Park, Kevin Walsh |
-| HVAC / Plumbing | Orange | James Okafor, David Nguyen, Gonzalo Reyes |
+- **5 deployed dashboards** — Growth, CRM, Ads, Content Flywheel, Config
+- **Live CRM** that updates in real-time via GitHub API (GitHub as a database)
+- **Content multiplication engine** — 1 case study becomes 60 publishable assets
+- **FB group outreach system** with 6 guardrails and 30 target groups
+- **Meta Ads performance tracker** with spend, CPC, and ROAS metrics
+- **Organic content flywheel** — brain dump to finished posts, automated
+- **All zero-dependency HTML** — no build step, no framework, no node_modules
 
 ---
 
-## Features
+## Live Dashboards
 
-- **KPI strip** — Posts this week, leads in pipeline, calls to AI receptionist, total pipeline value
-- **Stage filter tabs** — Filter by All, Outreach, Follow-up, or Closing
-- **Lead list** — Grouped by stage with name, business, vertical tag, and monthly value
-- **Detail panel** — Avatar, pipeline value, phone, call status, agent notes, and full activity timeline
-- **Escalation badges** — Red ESCALATE flags on leads requiring team intervention
-- **Action buttons** — Send follow-up DM, Send second touch, Mark closed won, Move stage, Log note
-- **Activity timeline** — Color-coded event log (navy = post, amber = engagement, green = action, red = escalation)
-- **Responsive** — Stacks vertically on mobile/tablet
-
----
-
-## Escalation rules
-
-Leads are flagged for immediate team routing when they ask about:
-- Pricing negotiation
-- Custom integrations
-- Enterprise / multi-location setup
-- "I want to sign up" / "How do I get started"
-
-Currently escalated: **Amanda Torres** (custom PI intake questions), **Patricia Moore** (multi-location inquiry)
+| Dashboard | URL | Purpose |
+|-----------|-----|---------|
+| Growth Dashboard | [index.html](https://radwanjama01.github.io/-cybersphere-outreach/) | KPIs, pipeline overview, weekly metrics |
+| CRM | [crm.html](https://radwanjama01.github.io/-cybersphere-outreach/crm.html) | Lead pipeline, activity timelines, escalations |
+| Ads Tracker | [ads.html](https://radwanjama01.github.io/-cybersphere-outreach/ads.html) | Meta Ads performance, spend tracking, ROAS |
+| Content Flywheel | [content.html](https://radwanjama01.github.io/-cybersphere-outreach/content.html) | Content generation, multiplication, scheduling |
+| Config Panel | [config.html](https://radwanjama01.github.io/-cybersphere-outreach/config.html) | API key management, integration setup |
 
 ---
 
-## Tech stack
+## Plug-and-Play Setup
 
-- Single HTML file, zero dependencies
-- Vanilla JavaScript (no React, no build step)
-- Google Fonts: Playfair Display + Inter
-- Designed to match the [Growth Dashboard](https://radwanjama01.github.io/-cybersphere-outreach/) (McKinsey-style light theme)
-- Deployed via GitHub Pages
+### Step 1 — Open the Config Panel
 
----
+Go to `/config.html` and enter your API keys. That is the entire setup.
 
-## Full system architecture
+| Integration | What It Powers | Required? |
+|-------------|---------------|-----------|
+| GitHub Token | CRM live data, post logging, data.json sync | Yes (core) |
+| Claude API | Content generation, angle multiplication, meme copy | Yes (content engine) |
+| Perplexity API | Daily trending AI news agent | Optional |
+| Notion Token + DB ID | Source-of-truth database | Optional (can use GitHub data.json) |
+| Slack Webhook | Daily digest bot, notifications | Optional |
+| imgflip | Meme image generation | Optional |
+| Buffer Token | Multi-platform posting | Optional |
+| Meta Ads Token | Ads dashboard live data | Optional |
+| OpenAI API Key | Whisper transcription for sales coach | Optional |
 
-| Component | Platform | Status |
-|-----------|----------|--------|
-| CRM front-end | GitHub Pages | Live |
-| AI receptionist | +1 (325) 240-6238 | Live |
-| Outreach engine | OpenClaw on VPS | Week 2 |
-| Browser automation | Cowork on Mac | Week 2 |
-| Database | Notion | Week 1 |
-| Webhook integration | All platforms | Week 2 |
+### Step 2 — Keys Are Stored in localStorage
 
----
+Keys never leave your device. They live in the browser's localStorage, not in any file or server. Use the Config Panel to export/import your full key set as a JSON backup.
 
-## Data model
+### Step 3 — Everything Activates Automatically
 
-Each lead record contains:
+There is no "enable" toggle. The dashboards detect which keys are present and activate the corresponding features:
 
-| Field | Example |
-|-------|---------|
-| Name | Dr. Michael Torres |
-| Business | Torres Dental Group |
-| Vertical | dental |
-| Stage | outreach / followup / closing |
-| Source group | Dental Practice Owners USA |
-| Phone | (415) 882-9001 |
-| Pipeline value | $2,400/mo |
-| Call status | Called receptionist / No call yet / Demo call done / Contract sent |
-| Agent notes | Free text with conversation context |
-| Activity timeline | Timestamped events with color coding |
-| Escalation flag | Boolean |
+- Enter **GitHub token** --> CRM starts syncing live lead data
+- Enter **Claude key** --> Content generation engine activates
+- Enter **Perplexity key** --> Trending news agent starts working
+- Enter **Slack webhook** --> Daily digest bot sends automatically
+- Enter **Meta Ads token** --> Ads dashboard pulls live campaign data
+- Enter **Buffer token** --> Multi-platform posting unlocks
+- Enter **imgflip credentials** --> Meme generation goes live
+
+No key? That feature stays dormant. No errors, no broken pages.
 
 ---
 
-## Local development
+## Architecture
+
+```
+config.js (shared config layer — localStorage)
+    |
+    v
++---------------------------------------------+
+|           5 HTML Dashboards                  |
+|   index.html   crm.html   ads.html          |
+|   content.html   config.html                |
+|          All read from config.js             |
++---------------------------------------------+
+    |                        |
+    v                        v
+data.json                External APIs
+(GitHub as DB)         (Claude, Perplexity,
+                       Slack, imgflip, etc.)
+```
+
+Every dashboard is a self-contained HTML file. `config.js` is the shared layer that reads API keys from localStorage and exposes them to whichever dashboard is open. `data.json` is the flat-file database stored in the repo itself, updated via GitHub API commits.
+
+---
+
+## File Inventory
+
+| File | Type | Description |
+|------|------|-------------|
+| `index.html` | Dashboard | Growth dashboard — KPIs, pipeline value, weekly metrics |
+| `crm.html` | Dashboard | Lead pipeline CRM — stages, timelines, escalation flags |
+| `ads.html` | Dashboard | Meta Ads tracker — spend, CPC, ROAS, campaign breakdown |
+| `content.html` | Dashboard | Content flywheel — generation, multiplication, scheduling |
+| `config.html` | Dashboard | Config panel — API key entry, export/import, integration status |
+| `config.js` | Shared lib | localStorage config layer consumed by all dashboards |
+| `github-crm.js` | Shared lib | GitHub API integration for CRM data read/write |
+| `data.json` | Database | Flat-file lead database (GitHub as DB) |
+| `cowork-system-prompt.md` | Agent prompt | Full system prompt for outreach VA / Cowork agent |
+| `CONTENT_FLYWHEEL_SETUP_GUIDE.md` | Guide | 2,600-line browser-agent-executable setup guide |
+| `paris-law-60-assets.md` | POC | 60-asset proof of concept from a single case study |
+| `OUTREACH_PLAN.md` | Strategy | FB group outreach plan, templates, guardrails |
+| `ad-prompts-batch.md` | Prompts | Batch ad copy prompts for Meta campaigns |
+| `brain-dump-template.md` | Template | Brain dump form template for content intake |
+| `gbp-audit-template.md` | Template | Google Business Profile audit template |
+| `PROGRESS_REPORT.md` | Report | Build progress and deployment log |
+
+---
+
+## For the Outreach Agent (VA or Cowork)
+
+Everything the outreach agent needs is in the repo:
+
+- **System prompt:** `cowork-system-prompt.md` — copy-paste into Cowork, Claude, or any agent runner
+- **30 Facebook groups** across dental, legal, real estate, automotive, and HVAC/plumbing verticals
+- **7 message templates** — value-first, no spam, no links in first touch
+- **6 guardrails** — anti-spam rules baked into the system prompt so the agent cannot go off-script
+- **VA contact:** Paul at +63 976 098 6361
+- **AI Receptionist:** +1 (325) 240-6238 (live, takes calls 24/7)
+
+---
+
+## For the Content Flywheel
+
+The content engine turns a single brain dump or case study into a full asset library:
+
+- **Setup guide:** `CONTENT_FLYWHEEL_SETUP_GUIDE.md` (2,600 lines, browser-agent executable — paste into Cowork and run)
+- **Brain dump form:** Tally form (published and connected to Notion)
+- **60-asset POC:** `paris-law-60-assets.md` — proof that 1 case study produces 60 publishable assets (threads, carousels, memes, emails, ad copy, landing page copy, video scripts)
+
+---
+
+## White-Label Ready
+
+All dashboards are self-contained HTML files with no external dependencies. To deploy for a new client:
+
+1. **Fork the repo**
+2. **Update `data.json`** with client lead data and verticals
+3. **Open `config.html`**, enter the client's API keys
+4. **Deploy** to GitHub Pages, Netlify, Vercel, or any static file host
+
+The client gets their own CRM, ads tracker, content engine, and growth dashboard — branded and isolated — in under 10 minutes.
+
+---
+
+## Local Development
 
 ```bash
-# Clone
 git clone https://github.com/RadwanJama01/-cybersphere-outreach.git
 cd -cybersphere-outreach
-
-# Open CRM
-open crm.html
-
-# Open Growth Dashboard
 open index.html
 ```
 
-No build step. No install. Just open the file.
+No install. No build. No dependencies. Open any `.html` file and it works.

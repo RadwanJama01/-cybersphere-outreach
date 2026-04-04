@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cybersphere — System Configuration</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #FAFAFA;
+  --white: #FFFFFF;
+  --text: #1A1A1A;
+  --text-secondary: #4A5568;
+  --text-tertiary: #8B95A5;
+  --navy: #0D2545;
+  --navy-light: #1A3A6B;
+  --navy-faint: rgba(13,37,69,0.04);
+  --navy-border: rgba(13,37,69,0.08);
+  --border: #E5E7EB;
+  --border-light: #F0F1F3;
+  --green: #2D6A4F;
+  --green-bg: rgba(45,106,79,0.06);
+  --green-border: rgba(45,106,79,0.15);
+  --yellow: #B7791F;
+  --yellow-bg: rgba(183,121,31,0.06);
+  --yellow-border: rgba(183,121,31,0.15);
+  --red: #C0392B;
+  --red-bg: rgba(192,57,43,0.06);
+  --red-border: rgba(192,57,43,0.15);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+}
+
+html { font-size: 15px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 48px 56px 80px;
+}
+
+/* Masthead */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 32px;
+  margin-bottom: 40px;
+  border-bottom: 2px solid var(--navy);
+}
+
+.masthead-left { display: flex; flex-direction: column; gap: 6px; }
+
+.firm-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.masthead-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.masthead-sub {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.masthead-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 6px;
+}
+
+.nav-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 20px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-link:hover { background: var(--navy-faint); }
+.nav-link.active { background: var(--navy); color: var(--white); }
+
+/* Sections */
+.section { margin-bottom: 48px; }
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+
+.section-subtitle {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+/* Status Grid */
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.status-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 24px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+
+.status-dot.connected { background: var(--green); box-shadow: 0 0 6px rgba(45,106,79,0.4); }
+.status-dot.disconnected { background: var(--red); box-shadow: 0 0 6px rgba(192,57,43,0.3); }
+
+.status-info { flex: 1; }
+
+.status-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.status-desc {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+.status-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+
+.status-label.connected {
+  background: var(--green-bg);
+  color: var(--green);
+  border: 1px solid var(--green-border);
+}
+
+.status-label.disconnected {
+  background: var(--red-bg);
+  color: var(--red);
+  border: 1px solid var(--red-border);
+}
+
+/* Form Cards */
+.form-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px 32px;
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+}
+
+.form-card-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.form-row.single {
+  grid-template-columns: 1fr;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+
+.form-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.form-input {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(13,37,69,0.08);
+}
+
+.form-input::placeholder { color: var(--text-tertiary); }
+
+.form-helper {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+/* Buttons */
+.btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+  letter-spacing: 0.02em;
+}
+
+.btn-primary {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.btn-primary:hover { background: var(--navy-light); }
+
+.btn-secondary {
+  background: var(--white);
+  color: var(--navy);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover { background: var(--navy-faint); }
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-sm {
+  font-size: 11px;
+  padding: 7px 16px;
+}
+
+/* Quick Actions */
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.action-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px 28px;
+  box-shadow: var(--shadow);
+}
+
+.action-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.action-desc {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.action-requires {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+
+.action-output {
+  margin-top: 14px;
+  padding: 14px;
+  background: var(--navy-faint);
+  border: 1px solid var(--navy-border);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-height: 300px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  display: none;
+}
+
+.action-output.visible { display: block; }
+
+/* Export/Import */
+.export-section {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px 32px;
+  box-shadow: var(--shadow);
+}
+
+.export-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.export-warning {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+  padding: 14px 16px;
+  background: var(--yellow-bg);
+  border: 1px solid var(--yellow-border);
+  border-radius: 6px;
+  color: var(--yellow);
+}
+
+#importFile { display: none; }
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 14px 24px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  transform: translateY(120%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.toast.visible { transform: translateY(0); }
+
+/* Textarea */
+.form-textarea {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--text);
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-textarea:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(13,37,69,0.08);
+}
+
+@media (max-width: 768px) {
+  .page { padding: 24px 20px 60px; }
+  .masthead { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .masthead-right { align-items: flex-start; }
+  .status-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .actions-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Masthead -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="firm-name">CYBERSPHERE</div>
+      <h1 class="masthead-title">System Configuration</h1>
+      <div class="masthead-sub">Plug in your API keys -- everything goes live automatically</div>
+    </div>
+    <div class="masthead-right">
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Dashboard</a>
+        <a href="content.html" class="nav-link">Content</a>
+        <a href="config.html" class="nav-link active">Config</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Section 1: Connection Status -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Connection Status</div>
+      <div class="section-subtitle">Real-time integration health</div>
+    </div>
+    <div class="status-grid" id="statusGrid">
+      <div class="status-card" data-status="github">
+        <div class="status-dot disconnected" id="dot-github"></div>
+        <div class="status-info">
+          <div class="status-name">GitHub</div>
+          <div class="status-desc">CRM data layer</div>
+        </div>
+        <div class="status-label disconnected" id="label-github">Disconnected</div>
+      </div>
+      <div class="status-card" data-status="claude">
+        <div class="status-dot disconnected" id="dot-claude"></div>
+        <div class="status-info">
+          <div class="status-name">Claude API</div>
+          <div class="status-desc">Content generation</div>
+        </div>
+        <div class="status-label disconnected" id="label-claude">Disconnected</div>
+      </div>
+      <div class="status-card" data-status="perplexity">
+        <div class="status-dot disconnected" id="dot-perplexity"></div>
+        <div class="status-info">
+          <div class="status-name">Perplexity</div>
+          <div class="status-desc">Trending news agent</div>
+        </div>
+        <div class="status-label disconnected" id="label-perplexity">Disconnected</div>
+      </div>
+      <div class="status-card" data-status="notion">
+        <div class="status-dot disconnected" id="dot-notion"></div>
+        <div class="status-info">
+          <div class="status-name">Notion</div>
+          <div class="status-desc">Source-of-truth database</div>
+        </div>
+        <div class="status-label disconnected" id="label-notion">Disconnected</div>
+      </div>
+      <div class="status-card" data-status="slack">
+        <div class="status-dot disconnected" id="dot-slack"></div>
+        <div class="status-info">
+          <div class="status-name">Slack</div>
+          <div class="status-desc">Daily digest bot</div>
+        </div>
+        <div class="status-label disconnected" id="label-slack">Disconnected</div>
+      </div>
+      <div class="status-card" data-status="imgflip">
+        <div class="status-dot disconnected" id="dot-imgflip"></div>
+        <div class="status-info">
+          <div class="status-name">imgflip</div>
+          <div class="status-desc">Meme engine</div>
+        </div>
+        <div class="status-label disconnected" id="label-imgflip">Disconnected</div>
+      </div>
+      <div class="status-card" data-status="buffer">
+        <div class="status-dot disconnected" id="dot-buffer"></div>
+        <div class="status-info">
+          <div class="status-name">Buffer</div>
+          <div class="status-desc">Multi-platform posting</div>
+        </div>
+        <div class="status-label disconnected" id="label-buffer">Disconnected</div>
+      </div>
+      <div class="status-card" data-status="meta">
+        <div class="status-dot disconnected" id="dot-meta"></div>
+        <div class="status-info">
+          <div class="status-name">Meta Ads</div>
+          <div class="status-desc">Ads pipeline</div>
+        </div>
+        <div class="status-label disconnected" id="label-meta">Disconnected</div>
+      </div>
+      <div class="status-card" data-status="openai">
+        <div class="status-dot disconnected" id="dot-openai"></div>
+        <div class="status-info">
+          <div class="status-name">OpenAI / Whisper</div>
+          <div class="status-desc">Interview transcription</div>
+        </div>
+        <div class="status-label disconnected" id="label-openai">Disconnected</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: API Key Configuration -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">API Key Configuration</div>
+      <div class="section-subtitle">Enter credentials for each integration</div>
+    </div>
+
+    <!-- Core Infrastructure -->
+    <div class="form-card">
+      <div class="form-card-title">Core Infrastructure</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">GitHub Token</label>
+          <input type="password" class="form-input" id="input-github_token" placeholder="ghp_xxxxxxxxxxxx" data-key="github_token">
+          <div class="form-helper">GitHub &rarr; Settings &rarr; Developer Settings &rarr; Personal Access Tokens</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">GitHub Owner</label>
+          <input type="text" class="form-input" id="input-github_owner" placeholder="RadwanJama01" data-key="github_owner">
+        </div>
+      </div>
+      <div class="form-row single">
+        <div class="form-group">
+          <label class="form-label">GitHub Repo</label>
+          <input type="text" class="form-input" id="input-github_repo" placeholder="-cybersphere-outreach" data-key="github_repo">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary btn-sm" onclick="saveSection(['github_token','github_owner','github_repo'])">Save</button>
+        <button class="btn btn-secondary btn-sm" id="btn-test-github" onclick="testGitHub()">Test Connection</button>
+      </div>
+    </div>
+
+    <!-- Content Engine -->
+    <div class="form-card">
+      <div class="form-card-title">Content Engine</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Claude API Key</label>
+          <input type="password" class="form-input" id="input-claude_api_key" placeholder="sk-ant-xxxxxxxxxxxx" data-key="claude_api_key">
+          <div class="form-helper">console.anthropic.com/settings/keys</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Perplexity API Key</label>
+          <input type="password" class="form-input" id="input-perplexity_api_key" placeholder="pplx-xxxxxxxxxxxx" data-key="perplexity_api_key">
+          <div class="form-helper">perplexity.ai/settings/api</div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary btn-sm" onclick="saveSection(['claude_api_key','perplexity_api_key'])">Save</button>
+        <button class="btn btn-secondary btn-sm" id="btn-test-claude" onclick="testClaude()">Test Claude</button>
+      </div>
+    </div>
+
+    <!-- Database & Notifications -->
+    <div class="form-card">
+      <div class="form-card-title">Database &amp; Notifications</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Notion Integration Token</label>
+          <input type="password" class="form-input" id="input-notion_token" placeholder="secret_xxxxxxxxxxxx" data-key="notion_token">
+          <div class="form-helper">notion.so/my-integrations</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Notion Database ID</label>
+          <input type="text" class="form-input" id="input-notion_db_id" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" data-key="notion_db_id">
+        </div>
+      </div>
+      <div class="form-row single">
+        <div class="form-group">
+          <label class="form-label">Slack Webhook URL</label>
+          <input type="password" class="form-input" id="input-slack_webhook" placeholder="https://hooks.slack.com/services/..." data-key="slack_webhook">
+          <div class="form-helper">api.slack.com/apps &rarr; Incoming Webhooks</div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary btn-sm" onclick="saveSection(['notion_token','notion_db_id','slack_webhook'])">Save</button>
+      </div>
+    </div>
+
+    <!-- Meme Engine -->
+    <div class="form-card">
+      <div class="form-card-title">Meme Engine</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">imgflip Username</label>
+          <input type="text" class="form-input" id="input-imgflip_user" placeholder="your_username" data-key="imgflip_user">
+        </div>
+        <div class="form-group">
+          <label class="form-label">imgflip Password</label>
+          <input type="password" class="form-input" id="input-imgflip_pass" placeholder="your_password" data-key="imgflip_pass">
+          <div class="form-helper">imgflip.com/signup</div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary btn-sm" onclick="saveSection(['imgflip_user','imgflip_pass'])">Save</button>
+      </div>
+    </div>
+
+    <!-- Distribution -->
+    <div class="form-card">
+      <div class="form-card-title">Distribution</div>
+      <div class="form-row single">
+        <div class="form-group">
+          <label class="form-label">Buffer Access Token</label>
+          <input type="password" class="form-input" id="input-buffer_token" placeholder="1/xxxxxxxxxxxxxxx" data-key="buffer_token">
+          <div class="form-helper">buffer.com/developers</div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary btn-sm" onclick="saveSection(['buffer_token'])">Save</button>
+      </div>
+    </div>
+
+    <!-- Ads Pipeline -->
+    <div class="form-card">
+      <div class="form-card-title">Ads Pipeline</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Meta Ads Token</label>
+          <input type="password" class="form-input" id="input-meta_ad_token" placeholder="EAAxxxxxxxxxxxxxxx" data-key="meta_ad_token">
+          <div class="form-helper">developers.facebook.com</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Meta Ad Account ID</label>
+          <input type="text" class="form-input" id="input-meta_ad_account_id" placeholder="act_xxxxxxxxxxxx" data-key="meta_ad_account_id">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary btn-sm" onclick="saveSection(['meta_ad_token','meta_ad_account_id'])">Save</button>
+      </div>
+    </div>
+
+    <!-- Transcription -->
+    <div class="form-card">
+      <div class="form-card-title">Transcription</div>
+      <div class="form-row single">
+        <div class="form-group">
+          <label class="form-label">OpenAI API Key</label>
+          <input type="password" class="form-input" id="input-openai_api_key" placeholder="sk-xxxxxxxxxxxx" data-key="openai_api_key">
+          <div class="form-helper">platform.openai.com/api-keys</div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary btn-sm" onclick="saveSection(['openai_api_key'])">Save</button>
+      </div>
+    </div>
+
+    <!-- System -->
+    <div class="form-card">
+      <div class="form-card-title">System</div>
+      <div class="form-row single">
+        <div class="form-group">
+          <label class="form-label">AI Receptionist Number</label>
+          <input type="text" class="form-input" id="input-ai_receptionist" placeholder="+1 (325) 240-6238" data-key="ai_receptionist">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary btn-sm" onclick="saveSection(['ai_receptionist'])">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Quick Actions -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Quick Actions</div>
+      <div class="section-subtitle">Trigger agentic workflows</div>
+    </div>
+    <div class="actions-grid">
+
+      <div class="action-card">
+        <div class="action-title">Sync CRM Data</div>
+        <div class="action-desc">Fetch data.json from GitHub and display the current CRM state.</div>
+        <div class="action-requires">Requires: GitHub</div>
+        <button class="btn btn-primary btn-sm" id="btn-sync-crm" onclick="syncCRM()" disabled>Run</button>
+        <div class="action-output" id="output-crm"></div>
+      </div>
+
+      <div class="action-card">
+        <div class="action-title">Generate 3 Trending News Posts</div>
+        <div class="action-desc">Search for trending AI/tech news via Perplexity, then generate LinkedIn-ready posts with Claude.</div>
+        <div class="action-requires">Requires: Perplexity + Claude</div>
+        <button class="btn btn-primary btn-sm" id="btn-gen-news" onclick="generateNews()" disabled>Run</button>
+        <div class="action-output" id="output-news"></div>
+      </div>
+
+      <div class="action-card">
+        <div class="action-title">Generate 3 Memes</div>
+        <div class="action-desc">Use Claude to write meme concepts, then render them via imgflip.</div>
+        <div class="action-requires">Requires: Claude + imgflip</div>
+        <button class="btn btn-primary btn-sm" id="btn-gen-memes" onclick="generateMemes()" disabled>Run</button>
+        <div class="action-output" id="output-memes"></div>
+      </div>
+
+      <div class="action-card">
+        <div class="action-title">Send Test Slack Message</div>
+        <div class="action-desc">Send a test digest message to your configured Slack channel.</div>
+        <div class="action-requires">Requires: Slack</div>
+        <button class="btn btn-primary btn-sm" id="btn-test-slack" onclick="testSlack()" disabled>Run</button>
+        <div class="action-output" id="output-slack"></div>
+      </div>
+
+      <div class="action-card" style="grid-column: span 2;">
+        <div class="action-title">Generate Content from Case Study</div>
+        <div class="action-desc">Paste a case study below. Claude will generate 10 content angles, each in 6 formats (LinkedIn, Twitter, carousel, meme, email, ad copy).</div>
+        <div class="action-requires">Requires: Claude</div>
+        <textarea class="form-textarea" id="case-study-input" placeholder="Paste your case study text here..." style="width:100%;margin-bottom:12px;"></textarea>
+        <button class="btn btn-primary btn-sm" id="btn-gen-casestudy" onclick="generateCaseStudy()" disabled>Run</button>
+        <div class="action-output" id="output-casestudy"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Section 4: Export/Import Config -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Export / Import Config</div>
+      <div class="section-subtitle">Backup or transfer your settings</div>
+    </div>
+    <div class="export-section">
+      <div class="export-actions">
+        <button class="btn btn-primary btn-sm" onclick="exportConfig()">Export Config</button>
+        <button class="btn btn-secondary btn-sm" onclick="document.getElementById('importFile').click()">Import Config</button>
+        <input type="file" id="importFile" accept=".json" onchange="importConfig(event)">
+      </div>
+      <div class="export-warning">Your API keys are stored in your browser's localStorage. They never leave your device.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="config.js"></script>
+<script>
+// ── Helpers ──
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('visible');
+  setTimeout(() => t.classList.remove('visible'), 3000);
+}
+
+function showOutput(id, text) {
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.classList.add('visible');
+}
+
+// ── Populate fields from localStorage on load ──
+function populateFields() {
+  document.querySelectorAll('.form-input').forEach(input => {
+    const key = input.dataset.key;
+    if (key) {
+      const val = CYBERSPHERE_CONFIG.get(key);
+      if (val) input.value = val;
+    }
+  });
+}
+
+// ── Update status dots ──
+function updateStatus() {
+  const status = CYBERSPHERE_CONFIG.getStatusSummary();
+  Object.entries(status).forEach(([key, connected]) => {
+    const dot = document.getElementById(`dot-${key}`);
+    const label = document.getElementById(`label-${key}`);
+    if (dot) {
+      dot.className = `status-dot ${connected ? 'connected' : 'disconnected'}`;
+    }
+    if (label) {
+      label.className = `status-label ${connected ? 'connected' : 'disconnected'}`;
+      label.textContent = connected ? 'Connected' : 'Disconnected';
+    }
+  });
+
+  // Enable/disable quick action buttons
+  document.getElementById('btn-sync-crm').disabled = !status.github;
+  document.getElementById('btn-gen-news').disabled = !(status.perplexity && status.claude);
+  document.getElementById('btn-gen-memes').disabled = !(status.claude && status.imgflip);
+  document.getElementById('btn-test-slack').disabled = !status.slack;
+  document.getElementById('btn-gen-casestudy').disabled = !status.claude;
+}
+
+// ── Save a section ──
+function saveSection(keys) {
+  keys.forEach(key => {
+    const input = document.getElementById(`input-${key}`);
+    if (input && input.value.trim()) {
+      CYBERSPHERE_CONFIG.set(key, input.value.trim());
+    } else if (input && !input.value.trim()) {
+      CYBERSPHERE_CONFIG.remove(key);
+    }
+  });
+  updateStatus();
+  toast('Settings saved');
+}
+
+// ── Test GitHub ──
+async function testGitHub() {
+  const btn = document.getElementById('btn-test-github');
+  btn.textContent = 'Testing...';
+  btn.disabled = true;
+  try {
+    saveSection(['github_token','github_owner','github_repo']);
+    const res = await fetch(
+      `https://api.github.com/repos/${CYBERSPHERE_CONFIG.githubOwner}/${CYBERSPHERE_CONFIG.githubRepo}`,
+      { headers: { 'Authorization': `Bearer ${CYBERSPHERE_CONFIG.githubToken}`, 'Accept': 'application/vnd.github+json' } }
+    );
+    const data = await res.json();
+    if (data.full_name) {
+      toast(`GitHub connected: ${data.full_name}`);
+    } else {
+      toast(`GitHub error: ${data.message || 'Unknown error'}`);
+    }
+  } catch (e) {
+    toast(`GitHub error: ${e.message}`);
+  }
+  btn.textContent = 'Test Connection';
+  btn.disabled = false;
+}
+
+// ── Test Claude ──
+async function testClaude() {
+  const btn = document.getElementById('btn-test-claude');
+  btn.textContent = 'Testing...';
+  btn.disabled = true;
+  try {
+    saveSection(['claude_api_key']);
+    const result = await CYBERSPHERE_CONFIG.claudeGenerate('Respond with exactly: "Claude connected successfully." Nothing else.');
+    toast(result.substring(0, 80));
+  } catch (e) {
+    toast(`Claude error: ${e.message}`);
+  }
+  btn.textContent = 'Test Claude';
+  btn.disabled = false;
+}
+
+// ── Quick Actions ──
+async function syncCRM() {
+  const btn = document.getElementById('btn-sync-crm');
+  btn.textContent = 'Syncing...';
+  btn.disabled = true;
+  try {
+    const { data } = await CYBERSPHERE_CONFIG.githubRead('data.json');
+    showOutput('output-crm', JSON.stringify(data, null, 2));
+    toast('CRM data synced');
+  } catch (e) {
+    showOutput('output-crm', `Error: ${e.message}`);
+    toast(`Sync failed: ${e.message}`);
+  }
+  btn.textContent = 'Run';
+  btn.disabled = false;
+}
+
+async function generateNews() {
+  const btn = document.getElementById('btn-gen-news');
+  btn.textContent = 'Generating...';
+  btn.disabled = true;
+  try {
+    showOutput('output-news', 'Step 1/2: Searching trending news via Perplexity...');
+    const news = await CYBERSPHERE_CONFIG.perplexitySearch(
+      'What are the top 3 trending AI and technology news stories today that would be relevant for business owners considering AI adoption? Give brief summaries.'
+    );
+    showOutput('output-news', 'Step 2/2: Generating LinkedIn posts via Claude...');
+    const posts = await CYBERSPHERE_CONFIG.claudeGenerate(
+      `Based on these trending news items, write 3 LinkedIn posts for Cybersphere, an AI agency that helps SMBs adopt AI. Each post should be engaging, include relevant emojis, and end with a call to action. Format as Post 1, Post 2, Post 3.\n\nNews:\n${news}`
+    );
+    showOutput('output-news', posts);
+    toast('3 posts generated');
+  } catch (e) {
+    showOutput('output-news', `Error: ${e.message}`);
+    toast(`Generation failed: ${e.message}`);
+  }
+  btn.textContent = 'Run';
+  btn.disabled = false;
+}
+
+async function generateMemes() {
+  const btn = document.getElementById('btn-gen-memes');
+  btn.textContent = 'Generating...';
+  btn.disabled = true;
+  try {
+    showOutput('output-memes', 'Step 1/2: Generating meme concepts via Claude...');
+    const concepts = await CYBERSPHERE_CONFIG.claudeGenerate(
+      `Generate 3 meme concepts for Cybersphere (an AI agency for SMBs). For each, provide:
+- template_id (use popular imgflip templates: 181913649 for Drake, 87743020 for Two Buttons, 112126428 for Distracted Boyfriend)
+- text0 (top text)
+- text1 (bottom text)
+Return as JSON array: [{"template_id":"...","text0":"...","text1":"..."}]
+Only return the JSON, nothing else.`
+    );
+    let memes;
+    try {
+      memes = JSON.parse(concepts);
+    } catch {
+      const match = concepts.match(/\[[\s\S]*\]/);
+      memes = match ? JSON.parse(match[0]) : [];
+    }
+    let output = '';
+    for (let i = 0; i < memes.length; i++) {
+      showOutput('output-memes', `Step 2/2: Rendering meme ${i + 1}/${memes.length}...`);
+      const url = await CYBERSPHERE_CONFIG.generateMeme(memes[i].template_id, memes[i].text0, memes[i].text1);
+      output += `Meme ${i + 1}: ${memes[i].text0} / ${memes[i].text1}\n${url}\n\n`;
+    }
+    showOutput('output-memes', output || 'No memes generated');
+    toast('3 memes generated');
+  } catch (e) {
+    showOutput('output-memes', `Error: ${e.message}`);
+    toast(`Meme generation failed: ${e.message}`);
+  }
+  btn.textContent = 'Run';
+  btn.disabled = false;
+}
+
+async function testSlack() {
+  const btn = document.getElementById('btn-test-slack');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  try {
+    await CYBERSPHERE_CONFIG.slackSend(
+      `*Cybersphere Daily Digest* -- Test Message\n` +
+      `Sent from the Config Dashboard at ${new Date().toLocaleString()}\n` +
+      `All systems operational.`
+    );
+    showOutput('output-slack', 'Test message sent successfully.');
+    toast('Slack message sent');
+  } catch (e) {
+    showOutput('output-slack', `Error: ${e.message}`);
+    toast(`Slack test failed: ${e.message}`);
+  }
+  btn.textContent = 'Run';
+  btn.disabled = false;
+}
+
+async function generateCaseStudy() {
+  const input = document.getElementById('case-study-input').value.trim();
+  if (!input) { toast('Please paste a case study first'); return; }
+  const btn = document.getElementById('btn-gen-casestudy');
+  btn.textContent = 'Generating...';
+  btn.disabled = true;
+  try {
+    showOutput('output-casestudy', 'Generating 10 angles x 6 formats via Claude...');
+    const result = await CYBERSPHERE_CONFIG.claudeGenerate(
+      `You are a content strategist for Cybersphere, an AI agency helping SMBs.
+
+Given this case study, generate 10 unique content angles. For each angle, provide the content in 6 formats:
+1. LinkedIn post (150-300 words, professional)
+2. Twitter/X thread (5-7 tweets)
+3. Carousel slides (8-10 slides, title + body each)
+4. Meme concept (template suggestion + top/bottom text)
+5. Email newsletter snippet (subject line + 2-3 paragraphs)
+6. Ad copy (headline + body + CTA, for Meta/Instagram)
+
+Format each clearly with headers.
+
+CASE STUDY:
+${input}`,
+      'You are an expert content strategist who creates viral, engaging content for B2B AI agencies. Your tone is authoritative yet approachable.'
+    );
+    showOutput('output-casestudy', result);
+    toast('Case study content generated');
+  } catch (e) {
+    showOutput('output-casestudy', `Error: ${e.message}`);
+    toast(`Generation failed: ${e.message}`);
+  }
+  btn.textContent = 'Run';
+  btn.disabled = false;
+}
+
+// ── Export/Import ──
+function exportConfig() {
+  const config = CYBERSPHERE_CONFIG.exportConfig();
+  const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `cybersphere-config-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('Config exported');
+}
+
+function importConfig(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const config = JSON.parse(e.target.result);
+      CYBERSPHERE_CONFIG.importConfig(config);
+      populateFields();
+      updateStatus();
+      toast(`Config imported (${Object.keys(config).length} keys)`);
+    } catch (err) {
+      toast('Import failed: invalid JSON');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+// ── Real-time status updates on input ──
+document.querySelectorAll('.form-input').forEach(input => {
+  input.addEventListener('input', () => {
+    const key = input.dataset.key;
+    if (key && input.value.trim()) {
+      CYBERSPHERE_CONFIG.set(key, input.value.trim());
+    } else if (key) {
+      CYBERSPHERE_CONFIG.remove(key);
+    }
+    updateStatus();
+  });
+});
+
+// ── Init ──
+populateFields();
+updateStatus();
+</script>
+</body>
+</html>
