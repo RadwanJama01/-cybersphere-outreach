@@ -159,3 +159,35 @@ open index.html
 ```
 
 No install. No build. No dependencies. Open any `.html` file and it works.
+
+---
+
+## Why No React? Why No Backend?
+
+This is intentional architecture, not a limitation.
+
+**Why no React:**
+- **Zero build step.** Clone, open, it works. No `npm install`, no webpack, no node_modules, no "it works on my machine."
+- **Anyone can edit it.** Neetish, Paul the VA, the other intern, a browser agent — anyone can read and modify a single HTML file. React requires a dev environment.
+- **Deploys anywhere for free.** GitHub Pages, Netlify, Vercel, a USB stick, an email attachment. No server needed.
+- **No dependencies to break.** No package.json with 300 transitive deps that break in 6 months.
+
+**Why no backend:**
+- **GitHub IS the backend.** `data.json` in the repo is the database. The GitHub REST API is the read/write layer. Free, versioned (every change is a git commit), 99.9% uptime.
+- **`config.js` IS the auth layer.** API keys live in localStorage. Each dashboard reads them and calls external APIs directly (Claude, Perplexity, Slack, imgflip, Meta).
+- **No server to maintain.** No VPS, no Docker, no downtime. Static files that talk to APIs.
+
+**The architecture:**
+```
+Static HTML files  →  config.js (localStorage)  →  External APIs
+                   →  data.json (GitHub as DB)
+```
+
+Same pattern as Retool, Notion dashboards, and Airtable interfaces — a thin frontend talking directly to APIs. Difference: this costs $0/month with no vendor lock-in.
+
+**When you'd add a backend:**
+- Scheduled cron jobs → Make.com handles this
+- Hide API keys from client-facing deploys → Cloudflare Worker proxy
+- 100+ concurrent users → GitHub API rate limits at 5,000 req/hour
+
+For an internal team tool used by 3-5 people, this architecture is correct.
